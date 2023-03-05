@@ -1,0 +1,22 @@
+[[extend 'layout.html']]
+
+<h1>All Pokemon</h1>
+
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Type</th>
+    </thead>
+    <tbody>
+        [[for p in allPokes:]]
+            [[if p['significantForm']: ]]
+            <tr>
+                <td>[[=p['fullname'] ]]</td>
+                <td>[[=p['number'] ]]</td>
+                <td>[[=p['types'][0] ]]</td>
+            </tr>
+            [[pass]]
+        [[pass]]
+    </tbody>
+</table>

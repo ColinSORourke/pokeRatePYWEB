@@ -21,9 +21,11 @@ The path follows the bottlepy syntax.
 @action.uses(auth.user)       indicates that the action requires a logged in user
 @action.uses(auth)            indicates that the action requires the auth object
 
-session, db, T, auth, and tempates are examples of Fixtures.
+session, db, T, auth, and templates are examples of Fixtures.
 Warning: Fixtures MUST be declared with @action.uses({fixtures}) else your app will result in undefined behavior
 """
+
+import json
 
 from py4web import action, request, abort, redirect, URL
 from yatl.helpers import A
@@ -31,9 +33,15 @@ from .common import db, session, T, cache, auth, logger, authenticated, unauthen
 
 
 @action("index")
-@action.uses("index.html", auth, T)
+@action.uses("pokedex.html", auth, T)
 def index():
+    with open('apps/pokeRate/static/FullDex.json') as f:
+        data = json.load(f)
     user = auth.get_user()
     message = T("Hello {first_name}".format(**user) if user else "Hello")
     actions = {"allowed_actions": auth.param.allowed_actions}
-    return dict(message=message, actions=actions)
+    return dict(
+        message=message, 
+        actions=actions,
+        allPokes = data
+    )
