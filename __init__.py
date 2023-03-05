@@ -10,6 +10,6 @@ from .models import db
 from . import controllers
 
 # optional parameters
-__version__ = "0.0.0"
-__author__ = "you <you@example.com>"
+__version__ = "0.0.1"
+__author__ = "Colin O'Rourke <Colin.orourke@icloud.com>"
 __license__ = "anything you want"
