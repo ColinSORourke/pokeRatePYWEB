@@ -18,19 +18,20 @@
     text-align: center;
     margin: 10px;
     align-items: center;
-    max-width: 240px;
+    max-width: 200px;
     box-shadow: -5px 5px 5px rgba(52, 49, 49, 0.75);
 }
 
 .pokemon_entry .pokeName{
     margin-top: 5px;
-    font-size: 120%;
+    font-size: 100%;
     font-weight: bold;
     white-space: nowrap;
 }
 
 .pokemon_entry .pokeNumber{
-    margin-top: -5px;
+    margin-top: -12px;
+    font-size: 85%;
 }
 
 .pokemon_entry img{
