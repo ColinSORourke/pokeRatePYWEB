@@ -8,3 +8,6 @@ databases/fb87181b96a99be45f5a23f4277867ce_auth_user_tag_groups.table
 databases/fb87181b96a99be45f5a23f4277867ce_auth_user.table
 databases/sql.log
 databases/storage.db
+__pycache__/auth_by_email.cpython-38.pyc
+__pycache__/AuthByEmail.cpython-38.pyc
+databases/fb87181b96a99be45f5a23f4277867ce_py4web_session.table

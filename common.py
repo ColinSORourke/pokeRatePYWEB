@@ -46,6 +46,7 @@ db = DAL(
 # #######################################################
 cache = Cache(size=1000)
 T = Translator(settings.T_FOLDER)
+flash = Flash()
 
 # #######################################################
 # pick the session type that suits you best
@@ -75,97 +76,16 @@ elif settings.SESSION_TYPE == "database":
     session = Session(secret=settings.SESSION_SECRET_KEY, storage=DBStore(db))
 
 # #######################################################
-# Instantiate the object and actions that handle auth
-# #######################################################
-auth = Auth(session, db, define_tables=False)
-auth.use_username = True
-auth.param.registration_requires_confirmation = settings.VERIFY_EMAIL
-auth.param.registration_requires_approval = settings.REQUIRES_APPROVAL
-auth.param.login_after_registration = settings.LOGIN_AFTER_REGISTRATION
-auth.param.allowed_actions = settings.ALLOWED_ACTIONS
-auth.param.login_expiration_time = 3600
-auth.param.password_complexity = {"entropy": 50}
-auth.param.block_previous_password_num = 3
-auth.param.default_login_enabled = settings.DEFAULT_LOGIN_ENABLED
-auth.define_tables()
-auth.fix_actions()
-
-flash = auth.flash
-
-# #######################################################
 # Configure email sender for auth
 # #######################################################
-if settings.SMTP_SERVER:
-    auth.sender = Mailer(
-        server=settings.SMTP_SERVER,
-        sender=settings.SMTP_SENDER,
-        login=settings.SMTP_LOGIN,
-        tls=settings.SMTP_TLS,
-        ssl=settings.SMTP_SSL,
-    )
-
-# #######################################################
-# Create a table to tag users as group members
-# #######################################################
-if auth.db:
-    groups = Tags(db.auth_user, "groups")
-
-# #######################################################
-# Enable optional auth plugin
-# #######################################################
-if settings.USE_PAM:
-    from py4web.utils.auth_plugins.pam_plugin import PamPlugin
-
-    auth.register_plugin(PamPlugin())
-
-if settings.USE_LDAP:
-    from py4web.utils.auth_plugins.ldap_plugin import LDAPPlugin
-
-    auth.register_plugin(LDAPPlugin(db=db, groups=groups, **settings.LDAP_SETTINGS))
-
-if settings.OAUTH2GOOGLE_CLIENT_ID:
-    from py4web.utils.auth_plugins.oauth2google import OAuth2Google  # TESTED
-
-    auth.register_plugin(
-        OAuth2Google(
-            client_id=settings.OAUTH2GOOGLE_CLIENT_ID,
-            client_secret=settings.OAUTH2GOOGLE_CLIENT_SECRET,
-            callback_url="auth/plugin/oauth2google/callback",
-        )
-    )
-
-if settings.OAUTH2GITHUB_CLIENT_ID:
-    from py4web.utils.auth_plugins.oauth2github import OAuth2Github  # TESTED
-
-    auth.register_plugin(
-        OAuth2Github(
-            client_id=settings.OAUTH2GITHUB_CLIENT_ID,
-            client_secret=settings.OAUTH2GITHUB_CLIENT_SECRET,
-            callback_url="auth/plugin/oauth2github/callback",
-        )
-    )
-
-if settings.OAUTH2FACEBOOK_CLIENT_ID:
-    from py4web.utils.auth_plugins.oauth2facebook import OAuth2Facebook  # UNTESTED
-
-    auth.register_plugin(
-        OAuth2Facebook(
-            client_id=settings.OAUTH2FACEBOOK_CLIENT_ID,
-            client_secret=settings.OAUTH2FACEBOOK_CLIENT_SECRET,
-            callback_url="auth/plugin/oauth2facebook/callback",
-        )
-    )
-
-if settings.OAUTH2OKTA_CLIENT_ID:
-    from py4web.utils.auth_plugins.oauth2okta import OAuth2Okta  # TESTED
-
-    auth.register_plugin(
-        OAuth2Okta(
-            client_id=settings.OAUTH2OKTA_CLIENT_ID,
-            client_secret=settings.OAUTH2OKTA_CLIENT_SECRET,
-            callback_url="auth/plugin/oauth2okta/callback",
-        )
-    )
+# if settings.SMTP_SERVER:
+#   auth.sender = Mailer(
+#        server=settings.SMTP_SERVER,
+#        sender=settings.SMTP_SENDER,
+#        login=settings.SMTP_LOGIN,
+#        tls=settings.SMTP_TLS,
+#        ssl=settings.SMTP_SSL,
+#    )
 
 # #######################################################
 # Define a convenience action to allow users to download
@@ -194,14 +114,8 @@ if settings.USE_CELERY:
         "apps.%s.tasks" % settings.APP_NAME, broker=settings.CELERY_BROKER
     )
 
+from py4web.utils.url_signer import URLSigner
+from .auth_by_email import AuthByEmail
 
-# #######################################################
-# Enable authentication
-# #######################################################
-auth.enable(uses=(session, T, db), env=dict(T=T))
-
-# #######################################################
-# Define convenience decorators
-# #######################################################
-unauthenticated = ActionFactory(db, session, T, flash, auth)
-authenticated = ActionFactory(db, session, T, flash, auth.user)
+url_signer = URLSigner(session)
+auth = AuthByEmail(session, url_signer)

@@ -29,19 +29,22 @@ import json
 
 from py4web import action, request, abort, redirect, URL
 from yatl.helpers import A
-from .common import db, session, T, cache, auth, logger, authenticated, unauthenticated, flash
+from .common import db, session, T, cache, logger, flash
 
+from .common import auth, url_signer
+from .models import get_user_email
 
-@action("index")
-@action.uses("pokedex.html", auth, T)
+@action('index')
+@action.uses('index.html', db, auth)
 def index():
+    print("User: ", get_user_email())
+    return dict()
+
+@action("pokedex") # "Website/Pokerate/pokedex"
+@action.uses("pokedex.html", auth, T)
+def pokedex():
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
-    user = auth.get_user()
-    message = T("Hello {first_name}".format(**user) if user else "Hello")
-    actions = {"allowed_actions": auth.param.allowed_actions}
     return dict(
-        message=message, 
-        actions=actions,
         allPokes = data
     )
