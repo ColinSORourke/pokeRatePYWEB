@@ -1,22 +1,67 @@
 [[extend 'layout.html']]
 
+<link rel="stylesheet" href="css/pokemonEntries.css">
+
 <h1>All Pokemon</h1>
 
-<table>
-    <thead>
-        <th>Name</th>
-        <th>Number</th>
-        <th>Type</th>
-    </thead>
-    <tbody>
-        [[for p in allPokes:]]
-            [[if p['significantForm']: ]]
-            <tr>
-                <td>[[=p['fullname'] ]]</td>
-                <td>[[=p['number'] ]]</td>
-                <td>[[=p['types'][0] ]]</td>
-            </tr>
-            [[pass]]
-        [[pass]]
-    </tbody>
-</table>
+<div id="vue-target">
+
+    <div class="category">
+        <h2>Category Title</h2>
+        <div class="pokemon_list">
+            <div class="pokemon_entry" id="#0000">
+                <div class="pokeName">Pokemon Name</div>
+                <div class="pokeNumber">#0000</div>
+                <div class="pokeImgContainer">
+                    <img src="images/PokemonArt/Generation 1/Venusaur.png" class="pokeImg">
+                    <div class="typesContainer">
+                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                    </div>
+                </div>
+                
+                <div class="starContainer">
+                    
+                </div>
+            </div>
+            <div class="pokemon_entry" id="#0001">
+                <div class="pokeName">Pokemon Name</div>
+                <div class="pokeNumber">#0001</div>
+                <div class="pokeImgContainer">
+                    <img src="images/PokemonArt/Generation 1/Arbok.png" class="pokeImg">
+                    <div class="typesContainer">
+                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                    </div>
+                </div>
+                
+                <div class="starContainer">
+                    
+                </div>
+            </div>
+            <div class="pokemon_entry" id="#0002">
+                <div class="pokeName">Pokemon Name</div>
+                <div class="pokeNumber">#0002</div>
+                <div class="pokeImgContainer">
+                    <img src="images/PokemonArt/Generation 1/Abra.png" class="pokeImg">
+                    <div class="typesContainer">
+                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                    </div>
+                </div>
+                
+                <div class="starContainer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+[[block page_scripts]]
+<script>
+    let dexJSON = "[[=XML(dexJSON)]]"
+</script>
+<script src="js/index.js"></script>
+[[end]]

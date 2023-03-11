@@ -2,13 +2,14 @@
 // and be used to initialize it.
 let app = {};
 
-
 // Given an empty app object, initializes it filling its attributes,
 // creates a Vue instance, and then initializes the Vue instance.
 let init = (app) => {
 
     // This is the Vue data.
     app.data = {
+
+        myDexJSON: dexJSON
         // Complete as you see fit.
     };
 
