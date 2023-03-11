@@ -1,14 +1,18 @@
-from py4web.core import Fixture
+from py4web.core import Fixture, Flash
 from py4web import action, request, abort, redirect, URL
 from py4web.utils.form import Form
 from pydal import Field
 from pydal.validators import IS_EMAIL
+import calendar
+import time
 
 # Key to access the email in the session
 EMAIL_KEY = "_user_email"
 LOGIN_PATH = "auth_by_email/login"
 WAITING_PATH = "auth_by_email/waiting"
 CONFIRMATION_PATH = "auth_by_email/confirm"
+
+EXPIRATION_TIME = 600
 
 class TestEmailer(object):
     # Dummy class for sending emails. Prints link instead
@@ -23,15 +27,16 @@ class AuthByEmail(Fixture):
         self.url_signer = url_signer
         self.default_path = default_path
         self.__prerequisites__ = [session]
+        self.flash = Flash()
         
         # Register path to login
-        f = action.uses("auth_by_email_login.html", session, url_signer)(self.login)
+        f = action.uses("auth_by_email_login.html", self.flash, session, url_signer)(self.login)
         action(LOGIN_PATH, method=["GET", "POST"])(f)
         # Register path to waiting
-        f = action.uses("auth_by_email_wait.html", session)(self.wait)
+        f = action.uses("auth_by_email_wait.html", self.flash, session)(self.wait)
         action(WAITING_PATH, method=["GET"])(f)
         # Register path to confimation
-        f = action.uses("auth_by_email_wait.html", session, url_signer.verify())(self.confirm)
+        f = action.uses("auth_by_email_wait.html", self.flash, session, url_signer.verify())(self.confirm)
         action(CONFIRMATION_PATH + "/<email>", method=["GET"])(f)
 
     @property
@@ -51,6 +56,16 @@ class AuthByEmail(Fixture):
     def login_url(self):
          return URL(LOGIN_PATH)
     
+    def on_request(self, context):
+        activity = self.session.get("recent_activity")
+        time_now = calendar.timegm(time.gmtime())
+        if (self.current_user):
+            if (time_now - activity > EXPIRATION_TIME):
+                del self.session[EMAIL_KEY]
+                self.flash.set("Login expired")
+                redirect(URL(self.default_path))
+            
+
     def login(self):
 
         if self.session.get(EMAIL_KEY):
@@ -75,6 +90,9 @@ class AuthByEmail(Fixture):
 
         assert email is not None
         self.session[EMAIL_KEY] = email
+        self.session.expiration = EXPIRATION_TIME
+        self.flash.set("Successful Login")
+        self.session["recent_activity"] = calendar.timegm(time.gmtime())
         redirect(URL(self.default_path))
 
     def on_success(self, context):

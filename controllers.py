@@ -35,13 +35,13 @@ from .common import auth, url_signer
 from .models import get_user_email
 
 @action('index')
-@action.uses('index.html', db, auth)
+@action.uses('index.html', session, auth.flash, db, auth)
 def index():
     print("User: ", get_user_email())
     return dict()
 
 @action("pokedex") # "Website/Pokerate/pokedex"
-@action.uses("pokedex.html", auth, T)
+@action.uses("pokedex.html", session, auth.flash, db, auth, T)
 def pokedex():
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)

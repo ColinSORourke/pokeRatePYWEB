@@ -52,7 +52,7 @@ SMTP_TLS = False
 
 # session settings
 SESSION_TYPE = "database"
-SESSION_SECRET_KEY = "21d1b044-6079-4c08-acb7-c0f81099b57d"  # or replace with your own secret
+SESSION_SECRET_KEY = None  # or replace with your own secret
 MEMCACHE_CLIENTS = ["127.0.0.1:11211"]
 REDIS_SERVER = "localhost:6379"
 

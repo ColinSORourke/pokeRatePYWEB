@@ -74,6 +74,7 @@ elif settings.SESSION_TYPE == "database":
     from py4web.utils.dbstore import DBStore
 
     session = Session(secret=settings.SESSION_SECRET_KEY, storage=DBStore(db))
+    session.expiration = 600
 
 # #######################################################
 # Configure email sender for auth
