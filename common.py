@@ -118,5 +118,5 @@ if settings.USE_CELERY:
 from py4web.utils.url_signer import URLSigner
 from .auth_by_email import AuthByEmail
 
-url_signer = URLSigner(session)
+url_signer = URLSigner(session, lifespan = 600)
 auth = AuthByEmail(session, url_signer)

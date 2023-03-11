@@ -8,7 +8,9 @@ import time
 
 # Key to access the email in the session
 EMAIL_KEY = "_user_email"
+
 LOGIN_PATH = "auth_by_email/login"
+LOGOUT_PATH = "auth_by_email/logout"
 WAITING_PATH = "auth_by_email/waiting"
 CONFIRMATION_PATH = "auth_by_email/confirm"
 
@@ -38,6 +40,9 @@ class AuthByEmail(Fixture):
         # Register path to confimation
         f = action.uses("auth_by_email_wait.html", self.flash, session, url_signer.verify())(self.confirm)
         action(CONFIRMATION_PATH + "/<email>", method=["GET"])(f)
+
+        f = action.uses("auth_by_email_login.html", self.flash, session)(self.logout)
+        action(LOGOUT_PATH, method=["GET"])(f)
 
     @property
     def current_user(self):
@@ -93,6 +98,12 @@ class AuthByEmail(Fixture):
         self.session.expiration = EXPIRATION_TIME
         self.flash.set("Successful Login")
         self.session["recent_activity"] = calendar.timegm(time.gmtime())
+        redirect(URL(self.default_path))
+
+    def logout(self):
+        del self.session[EMAIL_KEY]
+        self.session.clear()
+        self.flash.set("Logged out")
         redirect(URL(self.default_path))
 
     def on_success(self, context):

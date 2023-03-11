@@ -29,6 +29,9 @@
             <a class="navbar-link is-primary">
               [[=globals().get('user',{}).get('email')]]
             </a>
+            <ul>
+              <li><a href="[[=URL('auth_by_email/logout')]]">Logout</a></li>
+            </ul>
           </li>
           [[else:]]
           <li>
