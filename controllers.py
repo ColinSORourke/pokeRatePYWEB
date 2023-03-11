@@ -46,5 +46,5 @@ def pokedex():
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
     return dict(
-        dexJSON = data
+        dexJSON = json.dumps(data)
     )

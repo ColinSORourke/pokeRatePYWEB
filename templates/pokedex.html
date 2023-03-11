@@ -6,46 +6,17 @@
 
 <div id="vue-target">
 
-    <div class="category">
-        <h2>Category Title</h2>
+    <div v-for="c in myCategories" class="category">
+        <h2>{{c.title}}</h2>
         <div class="pokemon_list">
-            <div class="pokemon_entry" id="#0000">
-                <div class="pokeName">Pokemon Name</div>
-                <div class="pokeNumber">#0000</div>
+            <div v-for="p in pokemonPerCategory[c.title]" class="pokemon_entry">
+                <div class="pokeName">{{p.fullname}}</div>
+                <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
                 <div class="pokeImgContainer">
-                    <img src="images/PokemonArt/Generation 1/Venusaur.png" class="pokeImg">
+                    <img :src="pokemonImagePath(p)" class="pokeImg">
                     <div class="typesContainer">
-                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
-                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
-                    </div>
-                </div>
-                
-                <div class="starContainer">
-                    
-                </div>
-            </div>
-            <div class="pokemon_entry" id="#0001">
-                <div class="pokeName">Pokemon Name</div>
-                <div class="pokeNumber">#0001</div>
-                <div class="pokeImgContainer">
-                    <img src="images/PokemonArt/Generation 1/Arbok.png" class="pokeImg">
-                    <div class="typesContainer">
-                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
-                    </div>
-                </div>
-                
-                <div class="starContainer">
-                    
-                </div>
-            </div>
-            <div class="pokemon_entry" id="#0002">
-                <div class="pokeName">Pokemon Name</div>
-                <div class="pokeNumber">#0002</div>
-                <div class="pokeImgContainer">
-                    <img src="images/PokemonArt/Generation 1/Abra.png" class="pokeImg">
-                    <div class="typesContainer">
-                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
-                        <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                        <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                        <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
                     </div>
                 </div>
                 
@@ -61,7 +32,7 @@
 
 [[block page_scripts]]
 <script>
-    let dexJSON = "[[=XML(dexJSON)]]"
+    let dexJSON = [[=XML(dexJSON)]]
 </script>
 <script src="js/index.js"></script>
 [[end]]
