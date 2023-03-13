@@ -21,7 +21,20 @@
                 </div>
                 
                 <div class="starContainer">
-                    
+                    <div class="filledStars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="inputStars">
+                        <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)"><label class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
+                        <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)"><label class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
+                        <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)"><label class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
+                        <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)"><label class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
+                        <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)"><label class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                    </div>
                 </div>
             </div>
         </div>

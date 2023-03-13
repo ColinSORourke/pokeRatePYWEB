@@ -33,6 +33,12 @@ let init = (app) => {
         pokemonNumber(p) {
             return "#" + p['number'];
         },
+        starID(p){
+            return "star" + p['id'];
+        },
+        starIDRate(p, i){
+            return "star" + i + "_" + p['id'];
+        },
         typeImagePath(p, i) {
             return "images/Types/" + p.types[i] + "_en.png";
         }
