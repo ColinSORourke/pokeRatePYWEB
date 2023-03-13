@@ -42,7 +42,7 @@ def index():
     return dict()
 
 @action("pokedex") # "Website/Pokerate/pokedex"
-@action.uses("pokedex.html", session, auth.flash, db, auth, T)
+@action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
 def pokedex():
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
