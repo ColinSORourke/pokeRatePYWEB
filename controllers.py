@@ -63,11 +63,11 @@ def setup():
     emails = ["colin.orourke@icloud.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
     while (i < len(data['Pokemon'])):
         j = 0
-        while (j < 100):
+        while (j < 3):
             ran = random.randint(1,5)
             db.ratings.insert(
                 pokemon = data['Pokemon'][i]['id'],
-                rater = emails[ran - 1],
+                rater = emails[j],
                 rating = ran
             )
             j += 1

@@ -89,7 +89,6 @@ let init = (app) => {
             j = 0;
             p = 0;
             u = 0;
-            console.log(result.data.allRatings);
             while (j < result.data.allRatings.length){
                 pok = app.data.myPokemon[p]
                 rating = result.data.allRatings[j];
