@@ -61,17 +61,17 @@ def setup():
         data = json.load(f)
     i = 0
     emails = ["colin.orourke@icloud.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
-    while (i < len(data['Pokemon'])):
-        j = 0
-        while (j < 3):
-            ran = random.randint(1,5)
-            db.ratings.insert(
-                pokemon = data['Pokemon'][i]['id'],
-                rater = emails[j],
-                rating = ran
-            )
-            j += 1
-        i += 1
+    # while (i < len(data['Pokemon'])):
+    #    j = 0
+    #    while (j < 3):
+    #        ran = random.randint(1,5)
+    #        db.ratings.insert(
+    #            pokemon = data['Pokemon'][i]['id'],
+    #            rater = emails[j],
+    #            rating = ran
+    #        )
+    #        j += 1
+    #    i += 1
     return "ok"
 
 @action("get_rating")

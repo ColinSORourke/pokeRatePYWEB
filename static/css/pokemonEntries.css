@@ -64,15 +64,19 @@ STAR LOGIC
     font-size: 28px;
 }
 
-.pokemon_entry .inputStars label:hover::before{
-    content: "\f005";
-    color: gold;
-}
-
 .pokemon_entry .inputStars input:checked ~ label::before{
     content: "\f005";
     color: gold;
 }
+
+.pokemon_entry .inputStars label:hover::before{
+    content: "\f005";
+    color: orange !important;
+}
+
+
+
+
 
 /****************
 

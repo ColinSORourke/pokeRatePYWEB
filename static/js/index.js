@@ -50,6 +50,9 @@ let init = (app) => {
         },
         ratePok(p, i){
             axios.post(set_rating_url, {pokID: p.id, rating: i});
+            /* TO DO
+            PROCESS RESPONSE TO NOTIFY USER THEY ARE EITHER NOT LOGGED IN, OR RATING WAS SENT
+            */
         }
 
     };
