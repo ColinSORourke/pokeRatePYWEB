@@ -8,7 +8,7 @@ from pydal.validators import *
 from .common import auth
 
 def get_user_email():
-    return auth.current_user.get('email') if auth.current_user else None
+    return auth.current_user.get('email').lower() if auth.current_user else None
 
 def get_time():
     return datetime.datetime.utcnow()
@@ -21,3 +21,11 @@ def get_time():
 #
 # db.commit()
 #
+
+db.define_table('ratings',
+                Field("pokemon"),
+                Field("rating", 'integer', default=0),
+                Field("rater", default=get_user_email)
+                )
+
+db.commit()

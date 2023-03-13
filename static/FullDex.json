@@ -255,8 +255,8 @@
             "number": "0003",
             "formList": [
                 "Venusaur",
-                "Gigantamax Venusaur",
-                "Mega Venusaur"
+                "Mega Venusaur",
+                "Gigantamax Venusaur"
             ],
             "dblink": "https://pokemondb.net/pokedex/0003",
             "types": [
@@ -285,8 +285,8 @@
             "number": "0003",
             "formList": [
                 "Venusaur",
-                "Gigantamax Venusaur",
-                "Mega Venusaur"
+                "Mega Venusaur",
+                "Gigantamax Venusaur"
             ],
             "dblink": "https://pokemondb.net/pokedex/0003",
             "types": [
@@ -298,7 +298,7 @@
                 "(let's Go Pikachu/let's Go Eevee)"
             ],
             "category": "Mega Evolutions",
-            "id": "000302"
+            "id": "000301"
         },
         {
             "name": "Venusaur",
@@ -310,8 +310,8 @@
             "number": "0003",
             "formList": [
                 "Venusaur",
-                "Gigantamax Venusaur",
-                "Mega Venusaur"
+                "Mega Venusaur",
+                "Gigantamax Venusaur"
             ],
             "dblink": "https://pokemondb.net/pokedex/0003",
             "types": [
@@ -323,7 +323,7 @@
             ],
             "imgurl": "https://img.pokemondb.net/artwork/large/venusaur-gigantamax.jpg",
             "category": "Gigantamax Forms",
-            "id": "000301"
+            "id": "000302"
         },
         {
             "name": "Charmander",
@@ -389,9 +389,9 @@
             "number": "0006",
             "formList": [
                 "Charizard",
-                "Gigantamax Charizard",
                 "Mega Charizard X",
-                "Mega Charizard Y"
+                "Mega Charizard Y",
+                "Gigantamax Charizard"
             ],
             "dblink": "https://pokemondb.net/pokedex/0006",
             "types": [
@@ -420,9 +420,9 @@
             "number": "0006",
             "formList": [
                 "Charizard",
-                "Gigantamax Charizard",
                 "Mega Charizard X",
-                "Mega Charizard Y"
+                "Mega Charizard Y",
+                "Gigantamax Charizard"
             ],
             "dblink": "https://pokemondb.net/pokedex/0006",
             "types": [
@@ -434,7 +434,7 @@
                 "(let's Go Pikachu/let's Go Eevee)"
             ],
             "category": "Mega Evolutions",
-            "id": "000602"
+            "id": "000601"
         },
         {
             "name": "Charizard",
@@ -446,9 +446,9 @@
             "number": "0006",
             "formList": [
                 "Charizard",
-                "Gigantamax Charizard",
                 "Mega Charizard X",
-                "Mega Charizard Y"
+                "Mega Charizard Y",
+                "Gigantamax Charizard"
             ],
             "dblink": "https://pokemondb.net/pokedex/0006",
             "types": [
@@ -460,7 +460,7 @@
                 "(let's Go Pikachu/let's Go Eevee)"
             ],
             "category": "Mega Evolutions",
-            "id": "000603"
+            "id": "000602"
         },
         {
             "name": "Charizard",
@@ -472,9 +472,9 @@
             "number": "0006",
             "formList": [
                 "Charizard",
-                "Gigantamax Charizard",
                 "Mega Charizard X",
-                "Mega Charizard Y"
+                "Mega Charizard Y",
+                "Gigantamax Charizard"
             ],
             "dblink": "https://pokemondb.net/pokedex/0006",
             "types": [
@@ -486,7 +486,7 @@
             ],
             "imgurl": "https://img.pokemondb.net/artwork/large/charizard-gigantamax.jpg",
             "category": "Gigantamax Forms",
-            "id": "000601"
+            "id": "000603"
         },
         {
             "name": "Squirtle",
@@ -552,8 +552,8 @@
             "number": "0009",
             "formList": [
                 "Blastoise",
-                "Gigantamax Blastoise",
-                "Mega Blastoise"
+                "Mega Blastoise",
+                "Gigantamax Blastoise"
             ],
             "dblink": "https://pokemondb.net/pokedex/0009",
             "types": [
@@ -581,8 +581,8 @@
             "number": "0009",
             "formList": [
                 "Blastoise",
-                "Gigantamax Blastoise",
-                "Mega Blastoise"
+                "Mega Blastoise",
+                "Gigantamax Blastoise"
             ],
             "dblink": "https://pokemondb.net/pokedex/0009",
             "types": [
@@ -593,7 +593,7 @@
                 "(let's Go Pikachu/let's Go Eevee)"
             ],
             "category": "Mega Evolutions",
-            "id": "000902"
+            "id": "000901"
         },
         {
             "name": "Blastoise",
@@ -605,8 +605,8 @@
             "number": "0009",
             "formList": [
                 "Blastoise",
-                "Gigantamax Blastoise",
-                "Mega Blastoise"
+                "Mega Blastoise",
+                "Gigantamax Blastoise"
             ],
             "dblink": "https://pokemondb.net/pokedex/0009",
             "types": [
@@ -617,7 +617,7 @@
             ],
             "imgurl": "https://img.pokemondb.net/artwork/large/blastoise-gigantamax.jpg",
             "category": "Gigantamax Forms",
-            "id": "000901"
+            "id": "000902"
         },
         {
             "name": "Caterpie",
@@ -2217,9 +2217,9 @@
             "number": "0052",
             "formList": [
                 "Meowth",
-                "Gigantamax Meowth",
                 "Alolan Meowth",
-                "Galarian Meowth"
+                "Galarian Meowth",
+                "Gigantamax Meowth"
             ],
             "dblink": "https://pokemondb.net/pokedex/0052",
             "types": [
@@ -2249,9 +2249,9 @@
             "number": "0052",
             "formList": [
                 "Meowth",
-                "Gigantamax Meowth",
                 "Alolan Meowth",
-                "Galarian Meowth"
+                "Galarian Meowth",
+                "Gigantamax Meowth"
             ],
             "dblink": "https://pokemondb.net/pokedex/0052",
             "types": [
@@ -2263,7 +2263,7 @@
                 "(let's Go Pikachu/let's Go Eevee)"
             ],
             "category": "Alola",
-            "id": "005202"
+            "id": "005201"
         },
         {
             "name": "Meowth",
@@ -2275,9 +2275,9 @@
             "number": "0052",
             "formList": [
                 "Meowth",
-                "Gigantamax Meowth",
                 "Alolan Meowth",
-                "Galarian Meowth"
+                "Galarian Meowth",
+                "Gigantamax Meowth"
             ],
             "dblink": "https://pokemondb.net/pokedex/0052",
             "types": [
@@ -2287,7 +2287,7 @@
                 "(Sword/Shield)"
             ],
             "category": "Galar",
-            "id": "005203"
+            "id": "005202"
         },
         {
             "name": "Meowth",
@@ -2299,9 +2299,9 @@
             "number": "0052",
             "formList": [
                 "Meowth",
-                "Gigantamax Meowth",
                 "Alolan Meowth",
-                "Galarian Meowth"
+                "Galarian Meowth",
+                "Gigantamax Meowth"
             ],
             "dblink": "https://pokemondb.net/pokedex/0052",
             "types": [
@@ -2312,7 +2312,7 @@
             ],
             "imgurl": "https://img.pokemondb.net/artwork/large/meowth-gigantamax.jpg",
             "category": "Gigantamax Forms",
-            "id": "005201"
+            "id": "005203"
         },
         {
             "name": "Persian",
@@ -4031,8 +4031,8 @@
             "number": "0094",
             "formList": [
                 "Gengar",
-                "Gigantamax Gengar",
-                "Mega Gengar"
+                "Mega Gengar",
+                "Gigantamax Gengar"
             ],
             "dblink": "https://pokemondb.net/pokedex/0094",
             "types": [
@@ -4068,8 +4068,8 @@
             "number": "0094",
             "formList": [
                 "Gengar",
-                "Gigantamax Gengar",
-                "Mega Gengar"
+                "Mega Gengar",
+                "Gigantamax Gengar"
             ],
             "dblink": "https://pokemondb.net/pokedex/0094",
             "types": [
@@ -4081,7 +4081,7 @@
                 "(let's Go Pikachu/let's Go Eevee)"
             ],
             "category": "Mega Evolutions",
-            "id": "009402"
+            "id": "009401"
         },
         {
             "name": "Gengar",
@@ -4093,8 +4093,8 @@
             "number": "0094",
             "formList": [
                 "Gengar",
-                "Gigantamax Gengar",
-                "Mega Gengar"
+                "Mega Gengar",
+                "Gigantamax Gengar"
             ],
             "dblink": "https://pokemondb.net/pokedex/0094",
             "types": [
@@ -4106,7 +4106,7 @@
             ],
             "imgurl": "https://img.pokemondb.net/artwork/large/gengar-gigantamax.jpg",
             "category": "Gigantamax Forms",
-            "id": "009401"
+            "id": "009402"
         },
         {
             "name": "Onix",
@@ -26774,9 +26774,9 @@
             "generation": "Generation 8",
             "number": "0849",
             "formList": [
+                "Toxtricity",
                 "Amped Form Toxtricity",
-                "Gigantamax Toxtricity",
-                "Toxtricity"
+                "Gigantamax Toxtricity"
             ],
             "dblink": "https://pokemondb.net/pokedex/0849",
             "types": [
@@ -26788,7 +26788,7 @@
                 "(Scarlet/Violet)"
             ],
             "category": "Galar",
-            "id": "084902"
+            "id": "084900"
         },
         {
             "name": "Toxtricity",
@@ -26799,9 +26799,9 @@
             "generation": "Generation 8",
             "number": "0849",
             "formList": [
+                "Toxtricity",
                 "Amped Form Toxtricity",
-                "Gigantamax Toxtricity",
-                "Toxtricity"
+                "Gigantamax Toxtricity"
             ],
             "dblink": "https://pokemondb.net/pokedex/0849",
             "types": [
@@ -26813,7 +26813,7 @@
                 "(Scarlet/Violet)"
             ],
             "category": "Ignore",
-            "id": "084900"
+            "id": "084901"
         },
         {
             "name": "Toxtricity",
@@ -26824,9 +26824,9 @@
             "generation": "Generation 8",
             "number": "0849",
             "formList": [
+                "Toxtricity",
                 "Amped Form Toxtricity",
-                "Gigantamax Toxtricity",
-                "Toxtricity"
+                "Gigantamax Toxtricity"
             ],
             "dblink": "https://pokemondb.net/pokedex/0849",
             "types": [
@@ -26838,7 +26838,7 @@
             ],
             "imgurl": "https://img.pokemondb.net/artwork/large/toxtricity-gigantamax.jpg",
             "category": "Gigantamax Forms",
-            "id": "084901"
+            "id": "084902"
         },
         {
             "name": "Sizzlipede",
@@ -27939,7 +27939,7 @@
             "number": "0888",
             "formList": [
                 "Hero of Many Battles Zacian",
-                "Crowned Sword Zacian"
+                "Zacian"
             ],
             "dblink": "https://pokemondb.net/pokedex/0888",
             "types": [
@@ -27950,7 +27950,7 @@
                 "(Sword/Shield)"
             ],
             "category": "Galar",
-            "id": "0888-1"
+            "id": "088801"
         },
         {
             "name": "Zamazenta",
@@ -28050,9 +28050,9 @@
             "number": "0892",
             "formList": [
                 "Urshifu",
-                "Gigantamax Urshifu",
                 "Rapid Strike Style Urshifu",
-                "Gigantamax Rapid Strike Urshifu"
+                "Gigantamax Rapid Strike Urshifu",
+                "Gigantamax Urshifu"
             ],
             "dblink": "https://pokemondb.net/pokedex/0892",
             "types": [
@@ -28075,9 +28075,9 @@
             "number": "0892",
             "formList": [
                 "Urshifu",
-                "Gigantamax Urshifu",
                 "Rapid Strike Style Urshifu",
-                "Gigantamax Rapid Strike Urshifu"
+                "Gigantamax Rapid Strike Urshifu",
+                "Gigantamax Urshifu"
             ],
             "dblink": "https://pokemondb.net/pokedex/0892",
             "types": [
@@ -28088,7 +28088,7 @@
                 "(The Isle of Armor)"
             ],
             "category": "Ignore",
-            "id": "089202"
+            "id": "089201"
         },
         {
             "name": "Urshifu",
@@ -28100,9 +28100,9 @@
             "number": "0892",
             "formList": [
                 "Urshifu",
-                "Gigantamax Urshifu",
                 "Rapid Strike Style Urshifu",
-                "Gigantamax Rapid Strike Urshifu"
+                "Gigantamax Rapid Strike Urshifu",
+                "Gigantamax Urshifu"
             ],
             "dblink": "https://pokemondb.net/pokedex/0892",
             "types": [
@@ -28114,7 +28114,7 @@
             ],
             "imgurl": "https://img.pokemondb.net/artwork/large/urshifu-gigantamax.jpg",
             "category": "Gigantamax Forms",
-            "id": "089201"
+            "id": "089203"
         },
         {
             "name": "Urshifu",

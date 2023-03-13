@@ -55,7 +55,7 @@ class AuthByEmail(Fixture):
         
     def enforce(self):
         # Returns a fixture that enforces log-in via email
-        return AuthByEmailEnforcer(self.session)
+        return AuthByEmailEnforcer(self)
     
     @property
     def login_url(self):
@@ -102,7 +102,6 @@ class AuthByEmail(Fixture):
 
     def logout(self):
         del self.session[EMAIL_KEY]
-        self.session.clear()
         self.flash.set("Logged out")
         redirect(URL(self.default_path))
 
@@ -118,15 +117,14 @@ class AuthByEmailEnforcer(Fixture):
         self.session = auth.session
         self.__prerequisites__ = [auth.session]
 
-    def on_request(self):
-
+    def on_request(self, context):
+        self.auth.on_request(context)
         if self.session.get(EMAIL_KEY):
             # The user is logged in
             return
         else:
             # Redirect to log in page
             redirect(URL(LOGIN_PATH))
-        pass
 
     def on_success(self, context):
         self.auth.on_success(context)

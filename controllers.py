@@ -26,6 +26,7 @@ Warning: Fixtures MUST be declared with @action.uses({fixtures}) else your app w
 """
 
 import json
+import random
 
 from py4web import action, request, abort, redirect, URL
 from yatl.helpers import A
@@ -46,5 +47,94 @@ def pokedex():
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
     return dict(
-        dexJSON = json.dumps(data)
+        dexJSON = json.dumps(data),
+        get_rating_url = URL('get_rating', signer=url_signer),
+        set_rating_url = URL('set_rating', signer=url_signer),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer) 
+    )
+
+@action("setup")
+@action.uses(db)
+def setup():
+    db(db.ratings).delete()
+    with open('apps/pokeRate/static/FullDex.json') as f:
+        data = json.load(f)
+    i = 0
+    emails = ["colin.orourke@icloud.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
+    while (i < len(data['Pokemon'])):
+        j = 0
+        while (j < 100):
+            ran = random.randint(1,5)
+            db.ratings.insert(
+                pokemon = data['Pokemon'][i]['id'],
+                rater = emails[ran - 1],
+                rating = ran
+            )
+            j += 1
+        i += 1
+    return "ok"
+
+@action("get_rating")
+@action.uses(session, url_signer.verify(), db, auth)
+def get_rating():
+    pokID = request.params.get('pokID')
+    
+    userRatingRow = db((db.ratings.pokemon == pokID) & (db.ratings.rater == get_user_email()) & (db.ratings.rating != 6)).select().first()
+    userRating = userRatingRow.rating if userRatingRow is not None else 0
+    userFavorite = not ( db((db.ratings.pokemon == pokID) & (db.ratings.rater == get_user_email()) & (db.ratings.rating == 6)).isempty() )
+    ratings = [0,0,0,0,0,0]
+    ratings[0] = db((db.ratings.pokemon == pokID) & (db.ratings.rating == 1)).count()
+    ratings[1] = db((db.ratings.pokemon == pokID) & (db.ratings.rating == 2)).count()
+    ratings[2] = db((db.ratings.pokemon == pokID) & (db.ratings.rating == 3)).count()
+    ratings[3] = db((db.ratings.pokemon == pokID) & (db.ratings.rating == 4)).count()
+    ratings[4] = db((db.ratings.pokemon == pokID) & (db.ratings.rating == 5)).count()
+    ratings[5] = db((db.ratings.pokemon == pokID) & (db.ratings.rating == 6)).count()
+    return dict(
+        oneRates = ratings[0],
+        twoRates = ratings[1],
+        threeRates = ratings[2],
+        fourRates = ratings[3],
+        fiveRates = ratings[4],
+        sixRates = ratings[5],
+        userRate = userRating,
+        userFavorite = userFavorite
+    )
+
+@action("set_rating", method='POST')
+@action.uses(session, url_signer.verify(), db, auth.enforce())
+def set_rating():
+    pokID = request.params.get('pokID')
+    rating = request.params.get('rating')
+    assert pokID is not None and rating is not None
+    if (rating != 6):
+        db.ratings.update_or_insert(
+            ((db.ratings.pokemon == pokID) & (db.ratings.rater == get_user_email()) & (db.ratings.rating != 6)),
+            pokemon = pokID,
+            rater = get_user_email(),
+            rating=rating,
+        )
+        return "ok"
+    elif (rating == 6):
+        #stuff
+        if ( db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email())).count() <= 10 ):
+            db.ratings.insert(
+                pokemon=pokID,
+                rater = get_user_email(),
+                rating=rating,
+            )
+            return "ok"
+        else:
+            # Failure due to already having 10 favorites
+            return "failure"
+    return "ok"
+
+@action("get_all_ratings")
+@action.uses(session, url_signer.verify(), db, auth)
+def get_all_ratings():
+    allRatings = db().select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon)
+    userRatings = db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon)
+    print(len(allRatings))
+    return dict(
+        allRatings = allRatings,
+        userRatings = userRatings
     )

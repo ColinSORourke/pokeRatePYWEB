@@ -10,6 +10,12 @@ fs.readFile("../FullDex.json", "utf8", (err, jsonString) => {
     while (i < fullDex["Pokemon"].length){
         var currPoke = fullDex["Pokemon"][i]
 
+        gigaIndex = currPoke['formList'].indexOf("Gigantamax " + currPoke['name'])
+        if (gigaIndex != -1){
+            fullDex["Pokemon"][i]['formList'].splice(gigaIndex, 1)
+            fullDex["Pokemon"][i]['formList'].push("Gigantamax " + currPoke['name'])
+        }
+
         var formIndex = currPoke['formList'].indexOf(currPoke['fullname'])
 
         var id = currPoke['number'] + String(formIndex).padStart(2, '0')
