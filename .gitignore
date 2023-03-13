@@ -8,7 +8,8 @@ databases/fb87181b96a99be45f5a23f4277867ce_py4web_session.table
 static/js/axios.js
 static/js/axios.min.js
 static/js/axios.map
-static.js/axios.min.map
-static.js/sugar.js
-static.js/sugar.min.js
-static.js/vue.js
+static/js/axios.min.map
+static/js/sugar.js
+static/js/sugar.min.js
+static/js/vue.js
+static/font-awesome-4.7.0
