@@ -79,7 +79,6 @@ h1,h2,h3,h4,h5,h6{
 
 h1{
   font-size: 4em;
-  margin:1.0em 0 0.25em 0
 }
 
 h2{
@@ -243,9 +242,21 @@ input[type='checkbox'], input[type='radio'] {
  grid and page formatting
  ****************************************************/
 
+.fakeHeader {
+  height: 75px;
+  width: 100%;
+  background-color: #111;
+}
+
+@media (max-width:600px) {
+  .fakeHeader {
+    height: 40px;
+  }
+}
+
 body > center > * {
   text-align: initial;
-  max-width: 90%;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }

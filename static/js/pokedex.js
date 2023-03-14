@@ -12,7 +12,11 @@ let init = (app) => {
         myDexJSON: dexJSON,
         myCategories: dexJSON["categories"],
         myPokemon: dexJSON["Pokemon"],
-        pokemonPerCategory: {}
+        pokemonPerCategory: {},
+        ratingText: "Rating Received!",
+        ratingCount: 0,
+        showNotif: false,
+        fadeCountdown: 0,
         // Complete as you see fit.
     };
 
@@ -49,12 +53,32 @@ let init = (app) => {
             return (p.userRating == i)
         },
         ratePok(p, i){
-            axios.post(set_rating_url, {pokID: p.id, rating: i});
-            /* TO DO
-            PROCESS RESPONSE TO NOTIFY USER THEY ARE EITHER NOT LOGGED IN, OR RATING WAS SENT
-            */
-        }
+            axios.post(set_rating_url, {pokID: p.id, rating: i}).then((response) => {
+                app.vue.showNotif = true;
 
+                app.vue.fadeCountdown += 3;
+                setTimeout(function () {
+                    console.log("3 Seconds passed")
+                    app.vue.fadeCountdown -= 3;
+                    if (app.vue.fadeCountdown == 0){
+                        console.log("Begin Fade")
+                        app.vue.showNotif = false;
+                        app.vue.ratingCount = 0;
+                    }
+                }, 3000)
+
+                app.vue.ratingCount += 1;
+                
+                console.log(app.vue.ratingCount)
+                if (app.vue.ratingCount > 1){
+                    app.vue.ratingText = "Rating Received! (" + app.vue.ratingCount + ")";
+                } else {
+                    app.vue.ratingText = "Rating Received!"
+                }
+            }).catch((error) => {
+                alert("Log in to post ratings!")
+            })
+        },
     };
 
     // This creates the Vue instance.
@@ -89,6 +113,8 @@ let init = (app) => {
 
         app.addRateData(app.data.myPokemon)
         axios.get(get_all_ratings_url).then((result) => {
+            console.log(result.data.allRatings)
+            console.log(result.data.userRatings)
             j = 0;
             p = 0;
             u = 0;
@@ -98,7 +124,10 @@ let init = (app) => {
                 if (pok['id'] != rating['pokemon']){
                     rl = app.data.myPokemon[p].ratings;
                     app.data.myPokemon[p].globalAverage = (rl[0] + 2*rl[1] + 3*rl[2] + 4*rl[3] + 5*rl[4]) / app.data.myPokemon[p].totalRatings;
-                    p += 1;
+                    while (pok['id'] != rating['pokemon']){
+                        p += 1;
+                        pok = app.data.myPokemon[p];
+                    }
                 }
                 if (u < result.data.userRatings.length){
                     if (app.data.myPokemon[p]['id'] == result.data.userRatings[u]['pokemon']){

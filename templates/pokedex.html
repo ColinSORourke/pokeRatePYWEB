@@ -2,43 +2,51 @@
 
 <link rel="stylesheet" href="css/pokemonEntries.css">
 
-<h1>All Pokemon</h1>
+
 
 <div id="vue-target">
+    <Transition name="notify">
+        <div v-if="showNotif" class="notifs">{{ratingText}}</div>
+    </Transition>
 
-    <div v-for="c in myCategories" class="category">
-        <h2>{{c.title}}</h2>
-        <div class="pokemon_list">
-            <div v-for="p in pokemonPerCategory[c.title]" class="pokemon_entry">
-                <div class="pokeName">{{p.fullname}}</div>
-                <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
-                <div class="pokeImgContainer">
-                    <img :src="pokemonImagePath(p)" class="pokeImg">
-                    <div class="typesContainer">
-                        <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
-                        <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+
+    <div class="mainPage">
+        <h1>All Pokemon</h1>
+        <div v-for="c in myCategories" class="category">
+            <h2>{{c.title}}</h2>
+            <div class="pokemon_list">
+                <div v-for="p in pokemonPerCategory[c.title]" class="pokemon_entry">
+                    <div class="pokeName">{{p.fullname}}</div>
+                    <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                    <div class="pokeImgContainer">
+                        <img :src="pokemonImagePath(p)" class="pokeImg">
+                        <div class="typesContainer">
+                            <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                            <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="starContainer">
-                    <div class="filledStars" :style="widthPerc(p)">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <div class="inputStars">
-                        <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
-                        <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
-                        <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
-                        <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
-                        <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                    
+                    <div class="starContainer">
+                        <div class="filledStars" :style="widthPerc(p)">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="inputStars">
+                            <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
+                            <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
+                            <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
+                            <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
+                            <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
 
     <footer class="padded">
         <p>
@@ -54,5 +62,5 @@
     let set_rating_url = "[[=XML(set_rating_url)]]"
     let get_all_ratings_url = "[[=XML(get_all_ratings_url)]]"
 </script>
-<script src="js/index.js"></script>
+<script src="js/pokedex.js"></script>
 [[end]]

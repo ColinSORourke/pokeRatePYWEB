@@ -119,3 +119,40 @@ STAR LOGIC
     margin: 3px;
     width: 80px;
 }
+
+/**************************
+NOTIFS CODE
+**************************/
+
+.notify-enter-active{
+    transition: opacity 1s ease;
+}
+.notify-leave-active {
+  transition: opacity 2s ease;
+}
+
+.notify-enter,
+.notify-leave-to {
+    opacity: 0;
+}
+
+.notifs {
+    position: fixed;
+    background-color: lightblue;
+    padding-left: 3px;
+    padding-right: 3px;
+    border: solid;
+    border-width: 2px;
+    border-color:black;
+    border-radius: 5px;
+    top: 80px;
+    left: 5px;
+    z-index: 1;
+}
+
+@media (max-width:600px) {
+    .notifs {
+      top: 45px;
+    }
+}
+

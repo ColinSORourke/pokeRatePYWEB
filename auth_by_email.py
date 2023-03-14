@@ -1,5 +1,5 @@
 from py4web.core import Fixture, Flash
-from py4web import action, request, abort, redirect, URL
+from py4web import HTTP, action, request, abort, redirect, URL
 from py4web.utils.form import Form
 from pydal import Field
 from pydal.validators import IS_EMAIL
@@ -14,7 +14,7 @@ LOGOUT_PATH = "auth_by_email/logout"
 WAITING_PATH = "auth_by_email/waiting"
 CONFIRMATION_PATH = "auth_by_email/confirm"
 
-EXPIRATION_TIME = 600
+EXPIRATION_TIME = 60
 
 class TestEmailer(object):
     # Dummy class for sending emails. Prints link instead
@@ -66,6 +66,7 @@ class AuthByEmail(Fixture):
         time_now = calendar.timegm(time.gmtime())
         if (self.current_user):
             if (time_now - activity > EXPIRATION_TIME):
+                print("Session expired")
                 del self.session[EMAIL_KEY]
                 self.flash.set("Login expired")
                 redirect(URL(self.default_path))
@@ -118,13 +119,18 @@ class AuthByEmailEnforcer(Fixture):
         self.__prerequisites__ = [auth.session]
 
     def on_request(self, context):
-        self.auth.on_request(context)
+        activity = self.session.get("recent_activity")
+        time_now = calendar.timegm(time.gmtime())
+        if (self.auth.current_user):
+            if (time_now - activity > EXPIRATION_TIME):
+                print("Session expired")
+                del self.session[EMAIL_KEY]
         if self.session.get(EMAIL_KEY):
             # The user is logged in
             return
         else:
-            # Redirect to log in page
-            redirect(URL(LOGIN_PATH))
+            # Fail
+            raise HTTP(403)
 
     def on_success(self, context):
         self.auth.on_success(context)

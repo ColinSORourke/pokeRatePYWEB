@@ -101,7 +101,7 @@ def get_rating():
     )
 
 @action("set_rating", method='POST')
-@action.uses(session, url_signer.verify(), db, auth.enforce())
+@action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
 def set_rating():
     pokID = request.params.get('pokID')
     rating = request.params.get('rating')
