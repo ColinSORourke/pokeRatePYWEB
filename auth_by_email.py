@@ -14,7 +14,7 @@ LOGOUT_PATH = "auth_by_email/logout"
 WAITING_PATH = "auth_by_email/waiting"
 CONFIRMATION_PATH = "auth_by_email/confirm"
 
-EXPIRATION_TIME = 60
+EXPIRATION_TIME = 900
 
 class TestEmailer(object):
     # Dummy class for sending emails. Prints link instead
