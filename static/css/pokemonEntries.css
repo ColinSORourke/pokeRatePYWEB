@@ -1,3 +1,196 @@
+/****************************************
+MODAL LOGIC
+****************************************/
+
+.modalBG {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(37, 34, 34, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    align-items: center;
+    display: flex;
+}
+
+.modalContent {
+    min-width: 300px;
+    max-height: 75%;
+    width: 50%;
+    max-width: 500px;
+    background-color: white;
+    margin: auto;
+
+    border: solid;
+    border-width: 5px;
+    border-color:black;
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+    box-shadow: -5px 5px 5px rgba(52, 49, 49, 0.75);
+}
+
+/******************************************
+MODAL STARS
+*******************************************/
+
+.modalContent .starContainer{
+    background-color: yellow;
+    position: relative;
+    text-align: center;
+    font-size: 0;
+    width: min-content;
+    font-family: FontAwesome;
+}
+
+.modalContent .filledStars{
+    color: lightgreen;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.modalContent .filledStars i{
+    font-size: 28px;
+}
+
+.modalContent .inputStars{
+    overflow: hidden;
+    white-space: nowrap;
+    direction: rtl;
+}
+
+.modalContent .inputStars input{
+    display: none;
+}
+
+.modalContent .inputStars label::before{
+    content: "\f006";
+    font-size: 28px;
+}
+
+.modalContent .inputStars input:checked ~ label::before{
+    content: "\f005";
+    color: gold;
+}
+
+.modalContent .inputStars label:hover::before{
+    content: "\f005";
+    color: orange !important;
+}
+
+/******************************************
+MODAL STYLE
+*******************************************/
+
+.modalContent .pokeName{
+    margin-top: 5px;
+    font-size: 100%;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.modalContent .pokeNumber{
+    margin-top: -12px;
+    font-size: 85%;
+}
+
+.modalContent img{
+    display: block;
+}
+
+.modalContent .pokeImgContainer{
+    margin-top: -15px;
+}
+
+.modalContent .pokeImg{
+    width: 90%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.modalContent .typesContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+}
+
+.modalContent .typeImg{
+    margin: 3px;
+    width: 80px;
+}
+
+.modalContent .graphContainer {
+    height: 120px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom:5px;
+
+    background-color: white;
+    border: solid;
+    border-width: 5px;
+    border-color:black;
+    border-radius: 10px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+
+    display:grid;
+    grid-template-rows: 7fr 1fr;
+
+    font-size: 12px;
+}
+
+.modalContent .ratingGraph {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 8px;
+
+    padding-left: 4px;
+    padding-right: 4px;
+
+    align-items: flex-end;
+    border-bottom: solid 2px black;
+}
+
+.modalContent .ratingGraph .bar{
+    position: relative;
+
+    background-color: yellow;
+    border-top: solid 3px orange;
+    border-left: solid 3px orange;
+    border-right: solid 3px orange;
+
+    line-height: 1.25em;
+}
+
+.modalContent .ratings {
+    display: flex;
+    width: min-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modalContent .favorites {
+    background-color: blue;
+}
+
+.modalContent .ratingLabels{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 8px;
+
+    line-height: 1.25em;
+}
+
+/******************************************
+
+*******************************************/
+
 .category {
     text-align: center;
 }
@@ -73,10 +266,6 @@ STAR LOGIC
     content: "\f005";
     color: orange !important;
 }
-
-
-
-
 
 /****************
 
@@ -155,4 +344,3 @@ NOTIFS CODE
       top: 45px;
     }
 }
-
