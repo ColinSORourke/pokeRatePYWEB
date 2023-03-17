@@ -10,10 +10,16 @@
     </Transition>
     <div class="modalBG">
         <div class="modalContent">
+            <i class="fa fa-times"></i>
             <div class="pokeName">Bulbasaur</div>
             <div class="pokeNumber">#0001</div>
             <div class="pokeImgContainer">
-                <img src="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                <div class="imgArrows">
+                    <i class="fa fa-arrow-left" style="opacity: 0.1;"></i>
+                    <img src="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    <i class="fa fa-arrow-right"></i>
+                </div>  
+                
                 <div class="typesContainer">
                     <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
                     <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
@@ -50,11 +56,11 @@
             
             <div class="graphContainer">
                 <div class="ratingGraph">
-                    <div class="bar" style="height: 50%"> <span>5</span> </div>
-                    <div class="bar" style="height: 20%"> <span>10</span> </div>
-                    <div class="bar" style="height: 100%"> <span>15</span> </div>
-                    <div class="bar" style="height: 35%"> <span>25</span> </div>
-                    <div class="bar" style="height: 75%"> <span>20</span> </div>
+                    <div class="bar" style="height: 50%"> <div>5</div> </div>
+                    <div class="bar" style="height: 0%"> <div>10</div>  </div>
+                    <div class="bar" style="height: 100%"> <div>15</div>  </div>
+                    <div class="bar" style="height: 35%"> <div>20</div>  </div>
+                    <div class="bar" style="height: 75%"> <div>25</div>  </div>
                 </div>
                 <div class="ratingLabels">
                     <div>1-star</div>

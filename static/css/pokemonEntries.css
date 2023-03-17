@@ -6,7 +6,7 @@ MODAL LOGIC
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: rgba(37, 34, 34, 0.5);
+    background-color: rgba(37, 34, 34, 0.75);
     width: 100%;
     height: 100%;
     z-index: 1;
@@ -15,20 +15,17 @@ MODAL LOGIC
 }
 
 .modalContent {
-    min-width: 300px;
-    max-height: 75%;
-    width: 50%;
-    max-width: 500px;
+    position: relative;
+    width: 500px;
     background-color: white;
     margin: auto;
 
     border: solid;
-    border-width: 5px;
+    border-width: 8px;
     border-color:black;
     border-radius: 10px;
     text-align: center;
     align-items: center;
-    box-shadow: -5px 5px 5px rgba(52, 49, 49, 0.75);
 }
 
 /******************************************
@@ -85,18 +82,32 @@ MODAL STYLE
 
 .modalContent .pokeName{
     margin-top: 5px;
-    font-size: 100%;
+    font-size: 28px;
     font-weight: bold;
     white-space: nowrap;
 }
 
-.modalContent .pokeNumber{
-    margin-top: -12px;
-    font-size: 85%;
+.modalContent .fa-times {
+    font-size: 40px;
+    position: absolute;
+    top: 0px;
+    right: 5px;
 }
 
-.modalContent img{
-    display: block;
+.modalContent .pokeNumber{
+    margin-top: -6px;
+    font-size: 18px;
+}
+
+.modalContent .imgArrows{
+    display: flex;
+    align-items: center;
+}
+
+.modalContent .imgArrows i{
+    font-size: 40px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .modalContent .pokeImgContainer{
@@ -114,12 +125,12 @@ MODAL STYLE
 .modalContent .typesContainer{
     display: flex;
     justify-content: center;
-    margin-top: -20px;
+    margin-top: -24px;
 }
 
 .modalContent .typeImg{
-    margin: 3px;
-    width: 80px;
+    margin: 6px;
+    width: 100px;
 }
 
 .modalContent .graphContainer {
@@ -137,7 +148,7 @@ MODAL STYLE
 
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 10px;
+    padding-top: 15px;
 
     display:grid;
     grid-template-rows: 7fr 1fr;
@@ -148,10 +159,10 @@ MODAL STYLE
 .modalContent .ratingGraph {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 8px;
+    grid-gap: 16px;
 
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
 
     align-items: flex-end;
     border-bottom: solid 2px black;
@@ -166,6 +177,10 @@ MODAL STYLE
     border-right: solid 3px orange;
 
     line-height: 1.25em;
+}
+
+.modalContent .ratingGraph .bar div{
+    margin-top: -15px;
 }
 
 .modalContent .ratings {
