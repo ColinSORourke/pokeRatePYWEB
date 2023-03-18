@@ -60,6 +60,12 @@ MODAL STARS
     font-size: 40px;
 }
 
+@media (max-width:600px){
+    .modalContent .filledStars i{
+        font-size: 28px;
+    }
+}
+
 /* allows us to use ::before to change multiple stars at once in the correct direction */
 .modalContent .inputStars{
     direction: rtl;
@@ -74,6 +80,12 @@ MODAL STARS
 .modalContent .inputStars label::before{
     content: "\f006";
     font-size: 40px;
+}
+
+@media (max-width:600px){
+    .modalContent .inputStars label::before{
+        font-size: 28px;
+    }
 }
 
 /* Full stars on this and all stars to the left when checked */
@@ -149,6 +161,12 @@ MODAL STYLE
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+}
+
+@media (max-width:600px){
+    .modalContent .pokeImg{
+        max-width: 250px;
+    }
 }
 
 /* Container with one or two type images */
@@ -262,10 +280,16 @@ MODAL STYLE
     text-align: center;
     margin: 10px;
     align-items: center;
-    max-width: 200px;
+    width: 200px;
     box-shadow: -5px 5px 5px rgba(52, 49, 49, 0.75);
 
     transition: all .2s ease-in-out;
+}
+
+@media (max-width:600px) {
+    .pokemon_entry {
+      width: 160px;
+    }
 }
 
 .pokemon_entry:hover{
@@ -365,6 +389,12 @@ STAR LOGIC
 .pokemon_entry .typeImg{
     margin: 3px;
     width: 80px;
+}
+
+@media (max-width:600px) {
+    .pokemon_entry .typeImg {
+      width: 60px;
+    }
 }
 
 /**************************
