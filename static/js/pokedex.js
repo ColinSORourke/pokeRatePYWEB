@@ -17,6 +17,8 @@ let init = (app) => {
         ratingCount: 0,
         showNotif: false,
         fadeCountdown: 0,
+        showModal: false,
+        modalPokemon: dexJSON["Pokemon"][0]
         // Complete as you see fit.
     };
 
@@ -53,7 +55,7 @@ let init = (app) => {
             return (p.userRating == i)
         },
         ratePok(p, i){
-            axios.post(set_rating_url, {pokID: p.id, rating: i}).then((response) => {
+            axios.post(set_rating_url, {"pokID": p.id, "rating": i}).then((response) => {
                 app.vue.showNotif = true;
 
                 app.vue.fadeCountdown += 3;
@@ -76,9 +78,54 @@ let init = (app) => {
                     app.vue.ratingText = "Rating Received!"
                 }
             }).catch((error) => {
+                console.log(error)
                 alert("Log in to post ratings!")
             })
         },
+        toggleModal(p){
+            app.vue.showModal = !app.vue.showModal;
+            app.vue.modalPokemon = p;
+        },
+        incrementModal(i){
+            p = app.vue.modalPokemon;
+            if (p.categoryIndex + i > app.vue.pokemonPerCategory[p["category"]].length){
+                // Do nothing
+            }
+            else if (p.categoryIndex + i < 0){
+                // Do nothing
+            } 
+            else {
+                app.vue.modalPokemon = app.vue.pokemonPerCategory[p["category"]][p.categoryIndex + i];
+            }
+            
+        },
+        barHeight(i){
+            p = app.vue.modalPokemon;
+            let maxRates = 0;
+            let j = 0;
+            while (j < 5){
+                if (p.ratings[j] > maxRates){
+                    maxRates = p.ratings[j];
+                }
+                j += 1;
+            }
+            if(maxRates == 0){
+                maxRates = 1;
+            }
+            return "height: " + (p.ratings[i-1]/maxRates) * 100 + "%;"
+        },
+        hideLeftArrow(){
+            if(app.vue.modalPokemon.categoryIndex == 0){
+                return "opacity: 0; cursor: auto;"
+            }
+            return ""
+        },
+        hideRightArrow(){
+            if(app.vue.modalPokemon.categoryIndex + 1 == app.vue.pokemonPerCategory[app.vue.modalPokemon["category"]].length){
+                return "opacity: 0; cursor: auto;"
+            }
+            return ""
+        }
     };
 
     // This creates the Vue instance.
@@ -95,6 +142,7 @@ let init = (app) => {
             pok.globalAverage = 2.5;
             pok.userRating = 0;
             pok.userFavorite = false;
+            pok.categoryIndex = 0;
         })
     }
 
@@ -150,6 +198,7 @@ let init = (app) => {
                 currPoke = app.data.myPokemon[i];
                 if (currPoke["category"] != "Ignore"){
                     pokemonPerCategory[currPoke["category"]].push(currPoke);
+                    currPoke.categoryIndex = pokemonPerCategory[currPoke["category"]].length - 1
                 }
                 i += 1
             }
@@ -167,3 +216,5 @@ let init = (app) => {
 // This takes the (empty) app object, and initializes it,
 // putting all the code i
 init(app);
+
+

@@ -12,4 +12,6 @@ static/js/axios.min.map
 static/js/sugar.js
 static/js/sugar.min.js
 static/js/vue.js
+static/js/utils.js
 static/font-awesome-4.7.0
+static/js/vue-lazyload

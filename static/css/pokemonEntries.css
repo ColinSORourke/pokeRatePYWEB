@@ -108,6 +108,11 @@ MODAL STYLE
     right: 5px;
 }
 
+.modalContent .fa-times:hover {
+    cursor: pointer;
+    color: red;
+}
+
 /* pokemon number */
 .modalContent .pokeNumber{
     margin-top: -6px;
@@ -125,6 +130,12 @@ MODAL STYLE
     font-size: 40px;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
+}
+
+.modalContent .imgArrows i:hover{
+    cursor: pointer;
+    color: red;
 }
 
 /* allow the image to overlap number some */
@@ -253,6 +264,13 @@ MODAL STYLE
     align-items: center;
     max-width: 200px;
     box-shadow: -5px 5px 5px rgba(52, 49, 49, 0.75);
+
+    transition: all .2s ease-in-out;
+}
+
+.pokemon_entry:hover{
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 /******************************************

@@ -8,27 +8,29 @@
     <Transition name="notify">
         <div v-if="showNotif" class="notifs">{{ratingText}}</div>
     </Transition>
-    <div class="modalBG">
+    <div v-if="showModal" class="modalBG">
         <div class="modalContent">
-            <i class="fa fa-times"></i>
-            <div class="pokeName">Bulbasaur</div>
-            <div class="pokeNumber">#0001</div>
+            <i class="fa fa-times" @click="showModal = false"></i>
+            <div class="pokeName">{{modalPokemon.fullname}}</div>
+            <div class="pokeNumber">{{ pokemonNumber(modalPokemon) }}</div>
             <div class="pokeImgContainer">
                 <div class="imgArrows">
-                    <i class="fa fa-arrow-left" style="opacity: 0.1;"></i>
-                    <img src="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
-                    <i class="fa fa-arrow-right"></i>
+                    <i class="fa fa-arrow-left" :style="hideLeftArrow()" @click="incrementModal(-1)"></i>
+                    <img :src="pokemonImagePath(modalPokemon)" class="pokeImg">
+                    <i class="fa fa-arrow-right" :style="hideRightArrow()" @click="incrementModal(1)"></i>
                 </div>  
                 
-                <div class="typesContainer">
-                    <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
-                    <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
-                </div>
+                
+            </div>
+
+            <div class="typesContainer">
+                <div class="typeContainer"><img :src="typeImagePath(modalPokemon, 0)" class="typeImg"></div>
+                <div v-if="modalPokemon.types.length == 2" class="typeContainer"><img :src="typeImagePath(modalPokemon, 1)" class="typeImg"></div>
             </div>
 
             <div class="ratings">
                 <div class="starContainer">
-                    <div class="filledStars" style="width: 50%">
+                    <div class="filledStars" :style="widthPerc(modalPokemon)">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -36,17 +38,17 @@
                         <i class="fa fa-star"></i>
                     </div>
                     <div class="inputStars">
-                        <input type="radio" value="5"><label class="fa fa-star-o"></label>
-                        <input type="radio" value="4"><label class="fa fa-star-o"></label>
-                        <input type="radio" value="3"><label class="fa fa-star-o"></label>
-                        <input type="radio" value="2"><label class="fa fa-star-o"></label>
-                        <input type="radio" value="1"><label class="fa fa-star-o"></label>
+                        <input type="radio" :id="starIDRate(5)" value="5" :name="starID(modalPokemon)" :checked="check(modalPokemon, 5)"><label @click="ratePok(modalPokemon, 5)" class="fa fa-star-o" :for="starIDRate(modalPokemon, 5)"></label>
+                        <input type="radio" :id="starIDRate(4)" value="4" :name="starID(modalPokemon)" :checked="check(modalPokemon, 4)"><label @click="ratePok(modalPokemon, 5)" class="fa fa-star-o" :for="starIDRate(modalPokemon, 5)"></label>
+                        <input type="radio" :id="starIDRate(3)" value="3" :name="starID(modalPokemon)" :checked="check(modalPokemon, 3)"><label @click="ratePok(modalPokemon, 5)" class="fa fa-star-o" :for="starIDRate(modalPokemon, 5)"></label>
+                        <input type="radio" :id="starIDRate(2)" value="2" :name="starID(modalPokemon)" :checked="check(modalPokemon, 2)"><label @click="ratePok(modalPokemon, 5)" class="fa fa-star-o" :for="starIDRate(modalPokemon, 5)"></label>
+                        <input type="radio" :id="starIDRate(1)" value="1" :name="starID(modalPokemon)" :checked="check(modalPokemon, 1)"><label @click="ratePok(modalPokemon, 5)" class="fa fa-star-o" :for="starIDRate(modalPokemon, 5)"></label>
                     </div>
                 </div>
                 <div class="favorites">
                     <div class="favoriteCount">
                         <div>Favorites</div>
-                        <div>5</div>
+                        <div>{{modalPokemon.ratings[5]}}</div>
                     </div>
                     <div class="favButton">
                         Favorite
@@ -56,11 +58,11 @@
             
             <div class="graphContainer">
                 <div class="ratingGraph">
-                    <div class="bar" style="height: 50%"> <div>5</div> </div>
-                    <div class="bar" style="height: 0%"> <div>10</div>  </div>
-                    <div class="bar" style="height: 100%"> <div>15</div>  </div>
-                    <div class="bar" style="height: 35%"> <div>20</div>  </div>
-                    <div class="bar" style="height: 75%"> <div>25</div>  </div>
+                    <div class="bar" :style="barHeight(1)"> <div>{{modalPokemon.ratings[0]}}</div> </div>
+                    <div class="bar" :style="barHeight(2)"> <div>{{modalPokemon.ratings[1]}}</div>  </div>
+                    <div class="bar" :style="barHeight(3)"> <div>{{modalPokemon.ratings[2]}}</div>  </div>
+                    <div class="bar" :style="barHeight(4)"> <div>{{modalPokemon.ratings[3]}}</div>  </div>
+                    <div class="bar" :style="barHeight(5)"> <div>{{modalPokemon.ratings[4]}}</div>  </div>
                 </div>
                 <div class="ratingLabels">
                     <div>1-star</div>
@@ -79,15 +81,16 @@
         <div v-for="c in myCategories" class="category">
             <h2>{{c.title}}</h2>
             <div class="pokemon_list">
-                <div v-for="p in pokemonPerCategory[c.title]" class="pokemon_entry">
+                <div v-for="p in pokemonPerCategory[c.title]" class="pokemon_entry" @click="toggleModal(p)">
                     <div class="pokeName">{{p.fullname}}</div>
                     <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
-                    <div class="pokeImgContainer">
-                        <img :src="pokemonImagePath(p)" class="pokeImg">
-                        <div class="typesContainer">
-                            <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
-                            <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
-                        </div>
+                    <div v-lazyload class="pokeImgContainer">
+                        <img :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    </div>
+
+                    <div class="typesContainer">
+                        <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                        <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
                     </div>
                     
                     <div class="starContainer">
