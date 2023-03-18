@@ -84,8 +84,8 @@
                 <div v-for="p in pokemonPerCategory[c.title]" class="pokemon_entry" @click="toggleModal(p)">
                     <div class="pokeName">{{p.fullname}}</div>
                     <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
-                    <div v-lazyload class="pokeImgContainer">
-                        <img :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    <div class="pokeImgContainer">
+                        <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
                     </div>
 
                     <div class="typesContainer">
