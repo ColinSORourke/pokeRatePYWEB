@@ -1,3 +1,4 @@
+import VueLazyload from 'vue-lazyload'
 // This will be the object that will contain the Vue attributes
 // and be used to initialize it.
 let app = {};
