@@ -55,7 +55,16 @@ let init = (app) => {
             return (p.userRating == i)
         },
         ratePok(p, i){
-            axios.post(set_rating_url, {"pokID": p.id, "rating": i}).then((response) => {
+            var postData = {"pokID": p.id, "rating": i};
+              
+            let axiosConfig = {
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*",
+                }
+            };
+
+            axios.post(set_rating_url, postData, axiosConfig).then((response) => {
                 app.vue.showNotif = true;
 
                 app.vue.fadeCountdown += 3;
@@ -79,7 +88,8 @@ let init = (app) => {
                 }
             }).catch((error) => {
                 console.log(error)
-                alert("Log in to post ratings!")
+
+                axios.post(post_url)
             })
         },
         toggleModal(p){

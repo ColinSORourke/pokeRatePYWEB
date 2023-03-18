@@ -48,12 +48,13 @@ def pokedex():
         data = json.load(f)
     return dict(
         dexJSON = json.dumps(data),
+        post_url = URL('post'),
         get_rating_url = URL('get_rating', signer=url_signer),
         set_rating_url = URL('set_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer) 
     )
 
-@action("setup")
+@action("setup", method='POST')
 @action.uses(db)
 def setup():
     db(db.ratings).delete()
@@ -72,6 +73,11 @@ def setup():
     #        )
     #        j += 1
     #    i += 1
+    return "ok"
+
+@action("post", method='POST')
+def setup():
+    print("Posted")
     return "ok"
 
 @action("get_rating")
