@@ -45,6 +45,9 @@ let init = (app) => {
         starIDRate(p, i){
             return "star" + i + "_" + p['id'];
         },
+        faveID(p){
+            return "fave" + p['id'];
+        },
         typeImagePath(p, i) {
             return "images/Types/" + p.types[i] + "_en.png";
         },
@@ -56,15 +59,7 @@ let init = (app) => {
         },
         ratePok(p, i){
             var postData = {"pokID": p.id, "rating": i};
-              
-            let axiosConfig = {
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    "Access-Control-Allow-Origin": "*",
-                }
-            };
-
-            axios.post(set_rating_url, postData, axiosConfig).then((response) => {
+            axios.post(set_rating_url, postData).then((response) => {
                 app.vue.showNotif = true;
 
                 app.vue.fadeCountdown += 3;
@@ -88,8 +83,7 @@ let init = (app) => {
                 }
             }).catch((error) => {
                 console.log(error)
-
-                axios.post(post_url)
+                alert("Log in to post ratings!")
             })
         },
         toggleModal(p){

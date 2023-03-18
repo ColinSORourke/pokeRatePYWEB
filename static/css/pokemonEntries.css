@@ -100,6 +100,20 @@ MODAL STARS
     color: orange !important;
 }
 
+
+.modalContent .favorites input{
+    display: none;
+} 
+
+.modalContent .favorites label::before{
+    content: "\f08a";
+    font-size: 40px;
+}
+
+.modalContent .favorites input:checked ~ label::before{
+    content: "\f004";
+}
+
 /******************************************
 MODAL STYLE
 *******************************************/
@@ -424,7 +438,7 @@ NOTIFS CODE
     border-radius: 5px;
     top: 80px;
     left: 5px;
-    z-index: 1;
+    z-index: 2;
 }
 
 @media (max-width:600px) {

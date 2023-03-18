@@ -54,15 +54,16 @@ def pokedex():
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer) 
     )
 
-@action("setup", method='POST')
+@action("setup")
 @action.uses(db)
 def setup():
     db(db.ratings).delete()
+    db(db.derived_ratings).delete()
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
     i = 0
     emails = ["colin.orourke@icloud.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
-    # while (i < len(data['Pokemon'])):
+    while (i < len(data['Pokemon'])):
     #    j = 0
     #    while (j < 3):
     #        ran = random.randint(1,5)
@@ -72,7 +73,10 @@ def setup():
     #            rating = ran
     #        )
     #        j += 1
-    #    i += 1
+        db.derived_ratings.insert(
+            pokemon = data['Pokemon'][i]['id']
+        )
+        i += 1
     return "ok"
 
 @action("post", method='POST')
@@ -122,16 +126,21 @@ def set_rating():
         return "ok"
     elif (rating == 6):
         #stuff
-        if ( db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email())).count() <= 10 ):
-            db.ratings.insert(
-                pokemon=pokID,
-                rater = get_user_email(),
-                rating=rating,
-            )
-            return "ok"
+        mySet = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()))
+        thisRate = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()) & (db.ratings.pokemon == pokID))
+        if (mySet.count() < 10):
+            if (thisRate.count() == 0):
+                db.ratings.insert(
+                    pokemon = pokID,
+                    rater = get_user_email(),
+                    rating = 6
+                )
+                return "ok"
+            else:
+                thisRate.delete()
+                return "Ok"
         else:
-            # Failure due to already having 10 favorites
-            return "failure"
+            return "bad"
     return "ok"
 
 @action("get_all_ratings")
