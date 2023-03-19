@@ -10,7 +10,7 @@
    <div class="highlight">
       <h1>Highlight</h1>
       <div class="pokemon_list">
-         <a v-if="highlightPoke != null" :href="dexPath(highlightPoke)">
+         <a v-if="highlightPoke != null" :href="dexPath(highlightPoke)" data-interception="off">
             <div class="pokemon_entry">
                <i v-if="highlightPoke.userFavorite" class="fa fa-heart"></i>
                <div class="pokeName">{{highlightPoke.fullname}}</div>
@@ -47,7 +47,7 @@
    <div id="randoms">
       <h1>Randoms!</h1>
       <div class="pokemon_list">
-         <a v-for="p in randomPokes" :href="dexPath(p)">
+         <a v-for="p in randomPokes" :href="dexPath(p)" data-interception="off">
             <div class="pokemon_entry" >
                <i v-if="p.userFavorite"class="fa fa-heart"></i>
                <div class="pokeName">{{p.fullname}}</div>

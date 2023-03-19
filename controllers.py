@@ -35,7 +35,10 @@ from .common import db, session, T, cache, logger, flash
 from .common import auth, url_signer
 from .models import get_user_email
 
+
+
 @action('home')
+@action('index')
 @action.uses('home.html', session, auth.flash, url_signer, db, auth)
 def index():
     with open('apps/pokeRate/static/FullDex.json') as f:
