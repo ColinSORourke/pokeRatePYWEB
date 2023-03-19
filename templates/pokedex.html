@@ -52,7 +52,7 @@
                         <i class="fa fa-heart fa-stack-2x" ></i>
                         <strong class="fa-stack-1x">{{modalPokemon.ratings[5]}}</strong>
                     </span>
-                    <input type="checkbox" id="modalHeart" value="6" name="favorite" :checked="modalPokemon.userFavorite"><label @click="ratePok(modalPokemon, 6)" class="fa fa-heart-o" for="modalHeart"></label>
+                    <input type="checkbox" id="modalHeart" value="6" name="favorite" v-model="modalPokemon.userFavorite"><label @click="ratePok(modalPokemon, 6)" class="fa fa-heart-o" for="modalHeart"></label>
                 </div>
             </div>
             

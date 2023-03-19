@@ -57,8 +57,6 @@ def index():
 
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
     sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
-    print(sqlA)
-    print(sqlB)
 
     pokeRatings = db.executesql(sqlA)
     userRatings = db.executesql(sqlB)
@@ -90,7 +88,6 @@ def pokedex():
 @action("pokedex/<number>")
 @action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
 def pokedex(number):
-    print(number)
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
     return dict(
@@ -117,7 +114,7 @@ def setup():
             pokemon = data['Pokemon'][i]['id']
         )
         j = 0
-        while (j < 10):
+        while (j < 5):
             ran = random.randint(1,5)
             db.ratings.insert(
                 pokemon = data['Pokemon'][i]['id'],
@@ -173,24 +170,25 @@ def set_rating():
             rater = get_user_email(),
             rating=rating,
         )
-        return "ok"
+        return "Rating Received!"
     elif (rating == 6):
         #stuff
         mySet = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()))
         thisRate = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()) & (db.ratings.pokemon == pokID))
-        if (mySet.count() < 10):
-            if (thisRate.count() == 0):
+        if (thisRate.count() == 0):
+            if (mySet.count() < 10):
                 db.ratings.insert(
                     pokemon = pokID,
                     rater = get_user_email(),
                     rating = 6
                 )
-                return "ok"
+                return "Favorite Received!"
             else:
-                thisRate.delete()
-                return "Ok"
+                return "10 favorites already!"
         else:
-            return "bad"
+            thisRate.delete()
+            return "Favorite removed!"
+            
     return "ok"
 
 @action("get_all_ratings")
@@ -198,7 +196,6 @@ def set_rating():
 def get_all_ratings():
     allRatings = db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon)
     userRatings = db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon)
-    print(len(allRatings))
     return dict(
         allRatings = allRatings,
         userRatings = userRatings

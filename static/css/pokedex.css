@@ -151,8 +151,7 @@ MODAL STARS
 }
 
 .modalContent .favorites label::before{
-    content: "\f08a";
-    
+    content: "\f08a" ; 
 }
 
 @media (max-width:600px){

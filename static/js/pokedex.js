@@ -60,27 +60,29 @@ let init = (app) => {
         ratePok(p, i){
             var postData = {"pokID": p.id, "rating": i};
             axios.post(set_rating_url, postData).then((response) => {
-                app.vue.showNotif = true;
-
-                app.vue.fadeCountdown += 3;
-                setTimeout(function () {
-                    console.log("3 Seconds passed")
-                    app.vue.fadeCountdown -= 3;
-                    if (app.vue.fadeCountdown == 0){
-                        console.log("Begin Fade")
-                        app.vue.showNotif = false;
-                        app.vue.ratingCount = 0;
-                    }
-                }, 3000)
-
-                app.vue.ratingCount += 1;
-                
-                console.log(app.vue.ratingCount)
-                if (app.vue.ratingCount > 1){
-                    app.vue.ratingText = "Rating Received! (" + app.vue.ratingCount + ")";
+                if (response.data == "10 favorites already!"){
+                    alert("Max number of favorites!")
                 } else {
-                    app.vue.ratingText = "Rating Received!"
+                    app.vue.showNotif = true;
+                    app.vue.fadeCountdown += 3;
+                    setTimeout(function () {
+                        app.vue.fadeCountdown -= 3;
+                        if (app.vue.fadeCountdown == 0){
+                            app.vue.showNotif = false;
+                            app.vue.ratingCount = 0;
+                        }
+                    }, 3000)
+
+                    app.vue.ratingCount += 1;
+                
+                    if (app.vue.ratingCount > 1){
+                        app.vue.ratingText =  response.data + "(" + app.vue.ratingCount + ")";
+                    } else {
+                        app.vue.ratingText = response.data
+                    }
                 }
+
+                
             }).catch((error) => {
                 console.log(error)
                 alert("Log in to post ratings!")
@@ -167,11 +169,8 @@ let init = (app) => {
 
         app.addRateData(app.data.myPokemon)
         axios.get(get_all_ratings_url).then((result) => {
-            console.log(result.data.allRatings)
-            console.log(result.data.userRatings)
-            
             id_map = {};
-
+            console.log(result.data.userRatings)
             derived_rates = result.data.allRatings;
             i = 0;
             while (i < result.data.allRatings.length){
