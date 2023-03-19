@@ -35,11 +35,44 @@ from .common import db, session, T, cache, logger, flash
 from .common import auth, url_signer
 from .models import get_user_email
 
-@action('index')
-@action.uses('index.html', session, auth.flash, db, auth)
+@action('home')
+@action.uses('home.html', session, auth.flash, url_signer, db, auth)
 def index():
-    print("User: ", get_user_email())
-    return dict()
+    with open('apps/pokeRate/static/FullDex.json') as f:
+        data = json.load(f)
+    i = 0
+    randomPokes = []
+    highlightPoke = None
+    pokIDs = ""
+    while (i < 4):
+        randomInd = random.randint(0, len(data['Pokemon']) - 1)
+        randomPoke = data['Pokemon'][randomInd]
+        if (randomPoke['significantForm']):
+            randomPokes.append(randomPoke)
+            pokIDs += "'" + randomPoke['id'] + "'," 
+            i += 1
+
+    highlightPoke = data['Pokemon'][181]
+    pokIDs += "'" + highlightPoke['id'] + "'"
+
+    sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
+    sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
+    print(sqlA)
+    print(sqlB)
+
+    pokeRatings = db.executesql(sqlA)
+    userRatings = db.executesql(sqlB)
+
+    return dict(
+        randomJSON = json.dumps(randomPokes),
+        highlightJSON = json.dumps(highlightPoke),
+        pokeRatings = json.dumps(pokeRatings),
+        userRatings = json.dumps(userRatings),
+        get_rating_url = URL('get_rating', signer=url_signer),
+        set_rating_url = URL('set_rating', signer=url_signer),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
+        pokedex_url = URL('pokedex')
+    )
 
 @action("pokedex") # "Website/Pokerate/pokedex"
 @action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
@@ -48,7 +81,6 @@ def pokedex():
         data = json.load(f)
     return dict(
         dexJSON = json.dumps(data),
-        post_url = URL('post'),
         get_rating_url = URL('get_rating', signer=url_signer),
         set_rating_url = URL('set_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),

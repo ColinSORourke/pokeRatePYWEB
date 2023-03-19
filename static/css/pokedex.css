@@ -1,0 +1,336 @@
+/****************************************
+MODAL LOGIC
+****************************************/
+
+
+/* Tinted background covering whole page*/
+.modalBG {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(37, 34, 34, 0.75);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    align-items: center;
+    display: flex;
+}
+
+/* Modal box itself. */
+.modalContent {
+    position: relative;
+    width: 500px;
+    background-color: white;
+    margin: auto;
+
+    border: solid;
+    border-width: 8px;
+    border-color:black;
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+/******************************************
+MODAL STARS
+*******************************************/
+
+/* Container for the stars */
+/* Font Size 0 determines space between stars.*/
+.modalContent .starContainer{
+    position: relative;
+    text-align: center;
+    font-size: 16px;
+    width: min-content;
+    font-family: FontAwesome;
+    line-height: 1em;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.modalContent .starContainer p{
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* Stars showing general rating. Hiding overflow & Nowrap allow us to show a star% by setting width%*/
+.modalContent .filledStars{
+    color: lightgreen;
+    overflow: hidden;
+    font-size: 0px;
+    white-space: nowrap;
+}
+
+/* Font size here determines size of stars without changing space between stars*/
+.modalContent .filledStars i{
+    font-size: 40px;
+}
+
+@media (max-width:600px){
+    .modalContent .filledStars i{
+        font-size: 28px;
+    }
+}
+
+/* allows us to use ::before to change multiple stars at once in the correct direction */
+.modalContent .inputStars{
+    direction: rtl;
+    font-size: 0px;
+}
+
+/* hide regular input radios */
+.modalContent .inputStars input{
+    display: none;
+}
+
+/* default to empty stars. */
+.modalContent .inputStars label::before{
+    content: "\f006";
+    font-size: 40px;
+}
+
+@media (max-width:600px){
+    .modalContent .inputStars label::before{
+        font-size: 28px;
+    }
+}
+
+/* Full stars on this and all stars to the left when checked */
+.modalContent .inputStars input:checked ~ label::before{
+    content: "\f005";
+    color: gold;
+}
+
+/* different color full star for hover. Important to override CSS normal specificity hierarchy */
+.modalContent .inputStars label:hover::before{
+    content: "\f005";
+    color: orange !important;
+}
+
+.modalContent .favorites input{
+    display: none;
+} 
+
+.modalContent .favorites i{
+    font-size: 60px;
+    color:pink;
+    margin-left: -12px;
+    margin-top: -15px;
+}
+
+@media (max-width:600px){
+    .modalContent .favorites i{
+        font-size: 45px;
+        margin-left: -4px;
+    }
+}
+
+.modalContent .favorites span{
+    justify-self: center;
+    font-size: 16px;
+}
+
+.modalContent .favorites strong{
+    left: 2px;
+}
+
+@media (max-width:600px){
+    .modalContent .favorites strong{
+        font-size: 14px;
+        margin-top: -10px;
+    }
+}
+
+.modalContent .favorites label{
+    content: "\f08a";
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 32px;
+}
+
+.modalContent .favorites label::before{
+    content: "\f08a";
+    
+}
+
+@media (max-width:600px){
+    .modalContent .favorites label{
+        margin-top: 0px;
+    }
+}
+
+
+.modalContent .favorites input:checked ~ label::before{
+    content: "\f004";
+    color: red;
+}
+
+/******************************************
+MODAL STYLE
+*******************************************/
+
+/* Name of pokemon. Nowrap so long names never go multiple lines */
+.modalContent .pokeName{
+    margin-top: 5px;
+    font-size: 28px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* X icon in top right. */
+.modalContent .fa-times {
+    font-size: 40px;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+}
+
+.modalContent .fa-times:hover {
+    cursor: pointer;
+    color: red;
+}
+
+/* pokemon number */
+.modalContent .pokeNumber{
+    margin-top: -6px;
+    font-size: 18px;
+}
+
+/* Container with pokemon image, and left/right arrows */
+.modalContent .imgArrows{
+    display: flex;
+    align-items: center;
+}
+
+/* arrows themselves */
+.modalContent .imgArrows i{
+    font-size: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.modalContent .imgArrows i:hover{
+    cursor: pointer;
+    color: red;
+}
+
+/* allow the image to overlap number some */
+.modalContent .pokeImgContainer{
+    margin-top: -15px;
+}
+
+/* full image */
+.modalContent .pokeImg{
+    width: 90%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width:600px){
+    .modalContent .pokeImg{
+        max-width: 250px;
+    }
+}
+
+/* Container with one or two type images */
+.modalContent .typesContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: -24px;
+}
+
+/* size of type images */
+.modalContent .typeImg{
+    margin: 6px;
+    width: 100px;
+}
+
+/* Star graph at the bottom. */
+.modalContent .graphContainer {
+    height: 120px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom:5px;
+
+    background-color: white;
+    border: solid;
+    border-width: 3px;
+    border-color:black;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+
+    display:grid;
+    grid-template-rows: 7fr 1fr;
+
+    font-size: 12px;
+}
+
+/* bar part of graph */ 
+.modalContent .ratingGraph {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 16px;
+
+    padding-left: 8px;
+    padding-right: 8px;
+
+    align-items: flex-end;
+    border-bottom: solid 2px black;
+}
+
+.modalContent .ratingGraph .bar{
+    position: relative;
+
+    background-color: yellow;
+    border-top: solid 3px orange;
+    border-left: solid 3px orange;
+    border-right: solid 3px orange;
+
+    line-height: 1.25em;
+}
+
+.modalContent .ratingGraph .bar div{
+    margin-top: -16px;
+}
+
+/* label part of graph */
+.modalContent .ratings {
+    display: flex;
+    width: min-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modalContent label{
+    cursor: pointer;
+}
+
+.modalContent .favorites {
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 1em;
+    vertical-align: auto;
+}
+
+.modalContent .ratingLabels{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 8px;
+    line-height: 2em
+}
+
+/******************************************
+
+*******************************************/
+
+.category {
+    text-align: center;
+}

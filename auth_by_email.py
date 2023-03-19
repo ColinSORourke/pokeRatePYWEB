@@ -23,7 +23,7 @@ class TestEmailer(object):
 
 class AuthByEmail(Fixture):
 
-    def __init__(self, session, url_signer, emailer=None, default_path='index'):
+    def __init__(self, session, url_signer, emailer=None, default_path='home'):
         self.session = session
         self.emailer = emailer or TestEmailer()
         self.url_signer = url_signer

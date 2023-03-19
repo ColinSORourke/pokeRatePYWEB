@@ -1,0 +1,60 @@
+#vue-target{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+@media (min-width: 800px){
+    #vue-target {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 15px;
+    }
+}
+
+a .pokemon_entry {
+    color: black;
+}
+
+#randoms{
+    width: 100%;
+    height: 100%;
+}
+
+#randoms h1{
+    font-size: 40px;
+}
+
+.highlight{
+
+    width: 100%;
+    height: 100%;
+}
+
+.highlight .pokemon_entry{
+    width: 300px;
+    box-shadow: -5px 5px 10px rgba(239, 255, 134, 0.75);
+}
+
+.highlight .pokemon_entry .pokeName{
+    font-size: 25px;
+}
+
+.highlight .pokemon_entry .pokeName{
+    font-size: 18px;
+}
+
+.highlight h1{
+    font-size: 40px;
+}
+
+.about{
+
+    width: 100%;
+    height: 100%;
+}
+
+.about h1 {
+    font-size: 40px;
+}

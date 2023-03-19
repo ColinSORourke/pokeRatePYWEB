@@ -1,7 +1,7 @@
 [[extend 'layout.html']]
 
 <link rel="stylesheet" href="css/pokemonEntries.css">
-
+<link rel="stylesheet" href="css/pokedex.css">
 
 
 <div id="vue-target">
@@ -126,7 +126,6 @@
 [[block page_scripts]]
 <script>
     let dexJSON = [[=XML(dexJSON)]]
-    let post_url = "[[=XML(post_url)]]"
     let get_rating_url = "[[=XML(get_rating_url)]]"
     let set_rating_url = "[[=XML(set_rating_url)]]"
     let get_all_ratings_url = "[[=XML(get_all_ratings_url)]]"
