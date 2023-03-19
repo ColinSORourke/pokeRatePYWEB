@@ -154,6 +154,8 @@ let init = (app) => {
     app.init = () => {
         // Put here any initialization code.
         // Typically this is a server GET call to load the data.
+        
+
 
         app.vue.myCategories = app.data.myCategories;
         pokemonPerCategory = {};
@@ -201,6 +203,15 @@ let init = (app) => {
                     currPoke.categoryIndex = pokemonPerCategory[currPoke["category"]].length - 1
                 }
                 i += 1
+            }
+
+            if (target_poke != 0){
+                target_poke = target_poke.padEnd(6, 0)
+            }
+
+            if (id_map[target_poke] != null){
+                app.data.showModal = true
+                app.data.modalPokemon = app.data.myPokemon[id_map[target_poke]]
             }
 
             app.vue.pokemonPerCategory = pokemonPerCategory;

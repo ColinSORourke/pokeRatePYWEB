@@ -51,8 +51,25 @@ def pokedex():
         post_url = URL('post'),
         get_rating_url = URL('get_rating', signer=url_signer),
         set_rating_url = URL('set_rating', signer=url_signer),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer) 
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
+        target_poke = "000000"
     )
+
+@action("pokedex/<number>")
+@action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
+def pokedex(number):
+    print(number)
+    with open('apps/pokeRate/static/FullDex.json') as f:
+        data = json.load(f)
+    return dict(
+        dexJSON = json.dumps(data),
+        post_url = URL('post'),
+        get_rating_url = URL('get_rating', signer=url_signer),
+        set_rating_url = URL('set_rating', signer=url_signer),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
+        target_poke = number
+    )
+
 
 @action("setup")
 @action.uses(db)
