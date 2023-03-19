@@ -105,13 +105,32 @@ MODAL STARS
     display: none;
 } 
 
+.modalContent .favorites i{
+    font-size: 60px;
+    color:pink;
+    margin-left: -8.5px;
+    margin-top: -7px;
+}
+
+.modalContent .favorites span{
+    font-size: 22px;
+}
+
+.modalContent .favorites label{
+    content: "\f08a";
+    margin-top: 8px;
+    cursor: pointer;
+}
+
 .modalContent .favorites label::before{
     content: "\f08a";
-    font-size: 40px;
+    font-size: 32px;
 }
 
 .modalContent .favorites input:checked ~ label::before{
     content: "\f004";
+    color: red;
+    
 }
 
 /******************************************
@@ -256,11 +275,14 @@ MODAL STYLE
     margin-right: auto;
 }
 
+.modalContent label{
+    cursor: pointer;
+}
+
 .modalContent .favorites {
     margin-left: 10px;
     margin-right: 10px;
     line-height: 1em;
-    line-height-step: 0em;
 }
 
 .modalContent .ratingLabels{
@@ -286,6 +308,7 @@ MODAL STYLE
 }
 
 .pokemon_entry {
+    position: relative;
     background: white;
     border: solid;
     border-width: 5px;
@@ -298,6 +321,14 @@ MODAL STYLE
     box-shadow: -5px 5px 5px rgba(52, 49, 49, 0.75);
 
     transition: all .2s ease-in-out;
+}
+
+.pokemon_entry .fa-heart{
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    color: red;
+    font-size: 40px;
 }
 
 @media (max-width:600px) {
@@ -358,9 +389,14 @@ STAR LOGIC
     color: gold;
 }
 
+.pokemon_entry .inputStars label{
+    cursor: pointer;
+}
+
 .pokemon_entry .inputStars label:hover::before{
     content: "\f005";
     color: orange !important;
+    
 }
 
 /****************
