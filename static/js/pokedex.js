@@ -167,37 +167,33 @@ let init = (app) => {
         axios.get(get_all_ratings_url).then((result) => {
             console.log(result.data.allRatings)
             console.log(result.data.userRatings)
-            j = 0;
-            p = 0;
-            u = 0;
-            while (j < result.data.allRatings.length){
-                pok = app.data.myPokemon[p]
-                rating = result.data.allRatings[j];
-                if (pok['id'] != rating['pokemon']){
-                    rl = app.data.myPokemon[p].ratings;
-                    app.data.myPokemon[p].globalAverage = (rl[0] + 2*rl[1] + 3*rl[2] + 4*rl[3] + 5*rl[4]) / app.data.myPokemon[p].totalRatings;
-                    while (pok['id'] != rating['pokemon']){
-                        p += 1;
-                        pok = app.data.myPokemon[p];
-                    }
-                }
-                if (u < result.data.userRatings.length){
-                    if (app.data.myPokemon[p]['id'] == result.data.userRatings[u]['pokemon']){
-                        if (result.data.userRatings[u]['rating'] == 6){
-                            app.data.myPokemon[p].userFavorite = true;
-                        } else {
-                            app.data.myPokemon[p].userRating = result.data.userRatings[u]['rating'];
-                        }
-                        u += 1
-                    }
-                }
-                app.data.myPokemon[p].totalRatings += 1;
-                app.data.myPokemon[p].ratings[rating['rating'] - 1] += 1
-                j += 1
-            }
             
+            id_map = {};
+
+            derived_rates = result.data.allRatings;
             i = 0;
-        
+            while (i < result.data.allRatings.length){
+                currPoke = app.data.myPokemon[i];
+                currPoke.totalRatings = result.data.allRatings[i]['ratingcount'];
+                currPoke.ratings = [derived_rates[i]['onestar'], derived_rates[i]['twostar'], derived_rates[i]['threestar'], derived_rates[i]['fourstar'], derived_rates[i]['fivestar'], derived_rates[i]['favorites']];
+                currPoke.globalAverage = ( currPoke.ratings[0] + currPoke.ratings[1]*2 + currPoke.ratings[2]*3 + currPoke.ratings[3]*4 + currPoke.ratings[4]*5 ) / currPoke.totalRatings;
+                app.data.myPokemon[i] = currPoke;
+                id_map[currPoke['id']] = i;
+                i += 1;
+            }
+
+            i=0
+            while (i < result.data.userRatings.length){
+                pokInd = id_map[ result.data.userRatings[i]['pokemon'] ]
+                if (result.data.userRatings[i]['rating'] == 6){
+                    app.data.myPokemon[pokInd].userFavorite = true;
+                } else {
+                    app.data.myPokemon[pokInd].userRating = result.data.userRatings[i]['rating'];
+                }
+                i += 1;
+            }
+
+            i = 0;
             while (i < app.data.myPokemon.length){
                 currPoke = app.data.myPokemon[i];
                 if (currPoke["category"] != "Ignore"){

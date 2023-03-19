@@ -41,7 +41,6 @@ def calcUpdate(set, rowTo):
 
 def calcDelete(set):
     fields = ["onestar", "twostar", "threestar", "fourstar", "fivestar", "favorites"]
-    print(set.select())
     for row in set.select():
         derived_set = db( (db.derived_ratings.pokemon == row.pokemon) )
         increment = 1

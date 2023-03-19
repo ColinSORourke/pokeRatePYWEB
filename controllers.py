@@ -62,20 +62,21 @@ def setup():
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
     i = 0
-    emails = ["colin.orourke@icloud.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
+    emails = ["colin.orourke@me.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
     while (i < len(data['Pokemon'])):
-    #    j = 0
-    #    while (j < 3):
-    #        ran = random.randint(1,5)
-    #        db.ratings.insert(
-    #            pokemon = data['Pokemon'][i]['id'],
-    #            rater = emails[j],
-    #            rating = ran
-    #        )
-    #        j += 1
         db.derived_ratings.insert(
             pokemon = data['Pokemon'][i]['id']
         )
+        j = 0
+        while (j < 10):
+            ran = random.randint(1,5)
+            db.ratings.insert(
+                pokemon = data['Pokemon'][i]['id'],
+                rater = emails[j % 5],
+                rating = ran
+            )
+            j += 1
+        
         i += 1
     return "ok"
 
@@ -146,7 +147,7 @@ def set_rating():
 @action("get_all_ratings")
 @action.uses(session, url_signer.verify(), db, auth)
 def get_all_ratings():
-    allRatings = db().select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon)
+    allRatings = db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon)
     userRatings = db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon)
     print(len(allRatings))
     return dict(
