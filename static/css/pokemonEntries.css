@@ -40,18 +40,26 @@ MODAL STARS
 .modalContent .starContainer{
     position: relative;
     text-align: center;
-    font-size: 0;
+    font-size: 16px;
     width: min-content;
     font-family: FontAwesome;
-    line-height: 0em;
+    line-height: 1em;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.modalContent .starContainer p{
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 /* Stars showing general rating. Hiding overflow & Nowrap allow us to show a star% by setting width%*/
 .modalContent .filledStars{
     color: lightgreen;
     overflow: hidden;
+    font-size: 0px;
     white-space: nowrap;
 }
 
@@ -69,6 +77,7 @@ MODAL STARS
 /* allows us to use ::before to change multiple stars at once in the correct direction */
 .modalContent .inputStars{
     direction: rtl;
+    font-size: 0px;
 }
 
 /* hide regular input radios */
@@ -100,7 +109,6 @@ MODAL STARS
     color: orange !important;
 }
 
-
 .modalContent .favorites input{
     display: none;
 } 
@@ -108,29 +116,55 @@ MODAL STARS
 .modalContent .favorites i{
     font-size: 60px;
     color:pink;
-    margin-left: -8.5px;
-    margin-top: -7px;
+    margin-left: -12px;
+    margin-top: -15px;
+}
+
+@media (max-width:600px){
+    .modalContent .favorites i{
+        font-size: 45px;
+        margin-left: -4px;
+    }
 }
 
 .modalContent .favorites span{
-    font-size: 22px;
+    justify-self: center;
+    font-size: 16px;
+}
+
+.modalContent .favorites strong{
+    left: 2px;
+}
+
+@media (max-width:600px){
+    .modalContent .favorites strong{
+        font-size: 14px;
+        margin-top: -10px;
+    }
 }
 
 .modalContent .favorites label{
     content: "\f08a";
-    margin-top: 8px;
+    margin-top: 12px;
     cursor: pointer;
+    font-size: 32px;
 }
 
 .modalContent .favorites label::before{
     content: "\f08a";
-    font-size: 32px;
+    
 }
+
+@media (max-width:600px){
+    .modalContent .favorites label{
+        margin-top: 0px;
+    }
+}
+
 
 .modalContent .favorites input:checked ~ label::before{
     content: "\f004";
     color: red;
-    
 }
 
 /******************************************
@@ -283,6 +317,7 @@ MODAL STYLE
     margin-left: 10px;
     margin-right: 10px;
     line-height: 1em;
+    vertical-align: auto;
 }
 
 .modalContent .ratingLabels{
