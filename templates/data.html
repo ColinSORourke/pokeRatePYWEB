@@ -1,0 +1,51 @@
+[[extend 'layout.html']]
+
+<link rel="stylesheet" href="css/data.css">
+<link rel="stylesheet" href="css/pokemonEntries.css">
+
+<div id="vue-target">
+    <Transition name="notify">
+        <div v-if="showNotif" class="notifs">{{ratingText}}</div>
+    </Transition>
+    <h1>Top 5</h1>
+    <div class="pokemon_list"></div>
+    <h1>Bottom 5</h1>
+    <div class="pokemon_list"></div>
+
+    <table>
+        <thead>
+            <td>Generation 1</td>
+            <td>Generation 2</td>
+            <td>Generation 3</td>
+            <td>Generation 4</td>
+            <td>Generation 5</td>
+            <td>Generation 6</td>
+            <td>Generation 7</td>
+            <td>Generation 8</td>
+            <td>Generation 9</td>
+        </thead>
+        <tbody>
+            <td>2.5</td>
+            <td>2.5</td>
+            <td>2.5</td>
+            <td>2.5</td>
+            <td>2.5</td>
+            <td>2.5</td>
+            <td>2.5</td>
+            <td>2.5</td>
+            <td>2.5</td>
+        </tbody>
+    </table>
+
+</div>
+
+[[block page_scripts]]
+<script>
+   let dexJSON = [[=XML(dexJSON)]]
+   let get_rating_url = "[[=XML(get_rating_url)]]"
+   let set_rating_url = "[[=XML(set_rating_url)]]"
+   let get_all_ratings_url = "[[=XML(get_all_ratings_url)]]"
+   let dex_url = "[[=XML(pokedex_url)]]"
+</script>
+<script src="js/data.js"></script>
+[[end]]

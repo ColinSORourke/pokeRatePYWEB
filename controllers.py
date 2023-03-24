@@ -95,13 +95,26 @@ def pokedex(number):
         data = json.load(f)
     return dict(
         dexJSON = json.dumps(data),
-        post_url = URL('post'),
         get_rating_url = URL('get_rating', signer=url_signer),
         set_rating_url = URL('set_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
         target_poke = number
     )
 
+
+@action("data")
+@action.uses('data.html', session, auth.flash, url_signer, db, auth, T)
+def data():
+    with open('apps/pokeRate/static/FullDex.json') as f:
+        data = json.load(f)
+
+    return dict(
+        dexJSON = json.dumps(data),
+        get_rating_url = URL('get_rating', signer=url_signer),
+        set_rating_url = URL('set_rating', signer=url_signer),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
+        pokedex_url = URL('pokedex')
+    )
 
 @action("setup")
 @action.uses(db)

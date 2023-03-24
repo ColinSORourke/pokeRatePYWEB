@@ -177,7 +177,13 @@ let init = (app) => {
                 currPoke = app.data.myPokemon[i];
                 currPoke.totalRatings = result.data.allRatings[i]['ratingcount'];
                 currPoke.ratings = [derived_rates[i]['onestar'], derived_rates[i]['twostar'], derived_rates[i]['threestar'], derived_rates[i]['fourstar'], derived_rates[i]['fivestar'], derived_rates[i]['favorites']];
-                currPoke.globalAverage = ( currPoke.ratings[0] + currPoke.ratings[1]*2 + currPoke.ratings[2]*3 + currPoke.ratings[3]*4 + currPoke.ratings[4]*5 ) / currPoke.totalRatings;
+                if (currPoke.totalRatings > 0){
+                    currPoke.globalAverage = ( currPoke.ratings[0] + currPoke.ratings[1]*2 + currPoke.ratings[2]*3 + currPoke.ratings[3]*4 + currPoke.ratings[4]*5 ) / currPoke.totalRatings;
+                } else {
+                    currPoke.globalAverage = -1;
+                }
+
+
                 app.data.myPokemon[i] = currPoke;
                 id_map[currPoke['id']] = i;
                 i += 1;
