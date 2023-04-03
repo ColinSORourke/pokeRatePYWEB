@@ -7,37 +7,174 @@
     <Transition name="notify">
         <div v-if="showNotif" class="notifs">{{ratingText}}</div>
     </Transition>
-    <h1>Top 5</h1>
-    <div class="pokemon_list"></div>
-    <h1>Bottom 5</h1>
-    <div class="pokemon_list"></div>
 
-    <table>
-        <thead>
-            <td>Generation 1</td>
-            <td>Generation 2</td>
-            <td>Generation 3</td>
-            <td>Generation 4</td>
-            <td>Generation 5</td>
-            <td>Generation 6</td>
-            <td>Generation 7</td>
-            <td>Generation 8</td>
-            <td>Generation 9</td>
-        </thead>
-        <tbody>
-            <td>2.5</td>
-            <td>2.5</td>
-            <td>2.5</td>
-            <td>2.5</td>
-            <td>2.5</td>
-            <td>2.5</td>
-            <td>2.5</td>
-            <td>2.5</td>
-            <td>2.5</td>
-        </tbody>
-    </table>
+    <div class="tabs">
+        <div :class="{ active: displayType == 'Rate' }" @click="setDisplayType('Rate')">Ratings</div>
+        <div :class="{ active: displayType == 'Fave' }" @click="setDisplayType('Fave')">Favorites</div>
+        <div v-if="userData" :class="{ active: displayType == 'User' }" @click="setDisplayType('User')">User</div>
+        <div v-else class="no_data" >No User Data</div>
+    </div>
+
+    <div v-if="displayType == 'User'">
+        <h1>Favorites</h1>
+        <div class="pokemon_list">
+            <h2 v-if="userFavorites.length == 0">No favorites!!!</h2>
+            <a v-for="p in userFavorites" :href="dexPath(p)" data-interception="off">
+                <div class="pokemon_entry" >
+                <i v-if="p.userFavorite"class="fa fa-heart"></i>
+                <div class="pokeName">{{p.fullname}}</div>
+                <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                <div class="pokeImgContainer">
+                    <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                </div>
+        
+                <div class="typesContainer">
+                    <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                    <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                </div>
+                
+                <div class="starContainer">
+                    <div class="filledStars" :style="widthPerc(p)">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="inputStars">
+                        <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
+                        <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
+                        <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
+                        <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
+                        <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                    </div>
+                </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div v-else>
+        <h1>Top 5</h1>
+        <div class="pokemon_list">
+            <a v-if="displayType == 'Rate'" v-for="p in topFiveRate" :href="dexPath(p)" data-interception="off">
+                <div class="pokemon_entry" >
+                <i v-if="p.userFavorite"class="fa fa-heart"></i>
+                <div class="pokeName">{{p.fullname}}</div>
+                <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                <div class="pokeImgContainer">
+                    <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                </div>
+        
+                <div class="typesContainer">
+                    <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                    <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                </div>
+                
+                <div class="starContainer">
+                    <div class="filledStars" :style="widthPerc(p)">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="inputStars">
+                        <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
+                        <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
+                        <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
+                        <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
+                        <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                    </div>
+                </div>
+                </div>
+            </a>
+            <a v-if="displayType == 'Fave'" v-for="p in topFiveFave" :href="dexPath(p)" data-interception="off">
+                <div class="pokemon_entry" >
+                    <i v-if="p.userFavorite"class="fa fa-heart"></i>
+                    <div class="pokeName">{{p.fullname}}</div>
+                    <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                    <div class="pokeImgContainer">
+                        <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    </div>
+            
+                    <div class="typesContainer">
+                        <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                        <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                    </div>
+                    
+                    <div class="starContainer"> 
+                        <i class="fa fa-heart"><span>{{p.ratings[5]}}</span></i>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+        <h1>Bottom 5</h1>
+        <div class="pokemon_list">
+            <a v-if="displayType == 'Rate'" v-for="p in bottomFiveRate" :href="dexPath(p)" data-interception="off">
+                <div class="pokemon_entry" >
+                <i v-if="p.userFavorite"class="fa fa-heart"></i>
+                <div class="pokeName">{{p.fullname}}</div>
+                <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                <div class="pokeImgContainer">
+                    <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                </div>
+        
+                <div class="typesContainer">
+                    <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                    <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                </div>
+                
+                <div class="starContainer">
+                    <div class="filledStars" :style="widthPerc(p)">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="inputStars">
+                        <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
+                        <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
+                        <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
+                        <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
+                        <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                    </div>
+                </div>
+                </div>
+            </a>
+            <a v-if="displayType === 'Fave'" v-for="p in bottomFiveFave" :href="dexPath(p)" data-interception="off">
+                <div class="pokemon_entry" >
+                    <i v-if="p.userFavorite"class="fa fa-heart"></i>
+                    <div class="pokeName">{{p.fullname}}</div>
+                    <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                    <div class="pokeImgContainer">
+                        <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    </div>
+            
+                    <div class="typesContainer">
+                        <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                        <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                    </div>
+                    
+                    <div class="starContainer"> 
+                        <i class="fa fa-heart"><span>{{p.ratings[5]}}</span></i>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+    </div>
+
+    
 
 </div>
+
+<footer class="padded">
+    <p style="opacity: 0">
+      Secret text
+    </p>
+ </footer>
 
 [[block page_scripts]]
 <script>

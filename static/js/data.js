@@ -12,6 +12,8 @@ let init = (app) => {
         myDexJSON: dexJSON,
         myPokemon: dexJSON["Pokemon"],
 
+        displayType: "Rate",
+
         topFiveRate: [],
         bottomFiveRate: [],
         topFiveFave: [],
@@ -22,6 +24,7 @@ let init = (app) => {
         generations: {},
 
         userFavorites: [],
+        userData: false,
 
         ratingText: "Rating Received!",
         ratingCount: 0,
@@ -96,6 +99,12 @@ let init = (app) => {
                 alert("Log in to post ratings!")
             })
         },
+        dexPath(p){
+            return dex_url + "/" + p["id"]
+        },
+        setDisplayType(t){
+            app.data.displayType = t;
+        }
     };
 
     // This creates the Vue instance.
@@ -128,6 +137,7 @@ let init = (app) => {
             derived_rates = result.data.allRatings;
             i = 0;
             while (i < result.data.allRatings.length){
+                // Regular Calculations
                 currPoke = app.data.myPokemon[i];
                 currPoke.totalRatings = result.data.allRatings[i]['ratingcount'];
                 currPoke.ratings = [derived_rates[i]['onestar'], derived_rates[i]['twostar'], derived_rates[i]['threestar'], derived_rates[i]['fourstar'], derived_rates[i]['fivestar'], derived_rates[i]['favorites']];
@@ -138,6 +148,7 @@ let init = (app) => {
                     currPoke.globalAverage = -1;
                 }
 
+                // Add to overall data
                 if (currPoke['significantForm']){
                     currPoke['types'].forEach((type) => {
                         if (app.data.types[type] == null){
@@ -329,6 +340,7 @@ let init = (app) => {
 
             i=0
             while (i < result.data.userRatings.length){
+                app.data.userData = true;
                 pokInd = id_map[ result.data.userRatings[i]['pokemon'] ]
                 if (result.data.userRatings[i]['rating'] == 6){
                     app.data.myPokemon[pokInd].userFavorite = true;

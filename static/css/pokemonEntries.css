@@ -10,6 +10,7 @@
 .pokemon_entry {
     position: relative;
     background: white;
+    color: black;
     border: solid;
     border-width: 5px;
     border-color:black;
@@ -29,6 +30,17 @@
     right: -15px;
     color: red;
     font-size: 40px;
+}
+
+.pokemon_entry .starContainer .fa-heart{
+    position: relative;
+    top: 0px;
+    right: 0px;
+}
+
+.pokemon_entry .starContainer .fa-heart span{
+    color: black;
+    font-size: 28px;
 }
 
 @media (max-width:600px) {

@@ -1,0 +1,41 @@
+#vue-target{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: black;
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tabs div{
+    border-bottom: solid;
+    border-color: grey;
+}
+
+.tabs .no_data{
+    background-color: lightgrey;
+}
+
+.tabs div:hover{
+    border-color: blue;
+    border-width: 10px;
+    cursor: pointer;
+}
+
+.tabs .no_data:hover{
+    background-color: lightgrey;
+    border-color: black;
+    border-width: 3px;
+    cursor: not-allowed;
+}
+
+
+
+.tabs .active{
+    border-color: red !important;
+    border-width: 10px;
+}
