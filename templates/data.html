@@ -52,6 +52,22 @@
                 </div>
             </a>
         </div>
+
+        <h1>Generations</h1>
+        <div class="pokemon_list">
+            <div v-for="n in 9">
+                <h2>{{getGen(n).genName}}</h2>
+                <p>Average rating: {{getGen(n).userAve}}</p>
+            </div>
+        </div>
+
+        <h1>Types</h1>
+        <div class="pokemon_list">
+            <div v-for="t in types">
+                <h2>{{t.typeName}}</h2>
+                <p>Average rating: {{t.userAve}}</p>
+            </div>
+        </div>
     </div>
     <div v-else>
         <h1>Top 5</h1>
@@ -163,6 +179,38 @@
 
                 </div>
             </a>
+        </div>
+
+        <h1>Generations</h1>
+        <div class="pokemon_list">
+            <div v-if="displayType == 'Rate'" v-for="n in 9">
+                <h2>{{getGen(n).genName}}</h2>
+                <p>Average rating: {{getGen(n).average}}</p>
+                <p>Best Pokemon: {{getGen(n).bestPoke.fullname}}</p>
+                <p>Worst Pokemon: {{getGen(n).worstPoke.fullname}}</p>
+            </div>
+            <div v-if="displayType == 'Fave'" v-for="n in 9">
+                <h2>{{getGen(n).genName}}</h2>
+                <p>Average faves: {{getGen(n).faverage}}</p>
+                <p>Best Pokemon: {{getGen(n).mostFavesPoke.fullname}}</p>
+                <p>Worst Pokemon: {{getGen(n).leastFavesPoke.fullname}}</p>
+            </div>
+        </div>
+
+        <h1>Types</h1>
+        <div class="pokemon_list">
+            <div v-if="displayType == 'Rate'" v-for="t in types">
+                <h2>{{t.typeName}}</h2>
+                <p>Average rating: {{t.average}}</p>
+                <p>Best Pokemon: {{t.bestPoke.fullname}}</p>
+                <p>Worst Pokemon: {{t.worstPoke.fullname}}</p>
+            </div>
+            <div v-if="displayType == 'Fave'" v-for="t in types">
+                <h2>{{t.typeName}}</h2>
+                <p>Average faves: {{t.faverage}}</p>
+                <p>Best Pokemon: {{t.mostFavesPoke.fullname}}</p>
+                <p>Worst Pokemon: {{t.leastFavesPoke.fullname}}</p>
+            </div>
         </div>
     </div>
 

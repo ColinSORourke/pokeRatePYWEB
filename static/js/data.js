@@ -20,7 +20,6 @@ let init = (app) => {
         bottomFiveFave: [],
 
         types: {},
-        games: {},
         generations: {},
 
         userFavorites: [],
@@ -104,6 +103,10 @@ let init = (app) => {
         },
         setDisplayType(t){
             app.data.displayType = t;
+        },
+        getGen(n){
+            key = "Generation " + n
+            return(app.data.generations[key]);
         }
     };
 
@@ -154,6 +157,7 @@ let init = (app) => {
                         if (app.data.types[type] == null){
                             //console.log("Adding " + type + " type");
                             app.data.types[type] = {
+                                typeName: type,
                                 total: 1,
                                 ratings: [currPoke.globalAverage],
                                 favorites: [currPoke.ratings[5]],
@@ -164,12 +168,13 @@ let init = (app) => {
                                 mostFaves: currPoke.ratings[5],
                                 mostFavesPoke: currPoke,
                                 leastFaves: currPoke.ratings[5],
-                                leastFavesPoke: currPoke
+                                leastFavesPoke: currPoke,
+                                userRates: []
                             }
                         } else {
                             app.data.types[type]['total'] += 1;
                             app.data.types[type]['ratings'].push(currPoke.globalAverage)
-                            app.data.types[type]['ratings'].push(currPoke.ratings[5])
+                            app.data.types[type]['favorites'].push(currPoke.ratings[5])
                             if (currPoke.globalAverage > app.data.types[type]['bestRating']) {
                                 app.data.types[type]['bestRating'] = currPoke.globalAverage;
                                 app.data.types[type]['bestPoke'] = currPoke;
@@ -190,50 +195,7 @@ let init = (app) => {
                             }
                         }
                     });
-                    currPoke['gameList'].forEach((game) => {
-                        if (game.includes("X/Y")){
-                            game = "X/Y"
-                        }
-                        //console.log("Adding " + game + " game");
-                        if(app.data.games[game] == null){
-                            app.data.games[game] = {
-                                total: 1,
-                                ratings: [currPoke.globalAverage],
-                                favorites: [currPoke.ratings[5]],
-                                bestRating: currPoke.globalAverage,
-                                bestPoke: currPoke,
-                                worstRating: currPoke.globalAverage,
-                                worstPoke: currPoke,
-                                mostFaves: currPoke.ratings[5],
-                                mostFavesPoke: currPoke,
-                                leastFaves: currPoke.ratings[5],
-                                leastFavesPoke: currPoke
-                            }
-                        } else {
-                            app.data.games[game]['total'] += 1;
-                            app.data.games[game]['ratings'].push(currPoke.globalAverage);
-                            app.data.games[game]['favorites'].push(currPoke.ratings[5])
-                            if (currPoke.globalAverage >  app.data.games[game]['bestRating']) {
-                                app.data.games[game]['bestRating'] = currPoke.globalAverage;
-                                app.data.games[game]['bestPoke'] = currPoke;
-                            }
-                            if (currPoke.globalAverage <  app.data.games[game]['worstRating'] || app.data.games[game]['worstRating'] == -1) {
-                                app.data.games[game]['worstRating'] = currPoke.globalAverage;
-                                app.data.games[game]['worstPoke'] = currPoke;
-                            }
 
-                            if (currPoke.ratings[5] >  app.data.games[game]['mostFaves']) {
-                                app.data.games[game]['mostFaves'] = currPoke.ratings[5];
-                                app.data.games[game]['mostFavesPoke'] = currPoke;
-                            }
-
-                            if (currPoke.ratings[5] <  app.data.games[game]['leastFaves']) {
-                                app.data.games[game]['leastFaves'] = currPoke.ratings[5];
-                                app.data.games[game]['leastFavesPoke'] = currPoke;
-                            }
-                        }
-                    });
-    
                     gen = currPoke['generation']
                     if (gen == "Generation 8.5"){
                         gen = "Generation 8"
@@ -241,6 +203,7 @@ let init = (app) => {
                     if (app.data.generations[gen] == null){
                         //console.log("Adding " + gen);
                         app.data.generations[gen] = {
+                            genName: gen,
                             total: 1,
                             ratings: [currPoke.globalAverage],
                             favorites: [currPoke.ratings[5]],
@@ -251,7 +214,8 @@ let init = (app) => {
                             mostFaves: currPoke.ratings[5],
                             mostFavesPoke: currPoke,
                             leastFaves: currPoke.ratings[5],
-                            leastFavesPoke: currPoke
+                            leastFavesPoke: currPoke,
+                            userRates: []
                         } 
                     } else {
                         app.data.generations[gen]['total'] += 1
@@ -338,6 +302,9 @@ let init = (app) => {
                 i += 1;
             }
 
+            console.log(app.data.generations);
+            console.log(app.data.types);
+
             i=0
             while (i < result.data.userRatings.length){
                 app.data.userData = true;
@@ -347,9 +314,67 @@ let init = (app) => {
                     app.data.userFavorites.push(app.data.myPokemon[pokInd]);
                 } else {
                     app.data.myPokemon[pokInd].userRating = result.data.userRatings[i]['rating'];
+                    if (app.data.myPokemon[pokInd]['significantForm']){
+                        app.data.myPokemon[pokInd].types.forEach((type) => {
+                            app.data.types[type].userRates.push(result.data.userRatings[i]['rating']);
+                        });
+                        gen = app.data.myPokemon[pokInd].generation;
+                        if (gen == "Generation 8.5"){
+                            gen = "Generation 8"
+                        }
+                        app.data.generations[gen].userRates.push(result.data.userRatings[i]['rating'])
+                    }
                 }
                 i += 1;
             }
+
+            for (var key in app.data.generations){
+                gen = app.data.generations[key];
+                sum = 0;
+                faveSum = 0;
+                userSum = 0;
+                i = 0;
+                while(i < gen['ratings'].length){
+                    sum += gen['ratings'][i];
+                    faveSum += gen['favorites'][i];
+                    if (i < gen['userRates'].length){
+                        userSum += gen['userRates'][i];
+                    }
+                    i += 1;
+                }
+                app.data.generations[key]['average'] = sum / gen['total'];
+                app.data.generations[key]['faverage'] = faveSum / gen['total'];
+                if (gen['userRates'].length > 0){
+                    app.data.generations[key]['userAve'] = userSum / gen['userRates'].length;
+                } else {
+                    app.data.generations[key]['userAve'] = "No ratings!"
+                }
+            }
+
+            for (var key in app.data.types){
+                type = app.data.types[key];
+                faveSum = 0;
+                sum = 0;
+                userSum = 0;
+                i = 0;
+                while(i < type['ratings'].length){
+                    sum += type['ratings'][i];
+                    faveSum += type['favorites'][i];
+                    if (i < type['userRates'].length){
+                        userSum += type['userRates'][i];
+                    }
+                    i += 1;
+                }
+                app.data.types[key]['average'] = sum / type['total'];
+                app.data.types[key]['faverage'] = faveSum / type['total'];
+                if (type['userRates'].length > 0){
+                    app.data.types[key]['userAve'] = userSum / type['userRates'].length;
+                } else {
+                    app.data.types[key]['userAve'] = "No ratings!"
+                }
+            }
+
+            app.data.generations = app.data.generations.sort()
         });
     };
 
