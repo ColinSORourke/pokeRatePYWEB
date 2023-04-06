@@ -20,8 +20,7 @@ let init = (app) => {
         bottomFiveFave: [],
 
         types: {},
-        generations: {
-        },
+        generations: {},
 
         userFavorites: [],
         userData: false,
@@ -66,6 +65,9 @@ let init = (app) => {
             return "images/Types/" + t + "_en.png";
         },
         widthPerc(p){
+            if (p.globalAverage == -1){
+                return "width: 50%;";
+            }
             return "width: " + p.globalAverage*20 + "%;"
         },
         check(p, i){
@@ -113,6 +115,9 @@ let init = (app) => {
             return(app.data.generations[key]);
         },
         abbrevNum(n){
+            if (isNaN(n)){
+                return "No data!"
+            }
             if (n < 9999){
                 return Intl.NumberFormat('en-US', {
                     notation: "standard",
@@ -162,7 +167,6 @@ let init = (app) => {
                 currPoke = app.data.myPokemon[i];
                 currPoke.totalRatings = result.data.allRatings[i]['ratingcount'];
                 currPoke.ratings = [derived_rates[i]['onestar'], derived_rates[i]['twostar'], derived_rates[i]['threestar'], derived_rates[i]['fourstar'], derived_rates[i]['fivestar'], derived_rates[i]['favorites']];
-                currPoke.ratings[5] = Math.floor(Math.random() * 10000);
                 if (currPoke.totalRatings > 0){
                     currPoke.globalAverage = ( currPoke.ratings[0] + currPoke.ratings[1]*2 + currPoke.ratings[2]*3 + currPoke.ratings[3]*4 + currPoke.ratings[4]*5 ) / currPoke.totalRatings;
                 } else {
@@ -198,7 +202,7 @@ let init = (app) => {
                                 app.data.types[type]['bestRating'] = currPoke.globalAverage;
                                 app.data.types[type]['bestPoke'] = currPoke;
                             }
-                            if (currPoke.globalAverage < app.data.types[type]['worstRating'] || app.data.types[type]['worstRating'] == -1) {
+                            if (currPoke.globalAverage < app.data.types[type]['worstRating'] || ( app.data.types[type]['worstRating'] == -1 && currPoke.globalAverage != -1 ) ) {
                                 app.data.types[type]['worstRating'] = currPoke.globalAverage;
                                 app.data.types[type]['worstPoke'] = currPoke;
                             }
@@ -245,7 +249,7 @@ let init = (app) => {
                             app.data.generations[gen]['bestRating'] = currPoke.globalAverage;
                             app.data.generations[gen]['bestPoke'] = currPoke;
                         }
-                        if (currPoke.globalAverage < app.data.generations[gen]['worstRating'] || app.data.generations[gen]['worstRating'] == -1) {
+                        if (currPoke.globalAverage < app.data.generations[gen]['worstRating'] || ( app.data.generations[gen]['worstRating'] == -1 && currPoke.globalAverage != -1) ) {
                             app.data.generations[gen]['worstRating'] = currPoke.globalAverage;
                             app.data.generations[gen]['worstPoke'] = currPoke;
                         }
@@ -322,9 +326,6 @@ let init = (app) => {
                 i += 1;
             }
 
-            console.log(app.data.generations);
-            console.log(app.data.types);
-
             i=0
             while (i < result.data.userRatings.length){
                 app.data.userData = true;
@@ -349,26 +350,34 @@ let init = (app) => {
             }
 
 
-            bestGens = ["Generation 0", "Generation 0", "Generation 0"]
+            bestGens = ["Generation 1", "Generation 1", "Generation 1"]
             bestGenVals = [0, 0, 0]
-            worstGens = ["Generation 0", "Generation 0", "Generation 0"]
+            worstGens = ["Generation 1", "Generation 1", "Generation 1"]
             worstGenVals = [5, Infinity, 5]
+
+            
 
             for (var key in app.data.generations){
                 gen = app.data.generations[key];
+                gen['rateTotal'] = gen['total']
                 sum = 0;
                 faveSum = 0;
                 userSum = 0;
                 i = 0;
+
                 while(i < gen['ratings'].length){
-                    sum += gen['ratings'][i];
-                    faveSum += gen['favorites'][i];
+                    if (gen['ratings'][i] == -1){
+                        gen['rateTotal'] -= 1;
+                    } else {
+                        sum += gen['ratings'][i];
+                        faveSum += gen['favorites'][i];
+                    }
                     if (i < gen['userRates'].length){
                         userSum += gen['userRates'][i];
                     }
                     i += 1;
-                }
-                app.data.generations[key]['average'] = sum / gen['total'];
+                } 
+                app.data.generations[key]['average'] = sum / gen['rateTotal'];
                 if (app.data.generations[key]['average'] > bestGenVals[0]){
                     bestGens[0] = key;
                     bestGenVals[0] = app.data.generations[key]['average'];
@@ -410,25 +419,30 @@ let init = (app) => {
             app.data.generations[worstGens[1]]['statuses'][1] = -1
             if (worstGens[2] != "Generation 0") { app.data.generations[worstGens[2]]['statuses'][2] = -1 }
 
-            bestTypes = ["Generation 0", "Generation 0", "Generation 0"]
+            bestTypes = ["Fire", "Fire", "Fire"]
             bestTypeVals = [0, 0, 0]
-            worstTypes = ["Generation 0", "Generation 0", "Generation 0"]
+            worstTypes = ["Fire", "Fire", "Fire"]
             worstTypeVals = [5, Infinity, 5]
             for (var key in app.data.types){
                 type = app.data.types[key];
+                type['rateTotal'] = type['total'];
                 faveSum = 0;
                 sum = 0;
                 userSum = 0;
                 i = 0;
                 while(i < type['ratings'].length){
-                    sum += type['ratings'][i];
-                    faveSum += type['favorites'][i];
+                    if (type['ratings'][i] == -1){
+                        type['rateTotal'] -= 1;
+                    } else {
+                        sum += type['ratings'][i];
+                        faveSum += type['favorites'][i];
+                    }
                     if (i < type['userRates'].length){
                         userSum += type['userRates'][i];
                     }
                     i += 1;
                 }
-                app.data.types[key]['average'] = sum / type['total'];
+                app.data.types[key]['average'] = sum / type['rateTotal'];
                 if (app.data.types[key]['average'] > bestTypeVals[0]){
                     bestTypes[0] = key;
                     bestTypeVals[0] = app.data.types[key]['average'];

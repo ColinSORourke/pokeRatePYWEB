@@ -52,6 +52,9 @@ let init = (app) => {
             return "images/Types/" + p.types[i] + "_en.png";
         },
         widthPerc(p){
+            if (p.globalAverage == -1){
+                return "width: 50%;";
+            }
             return "width: " + p.globalAverage*20 + "%;"
         },
         check(p, i){

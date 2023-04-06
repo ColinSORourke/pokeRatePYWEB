@@ -55,6 +55,10 @@ let init = (app) => {
             return "images/Types/unknown.png";
         },
         widthPerc(p){
+            console.log(p.globalAverage);
+            if (p.globalAverage == -1 || isNaN(p.globalAverage)){
+                return "width: 50%;";
+            }
             return "width: " + p.globalAverage*20 + "%;"
         },
         check(p, i){

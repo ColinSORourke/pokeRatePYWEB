@@ -129,15 +129,15 @@ def setup():
         db.derived_ratings.insert(
             pokemon = data['Pokemon'][i]['id']
         )
-        j = 0
-        while (j < 5):
-            ran = random.randint(1,5)
-            db.ratings.insert(
-                pokemon = data['Pokemon'][i]['id'],
-                rater = emails[j % 5],
-                rating = ran
-            )
-            j += 1
+    #     j = 0
+    #     while (j < 5):
+    #         ran = random.randint(1,5)
+    #         db.ratings.insert(
+    #             pokemon = data['Pokemon'][i]['id'],
+    #             rater = emails[j % 5],
+    #             rating = ran
+    #         )
+    #         j += 1
         
         i += 1
     return "ok"
