@@ -33,9 +33,43 @@
     cursor: not-allowed;
 }
 
-
-
 .tabs .active{
     border-color: red !important;
     border-width: 10px;
+}
+
+.databox{
+    position: relative;
+    border-color: black;
+    border: solid;
+    border-width: 4px;
+
+    width: 250px;
+    text-align: center;
+
+    background-color: white;
+}
+
+.databox div{
+    margin-bottom: 5px;
+    line-height: 1.1em;
+}
+
+.databox .fa{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 40px;
+}
+
+.databox .fa-star{
+    color: gold;
+}
+
+.databox .fa-thumbs-down{
+    color: blue;
+}
+
+.typeImg {
+    width: 125px;
 }

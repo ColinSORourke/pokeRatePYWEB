@@ -20,7 +20,8 @@ let init = (app) => {
         bottomFiveFave: [],
 
         types: {},
-        generations: {},
+        generations: {
+        },
 
         userFavorites: [],
         userData: false,
@@ -60,6 +61,9 @@ let init = (app) => {
         },
         typeImagePath(p, i) {
             return "images/Types/" + p.types[i] + "_en.png";
+        },
+        typeImagePathB(t) {
+            return "images/Types/" + t + "_en.png";
         },
         widthPerc(p){
             return "width: " + p.globalAverage*20 + "%;"
@@ -107,6 +111,20 @@ let init = (app) => {
         getGen(n){
             key = "Generation " + n
             return(app.data.generations[key]);
+        },
+        abbrevNum(n){
+            if (n < 9999){
+                return Intl.NumberFormat('en-US', {
+                    notation: "standard",
+                    maximumSignificantDigits: 4,
+                  }).format(n);
+            } else {
+                return Intl.NumberFormat('en-US', {
+                    notation: "compact",
+                    maximumSignificantDigits: 4,
+                  }).format(n);
+            }
+            
         }
     };
 
@@ -169,7 +187,8 @@ let init = (app) => {
                                 mostFavesPoke: currPoke,
                                 leastFaves: currPoke.ratings[5],
                                 leastFavesPoke: currPoke,
-                                userRates: []
+                                userRates: [],
+                                statuses: [0,0,0]
                             }
                         } else {
                             app.data.types[type]['total'] += 1;
@@ -215,7 +234,8 @@ let init = (app) => {
                             mostFavesPoke: currPoke,
                             leastFaves: currPoke.ratings[5],
                             leastFavesPoke: currPoke,
-                            userRates: []
+                            userRates: [],
+                            statuses: [0,0,0]
                         } 
                     } else {
                         app.data.generations[gen]['total'] += 1
@@ -328,6 +348,12 @@ let init = (app) => {
                 i += 1;
             }
 
+
+            bestGens = ["Generation 0", "Generation 0", "Generation 0"]
+            bestGenVals = [0, 0, 0]
+            worstGens = ["Generation 0", "Generation 0", "Generation 0"]
+            worstGenVals = [5, Infinity, 5]
+
             for (var key in app.data.generations){
                 gen = app.data.generations[key];
                 sum = 0;
@@ -343,14 +369,51 @@ let init = (app) => {
                     i += 1;
                 }
                 app.data.generations[key]['average'] = sum / gen['total'];
+                if (app.data.generations[key]['average'] > bestGenVals[0]){
+                    bestGens[0] = key;
+                    bestGenVals[0] = app.data.generations[key]['average'];
+                }
+                if (app.data.generations[key]['average'] < worstGenVals[0]){
+                    worstGens[0] = key;
+                    worstGenVals[0] = app.data.generations[key]['average'];
+                }
+
                 app.data.generations[key]['faverage'] = faveSum / gen['total'];
+                if (app.data.generations[key]['faverage'] > bestGenVals[1]){
+                    bestGens[1] = key;
+                    bestGenVals[1] = app.data.generations[key]['faverage'];
+                }
+                if (app.data.generations[key]['faverage'] < worstGenVals[1]){
+                    worstGens[1] = key;
+                    worstGenVals[1] = app.data.generations[key]['faverage'];
+                }
+
+
                 if (gen['userRates'].length > 0){
                     app.data.generations[key]['userAve'] = userSum / gen['userRates'].length;
+                    if (app.data.generations[key]['userAve'] > bestGenVals[2]){
+                        bestGens[2] = key;
+                        bestGenVals[2] = app.data.generations[key]['userAve'];
+                    }
+                    if (app.data.generations[key]['userAve'] < worstGenVals[2]){
+                        worstGens[2] = key;
+                        worstGenVals[2] = app.data.generations[key]['userAve'];
+                    }
                 } else {
                     app.data.generations[key]['userAve'] = "No ratings!"
                 }
             }
+            app.data.generations[bestGens[0]]['statuses'][0] = 1
+            app.data.generations[bestGens[1]]['statuses'][1] = 1
+            if (bestGens[2] != "Generation 0") { app.data.generations[bestGens[2]]['statuses'][2] = 1 }
+            app.data.generations[worstGens[0]]['statuses'][0] = -1
+            app.data.generations[worstGens[1]]['statuses'][1] = -1
+            if (worstGens[2] != "Generation 0") { app.data.generations[worstGens[2]]['statuses'][2] = -1 }
 
+            bestTypes = ["Generation 0", "Generation 0", "Generation 0"]
+            bestTypeVals = [0, 0, 0]
+            worstTypes = ["Generation 0", "Generation 0", "Generation 0"]
+            worstTypeVals = [5, Infinity, 5]
             for (var key in app.data.types){
                 type = app.data.types[key];
                 faveSum = 0;
@@ -366,16 +429,47 @@ let init = (app) => {
                     i += 1;
                 }
                 app.data.types[key]['average'] = sum / type['total'];
+                if (app.data.types[key]['average'] > bestTypeVals[0]){
+                    bestTypes[0] = key;
+                    bestTypeVals[0] = app.data.types[key]['average'];
+                }
+                if (app.data.types[key]['average'] < worstTypeVals[0]){
+                    worstTypes[0] = key;
+                    worstTypeVals[0] = app.data.types[key]['average'];
+                }
+
                 app.data.types[key]['faverage'] = faveSum / type['total'];
+                if (app.data.types[key]['faverage'] > bestTypeVals[1]){
+                    bestTypes[1] = key;
+                    bestTypeVals[1] = app.data.types[key]['faverage'];
+                }
+                if (app.data.types[key]['faverage'] < worstTypeVals[1]){
+                    worstTypes[1] = key;
+                    worstTypeVals[1] = app.data.types[key]['faverage'];
+                }
+
                 if (type['userRates'].length > 0){
                     app.data.types[key]['userAve'] = userSum / type['userRates'].length;
+                    if (app.data.types[key]['userAve'] > bestTypeVals[2]){
+                        bestTypes[2] = key;
+                        bestTypeVals[2] = app.data.types[key]['userAve'];
+                    }
+                    if (app.data.types[key]['userAve'] < worstTypeVals[2]){
+                        worstTypes[2] = key;
+                        worstTypeVals[2] = app.data.types[key]['userAve'];
+                    }
                 } else {
                     app.data.types[key]['userAve'] = "No ratings!"
                 }
             }
-
-            app.data.generations = app.data.generations.sort()
+            app.data.types[bestTypes[0]]['statuses'][0] = 1
+            app.data.types[bestTypes[1]]['statuses'][1] = 1
+            if (bestTypes[2] != "Generation 0") { app.data.types[bestTypes[2]]['statuses'][2] = 1 }
+            app.data.types[worstTypes[0]]['statuses'][0] = -1
+            app.data.types[worstTypes[1]]['statuses'][1] = -1
+            if (worstTypes[2] != "Generation 0") { app.data.types[worstTypes[2]]['statuses'][2] = -1 }
         });
+
     };
 
 

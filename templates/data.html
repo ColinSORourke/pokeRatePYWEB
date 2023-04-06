@@ -55,17 +55,21 @@
 
         <h1>Generations</h1>
         <div class="pokemon_list">
-            <div v-for="n in 9">
-                <h2>{{getGen(n).genName}}</h2>
-                <p>Average rating: {{getGen(n).userAve}}</p>
+            <div v-for="n in 9" class="databox">
+                <i v-if="getGen(n).statuses[2] == 1" class="fa fa-star"></i>
+                <i v-if="getGen(n).statuses[2] == -1" class="fa fa-thumbs-down"></i>
+                <h3>{{getGen(n).genName}}</h3>
+                <div>Average rating:<br>{{abbrevNum(getGen(n).userAve)}}</div>
             </div>
         </div>
 
         <h1>Types</h1>
         <div class="pokemon_list">
-            <div v-for="t in types">
-                <h2>{{t.typeName}}</h2>
-                <p>Average rating: {{t.userAve}}</p>
+            <div v-for="t in types" class="databox">
+                <i v-if="t.statuses[2] == 1" class="fa fa-star"></i>
+                <i v-if="t.statuses[2] == -1" class="fa fa-thumbs-down"></i>
+                <img :src="typeImagePathB(t.typeName)"  class="typeImg">
+                <div>Average rating:<br>{{abbrevNum(t.userAve)}}</div>
             </div>
         </div>
     </div>
@@ -119,7 +123,7 @@
                     </div>
                     
                     <div class="starContainer"> 
-                        <i class="fa fa-heart"><span>{{p.ratings[5]}}</span></i>
+                        <i class="fa fa-heart"><span>{{abbrevNum(p.ratings[5])}}</span></i>
                     </div>
 
                 </div>
@@ -174,7 +178,7 @@
                     </div>
                     
                     <div class="starContainer"> 
-                        <i class="fa fa-heart"><span>{{p.ratings[5]}}</span></i>
+                        <i class="fa fa-heart"><span>{{abbrevNum(p.ratings[5])}}</span></i>
                     </div>
 
                 </div>
@@ -183,33 +187,41 @@
 
         <h1>Generations</h1>
         <div class="pokemon_list">
-            <div v-if="displayType == 'Rate'" v-for="n in 9">
-                <h2>{{getGen(n).genName}}</h2>
-                <p>Average rating: {{getGen(n).average}}</p>
-                <p>Best Pokemon: {{getGen(n).bestPoke.fullname}}</p>
-                <p>Worst Pokemon: {{getGen(n).worstPoke.fullname}}</p>
+            <div v-if="displayType == 'Rate'" v-for="n in 9" class="databox">
+                <i v-if="getGen(n).statuses[0] == 1" class="fa fa-star"></i>
+                <i v-if="getGen(n).statuses[0] == -1" class="fa fa-thumbs-down"></i>
+                <h3>{{getGen(n).genName}}</h3>
+                <div>Average rating:<br>{{abbrevNum(getGen(n).average)}}</div>
+                <div>Best Pokemon:<br><a :href="dexPath(getGen(n).bestPoke)">{{getGen(n).bestPoke.fullname}}</a></div>
+                <div>Worst Pokemon:<br><a :href="dexPath(getGen(n).worstPoke)">{{getGen(n).worstPoke.fullname}}</a></div>
             </div>
-            <div v-if="displayType == 'Fave'" v-for="n in 9">
-                <h2>{{getGen(n).genName}}</h2>
-                <p>Average faves: {{getGen(n).faverage}}</p>
-                <p>Best Pokemon: {{getGen(n).mostFavesPoke.fullname}}</p>
-                <p>Worst Pokemon: {{getGen(n).leastFavesPoke.fullname}}</p>
+            <div v-if="displayType == 'Fave'" v-for="n in 9" class="databox">
+                <i v-if="getGen(n).statuses[1] == 1" class="fa fa-star"></i>
+                <i v-if="getGen(n).statuses[1] == -1" class="fa fa-thumbs-down"></i>
+                <h3>{{getGen(n).genName}}</h3>
+                <div>Average faves:<br>{{abbrevNum(getGen(n).faverage)}}</div>
+                <div>Best Pokemon:<br><a :href="dexPath(getGen(n).mostFavesPoke)">{{getGen(n).mostFavesPoke.fullname}}</a></div>
+                <div>Worst Pokemon:<br><a :href="dexPath(getGen(n).leastFavesPoke)">{{getGen(n).leastFavesPoke.fullname}}</a></div>
             </div>
         </div>
 
         <h1>Types</h1>
         <div class="pokemon_list">
-            <div v-if="displayType == 'Rate'" v-for="t in types">
-                <h2>{{t.typeName}}</h2>
-                <p>Average rating: {{t.average}}</p>
-                <p>Best Pokemon: {{t.bestPoke.fullname}}</p>
-                <p>Worst Pokemon: {{t.worstPoke.fullname}}</p>
+            <div v-if="displayType == 'Rate'" v-for="t in types" class="databox">
+                <i v-if="t.statuses[0] == 1" class="fa fa-star"></i>
+                <i v-if="t.statuses[0] == -1" class="fa fa-thumbs-down"></i>
+                <img :src="typeImagePathB(t.typeName)"  class="typeImg">
+                <div>Average rating:<br>{{abbrevNum(t.average)}}</div>
+                <div>Best Pokemon:<br><a :href="dexPath(t.bestPoke)">{{t.bestPoke.fullname}}</a></div>
+                <div>Worst Pokemon:<br><a :href="dexPath(t.worstPoke)">{{t.worstPoke.fullname}}</a></div>
             </div>
-            <div v-if="displayType == 'Fave'" v-for="t in types">
-                <h2>{{t.typeName}}</h2>
-                <p>Average faves: {{t.faverage}}</p>
-                <p>Best Pokemon: {{t.mostFavesPoke.fullname}}</p>
-                <p>Worst Pokemon: {{t.leastFavesPoke.fullname}}</p>
+            <div v-if="displayType == 'Fave'" v-for="t in types" class="databox">
+                <i v-if="t.statuses[1] == 1" class="fa fa-star"></i>
+                <i v-if="t.statuses[1] == -1" class="fa fa-thumbs-down"></i>
+                <img :src="typeImagePathB(t.typeName)"  class="typeImg">
+                <div>Average faves:<br>{{abbrevNum(t.faverage)}}</div>
+                <div>Best Pokemon:<br><a :href="dexPath(t.mostFavesPoke)">{{t.mostFavesPoke.fullname}}</a></div>
+                <div>Worst Pokemon:<br><a :href="dexPath(t.leastFavesPoke)">{{t.leastFavesPoke.fullname}}</a></div>
             </div>
         </div>
     </div>

@@ -93,6 +93,12 @@ let init = (app) => {
         },
         dexPath(p){
             return dex_url + "/" + p["id"]
+        },
+        abbrevNum(n){
+            return Intl.NumberFormat('en-US', {
+                notation: "compact",
+                maximumFractionDigits: 1
+              }).format(n);
         }
     };
 
