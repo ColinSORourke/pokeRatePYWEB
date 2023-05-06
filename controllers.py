@@ -116,6 +116,18 @@ def data():
         pokedex_url = URL('pokedex')
     )
 
+@action("puzzle")
+@action.uses('puzzle.html', session, auth.flash, url_signer, db, auth, T)
+def data():
+    with open('apps/pokeRate/static/FullDex.json') as f:
+        data = json.load(f)
+
+    return dict(
+        dexJSON = json.dumps(data),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
+        pokedex_url = URL('pokedex')
+    )
+
 @action("setup")
 @action.uses(db)
 def setup():

@@ -1,0 +1,47 @@
+[[extend 'layout.html']]
+
+<link rel="stylesheet" href="css/puzzle.css">
+<link rel="stylesheet" href="css/pokemonEntries.css">
+
+<div id="vue-target">
+    <h1>Guess today's pokemon!</h1>
+    <div class="pokemon_entry">
+        <div class="pokeName">Mystery</div>
+        <div class="pokeNumber">#9999</div>
+        <div class="pokeImgContainer">
+            <img src="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg" color="black">
+        </div>
+
+        <div class="typesContainer">
+            <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+            <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
+        </div>
+        
+        <div class="starContainer">
+            <div class="filledStars" style="width: 50%">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+        </div>
+        </div>
+    
+
+</div>
+
+<footer class="padded">
+    <p style="opacity: 0">
+      Secret text
+    </p>
+ </footer>
+
+[[block page_scripts]]
+<script>
+   let dexJSON = [[=XML(dexJSON)]]
+   let get_all_ratings_url = "[[=XML(get_all_ratings_url)]]"
+   let dex_url = "[[=XML(pokedex_url)]]"
+</script>
+<script src="js/puzzle.js"></script>
+[[end]]
