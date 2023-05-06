@@ -78,7 +78,7 @@
 
     <div class="mainPage">
         <h1>All Pokemon</h1>
-        <input class="input" type="text" v-model="query" placeholder="Search Pokemon..."/>
+        <input class="SearchBar" type="text" v-model="query" placeholder="Search Pokemon..."/>
         <div v-if="query == ''">
             <div v-for="c in myCategories" class="category">
                 <h2>{{c.title}}</h2>
@@ -154,7 +154,7 @@
     
 
     <footer class="padded">
-        <p>
+        <p style="color: rgba(0, 0, 0, 0)">
           !
         </p>
     </footer>
