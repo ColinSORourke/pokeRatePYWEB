@@ -6,6 +6,9 @@ let app = {};
 // creates a Vue instance, and then initializes the Vue instance.
 let init = (app) => {
 
+    // This creates the Vue instance.
+    
+
     // This is the Vue data.
     app.data = {
 
@@ -18,7 +21,8 @@ let init = (app) => {
         showNotif: false,
         fadeCountdown: 0,
         showModal: false,
-        modalPokemon: dexJSON["Pokemon"][0]
+        modalPokemon: dexJSON["Pokemon"][0],
+        query: "",
         // Complete as you see fit.
     };
 
@@ -140,10 +144,18 @@ let init = (app) => {
                 notation: "compact",
                 maximumFractionDigits: 1
               }).format(n);
+        },
+        filteredPokes(){
+            return app.vue.myPokemon.filter((pokemon) =>
+                ( pokemon.fullname.toLowerCase().includes(app.vue.query.toLowerCase()) 
+                || 
+                  pokemon.types.includes(app.vue.query.charAt(0).toUpperCase() + app.vue.query.toLowerCase().slice(1)) )
+                &&
+                pokemon.significantForm
+            );
         }
     };
 
-    // This creates the Vue instance.
     app.vue = new Vue({
         el: "#vue-target",
         data: app.data,
@@ -165,9 +177,6 @@ let init = (app) => {
     app.init = () => {
         // Put here any initialization code.
         // Typically this is a server GET call to load the data.
-        
-
-
         app.vue.myCategories = app.data.myCategories;
         pokemonPerCategory = {};
         i = 0;
@@ -179,7 +188,6 @@ let init = (app) => {
         app.addRateData(app.data.myPokemon)
         axios.get(get_all_ratings_url).then((result) => {
             id_map = {};
-            console.log(result.data.userRatings)
             derived_rates = result.data.allRatings;
             i = 0;
             while (i < result.data.allRatings.length){
