@@ -20,7 +20,7 @@
         <div class="pokemon_list">
             <h2 v-if="userFavorites.length == 0">No favorites!!!</h2>
             <a v-for="p in userFavorites" :href="dexPath(p)" data-interception="off">
-                <div class="pokemon_entry">
+                <div class="pokemon_entry highlight">
                 <i v-if="p.userFavorite"class="fa fa-heart"></i>
                 <div class="pokeName">{{p.fullname}}</div>
                 <div class="pokeNumber">{{ pokemonNumber(p) }}</div>

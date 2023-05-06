@@ -5,28 +5,120 @@
 
 <div id="vue-target">
     <h1>Guess today's pokemon!</h1>
-    <div class="pokemon_entry">
-        <div class="pokeName">Mystery</div>
-        <div class="pokeNumber">#9999</div>
-        <div class="pokeImgContainer">
-            <img src="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg" color="black">
-        </div>
-
-        <div class="typesContainer">
-            <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
-            <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
-        </div>
+    <div class="puzzle_display">
+        <div>
+            Your Guess
+            <div class="guess_entry">
+                <div class="pokeName">Mystery</div>
+                <div class="pokeNumber">#9999</div>
+                <div class="pokeImgContainer">
+                    <img src="images/PokemonArt/unown-question.png" class="pokeImg" color="black">
+                </div>
         
-        <div class="starContainer">
-            <div class="filledStars" style="width: 50%">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
+                <div class="typesContainer">
+                    <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                    <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
+                </div>
+                
+                <div class="starContainer">
+                    <div class="filledStars" style="width: 50%">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div>
+            Today's Pokemon
+            <div class="guess_entry">
+                <div class="pokeName">Mystery</div>
+                <div class="pokeNumber">#9999</div>
+                <div class="pokeImgContainer">
+                    <img src="images/PokemonArt/unown-question.png" class="pokeImg" color="black">
+                </div>
+        
+                <div class="typesContainer">
+                    <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                    <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
+                </div>
+                
+                <div class="starContainer">
+                    <div class="filledStars" style="width: 50%">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    
+    <div class="data-table">
+        <div class="data-header">
+            <div>Pokemon</div>
+            <div>Alphabetical</div>
+            <div>Gen</div>
+            <div>Type 1</div>
+            <div>Type 2</div>
+            <div>Rating</div>
+        </div>
+        <div class="data-row">
+            <div>Pikachu</div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-times-circle"></i></div>
+            <div><i class="fa fa-arrow-circle-up"></i></div>
+            <div><i class="fa fa-arrow-circle-down"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+        </div>
+        <div class="data-row">
+            <div>Pikachu</div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+        </div>
+        <div class="data-row">
+            <div>Pikachu</div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+        </div>
+        <div class="data-row">
+            <div>Pikachu</div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+        </div>
+        <div class="data-row">
+            <div>Pikachu</div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+        </div>
+        <div class="data-row">
+            <div>Pikachu</div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+            <div><i class="fa fa-check-circle"></i></div>
+        </div>
+    </div>
+
+    <input class="SearchBar" type="text" v-model="query" placeholder="Guess Pokemon..."/>
     
 
 </div>
