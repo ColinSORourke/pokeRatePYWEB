@@ -228,12 +228,15 @@ let init = (app) => {
             }
 
             if (target_poke != 0){
+                target_poke = target_poke.padStart(4, 0)
                 target_poke = target_poke.padEnd(6, 0)
             }
 
             if (id_map[target_poke] != null){
-                app.data.showModal = true
-                app.data.modalPokemon = app.data.myPokemon[id_map[target_poke]]
+                if (app.data.myPokemon[id_map[target_poke]].significantForm){
+                    app.data.showModal = true
+                    app.data.modalPokemon = app.data.myPokemon[id_map[target_poke]]
+                }   
             }
 
             app.vue.pokemonPerCategory = pokemonPerCategory;
