@@ -8,7 +8,7 @@
     <div class="puzzle_display">
         <div>
             Your Guess
-            <div class="guess_entry">
+            <div v-if="noGuess == true" class="guess_entry">
                 <div class="pokeName">Mystery</div>
                 <div class="pokeNumber">#9999</div>
                 <div class="pokeImgContainer">
@@ -29,6 +29,28 @@
                         <i class="fa fa-star"></i>
                     </div>
                 </div>
+            </div>
+            <div v-else class="guess_entry">
+                <div class="pokeName">{{mostRecentGuess.name}}</div>
+                    <div class="pokeNumber">{{ pokemonNumber(mostRecentGuess) }}</div>
+                    <div class="pokeImgContainer">
+                        <img :src="pokemonImagePath(mostRecentGuess)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    </div>
+
+                    <div class="typesContainer">
+                        <div class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 0)"  class="typeImg"></div>
+                        <div v-if="mostRecentGuess.types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 1)"  class="typeImg"></div>
+                    </div>
+                    
+                    <div class="starContainer">
+                        <div class="filledStars" :style="widthPerc(mostRecentGuess)">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
             </div>
         </div>
 
@@ -62,63 +84,31 @@
     <div class="data-table">
         <div class="data-header">
             <div>Pokemon</div>
-            <div>Alphabetical</div>
+            <div>Alphabet</div>
             <div>Gen</div>
             <div>Type 1</div>
             <div>Type 2</div>
             <div>Rating</div>
         </div>
-        <div class="data-row">
-            <div>Pikachu</div>
+        <div class="data-row" v-for="p in myGuesses">
+            <div>{{p.name}}</div>
             <div><i class="fa fa-check-circle"></i></div>
             <div><i class="fa fa-times-circle"></i></div>
             <div><i class="fa fa-arrow-circle-up"></i></div>
             <div><i class="fa fa-arrow-circle-down"></i></div>
             <div><i class="fa fa-check-circle"></i></div>
         </div>
-        <div class="data-row">
-            <div>Pikachu</div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-        </div>
-        <div class="data-row">
-            <div>Pikachu</div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-        </div>
-        <div class="data-row">
-            <div>Pikachu</div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-        </div>
-        <div class="data-row">
-            <div>Pikachu</div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-        </div>
-        <div class="data-row">
-            <div>Pikachu</div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
-        </div>
     </div>
 
-    <input class="SearchBar" type="text" v-model="query" placeholder="Guess Pokemon..."/>
+    <div class="guessBox" v-if="myGuesses.length < 6">
+        <div class="autocomplete">
+            <input v-model="query" @input="onchange" type="text">
+            <ul class="autocomplete_results">
+                <li class="autocomplete_result" v-for="p in acSuggestions" @click="acFill(p)">{{p.name}}</li>
+            </ul>
+        </div>
+        <input type="button" @click="submitGuess()" value="Guess">
+    </div>
     
 
 </div>
