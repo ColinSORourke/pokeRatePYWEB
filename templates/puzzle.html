@@ -9,7 +9,7 @@
         <div>
             Your Guess
             <div v-if="noGuess == true" class="guess_entry">
-                <div class="pokeName">Mystery</div>
+                <div class="pokeName">Guess</div>
                 <div class="pokeNumber">#9999</div>
                 <div class="pokeImgContainer">
                     <img src="images/PokemonArt/unown-question.png" class="pokeImg" color="black">
@@ -32,31 +32,31 @@
             </div>
             <div v-else class="guess_entry">
                 <div class="pokeName">{{mostRecentGuess.name}}</div>
-                    <div class="pokeNumber">{{ pokemonNumber(mostRecentGuess) }}</div>
-                    <div class="pokeImgContainer">
-                        <img :src="pokemonImagePath(mostRecentGuess)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
-                    </div>
+                <div class="pokeNumber">{{ pokemonNumber(mostRecentGuess) }}</div>
+                <div class="pokeImgContainer">
+                    <img :src="pokemonImagePath(mostRecentGuess)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                </div>
 
-                    <div class="typesContainer">
-                        <div class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 0)"  class="typeImg"></div>
-                        <div v-if="mostRecentGuess.types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 1)"  class="typeImg"></div>
+                <div class="typesContainer">
+                    <div class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 0)"  class="typeImg"></div>
+                    <div v-if="mostRecentGuess.types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 1)"  class="typeImg"></div>
+                </div>
+                
+                <div class="starContainer">
+                    <div class="filledStars" :style="widthPerc(mostRecentGuess)">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
                     </div>
-                    
-                    <div class="starContainer">
-                        <div class="filledStars" :style="widthPerc(mostRecentGuess)">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
+                </div>
             </div>
         </div>
 
         <div>
             Today's Pokemon
-            <div class="guess_entry">
+            <div v-if="solved == false" class="guess_entry">
                 <div class="pokeName">Mystery</div>
                 <div class="pokeNumber">#9999</div>
                 <div class="pokeImgContainer">
@@ -70,6 +70,29 @@
                 
                 <div class="starContainer">
                     <div class="filledStars" style="width: 50%">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div v-else class="guess_entry">
+                <div class="pokeName">{{targetPokemon.name}}</div>
+                <div class="pokeNumber">{{ pokemonNumber(targetPokemon) }}</div>
+                <div class="pokeImgContainer">
+                    <img :src="pokemonImagePath(targetPokemon)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                </div>
+
+                <div class="typesContainer">
+                    <div class="typeContainer"><img :src="typeImagePath(targetPokemon, 0)"  class="typeImg"></div>
+                    <div v-if="targetPokemon.types.length == 2" class="typeContainer"><img :src="typeImagePath(targetPokemon, 1)"  class="typeImg"></div>
+                </div>
+                
+                <div class="starContainer">
+                    <div class="filledStars" :style="widthPerc(targetPokemon)">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -92,15 +115,15 @@
         </div>
         <div class="data-row" v-for="p in myGuesses">
             <div>{{p.name}}</div>
-            <div><i class="fa fa-check-circle"></i></div>
-            <div><i class="fa fa-times-circle"></i></div>
-            <div><i class="fa fa-arrow-circle-up"></i></div>
-            <div><i class="fa fa-arrow-circle-down"></i></div>
+            <div><i :class="checkAlph(p)"></i></div>
+            <div><i :class="checkGen(p)"></i></div>
+            <div><i :class="checkTypePrim(p)"></i></div>
+            <div><i :class="checkTypeSecond(p)"></i></div>
             <div><i class="fa fa-check-circle"></i></div>
         </div>
     </div>
 
-    <div class="guessBox" v-if="myGuesses.length < 6">
+    <div class="guessBox" v-if="myGuesses.length < 6 && !solved">
         <div class="autocomplete">
             <input v-model="query" @input="onchange" type="text">
             <ul class="autocomplete_results">

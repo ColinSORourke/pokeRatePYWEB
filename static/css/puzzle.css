@@ -135,3 +135,19 @@
     background-color: #4AAE9B;
     color: white;
 }
+
+.fa-check-circle {
+    color: green;
+}
+
+.fa-times-circle {
+    color: red;
+}
+
+.fa-arrow-circle-up{
+    color: blue;
+}
+
+.fa-arrow-circle-down{
+    color: rgb(111, 111, 12);
+}

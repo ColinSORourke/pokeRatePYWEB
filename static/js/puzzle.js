@@ -13,6 +13,8 @@ let init = (app) => {
         myPokemon: dexJSON["Pokemon"].filter((pokemon) => 
             pokemon.form == "Basic"
         ),
+        targetPokemon: {},
+        solved: false,
         query: "",
         acSuggestions: [],
         myGuesses: [],
@@ -49,6 +51,10 @@ let init = (app) => {
                 app.vue.noGuess = false;
                 app.vue.query = '';
             }
+
+            if (guess.name == app.vue.targetPokemon.name){
+                app.vue.solved = true;
+            }
         },
         pokemonImagePath(p) {
             return "images/PokemonArt/" + p['generation'] + "/" + p["fullname"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
@@ -65,6 +71,49 @@ let init = (app) => {
             }
             return "width: " + p.globalAverage*20 + "%;"
         },
+        checkAlph(p){
+            if (p.name[0] < app.vue.targetPokemon.name[0]){
+                return "fa fa-arrow-circle-up"
+            } else if (p.name[0] > app.vue.targetPokemon.name[0]){
+                return "fa fa-arrow-circle-down"
+            } else {
+                return "fa fa-check-circle"
+            }
+        },
+        checkGen(p){
+            guessGen = p.generation[11]
+            targetGen = app.vue.targetPokemon.generation[11]
+            if (guessGen < targetGen){
+                return "fa fa-arrow-circle-up"
+            } else if (guessGen > targetGen){
+                return "fa fa-arrow-circle-down"
+            } else {
+                return "fa fa-check-circle"
+            }
+        },
+        checkTypePrim(p){
+            if (app.vue.targetPokemon.types.includes(p.types[0])){
+                return "fa fa-check-circle"
+            } else {
+                return "fa fa-times-circle"
+            }
+        },
+        checkTypeSecond(p){
+            if (p.types.length == 1 && app.vue.targetPokemon.types.length == 1){
+                return "fa fa-check-circle"
+            } else if (p.types.length == 1){
+                return "fa fa-times-circle"
+            } else {
+                if (app.vue.targetPokemon.types.includes(p.types[1])){
+                    return "fa fa-check-circle"
+                } else {
+                    return "fa fa-times-circle"
+                }
+            }
+        },
+        checkRate(p){
+            
+        }
     }
     // This creates the Vue instance.
     app.vue = new Vue({
@@ -75,7 +124,9 @@ let init = (app) => {
 
     // And this initializes it.
     app.init = () => {
-        
+        randIndex = Math.floor(Math.random() * app.vue.myPokemon.length)
+        app.vue.targetPokemon = app.vue.myPokemon[randIndex];
+        console.log(app.vue.targetPokemon)
     };
 
 
