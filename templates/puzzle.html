@@ -56,7 +56,7 @@
 
         <div>
             Today's Pokemon
-            <div v-if="solved == false" class="guess_entry">
+            <div v-if="solved == false && myGuesses.length < 6" class="guess_entry">
                 <div class="pokeName">Mystery</div>
                 <div class="pokeNumber">#9999</div>
                 <div class="pokeImgContainer">

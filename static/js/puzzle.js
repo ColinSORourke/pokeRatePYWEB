@@ -52,6 +52,22 @@ let init = (app) => {
                 app.vue.query = '';
             }
 
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            let d = new Date();
+            let dateString = months[d.getMonth()] + d.getDate() + "y" + d.getFullYear();
+
+            if (typeof(Storage) !== "undefined") {
+                if (localStorage.getItem(dateString) !== null){
+                    prevGuesses = localStorage.getItem(dateString)
+                    prevGuesses = prevGuesses + "---" + guess.name;
+                    localStorage.setItem(dateString, prevGuesses);
+                } else {
+                    localStorage.setItem(dateString, guess.name);
+                }
+            } else {
+                // Sorry! No Web Storage support..
+            }
+
             if (guess.name == app.vue.targetPokemon.name){
                 app.vue.solved = true;
             }
@@ -73,9 +89,9 @@ let init = (app) => {
         },
         checkAlph(p){
             if (p.name[0] < app.vue.targetPokemon.name[0]){
-                return "fa fa-arrow-circle-up"
+                return "fa fa-arrow-circle-right"
             } else if (p.name[0] > app.vue.targetPokemon.name[0]){
-                return "fa fa-arrow-circle-down"
+                return "fa fa-arrow-circle-left"
             } else {
                 return "fa fa-check-circle"
             }
@@ -84,9 +100,9 @@ let init = (app) => {
             guessGen = p.generation[11]
             targetGen = app.vue.targetPokemon.generation[11]
             if (guessGen < targetGen){
-                return "fa fa-arrow-circle-up"
+                return "fa fa-arrow-circle-right"
             } else if (guessGen > targetGen){
-                return "fa fa-arrow-circle-down"
+                return "fa fa-arrow-circle-left"
             } else {
                 return "fa fa-check-circle"
             }
@@ -113,6 +129,16 @@ let init = (app) => {
         },
         checkRate(p){
             
+        },
+        parseGuesses(guessesStr){
+            let guesses = guessesStr.split('---')
+            var i = 0;
+            while (i < guesses.length){
+                pokName = guesses[i]
+                let guess = app.vue.myPokemon.find(p => p.name == pokName);
+                app.vue.myGuesses.push(guess);
+                i += 1
+            }
         }
     }
     // This creates the Vue instance.
@@ -127,6 +153,19 @@ let init = (app) => {
         randIndex = Math.floor(Math.random() * app.vue.myPokemon.length)
         app.vue.targetPokemon = app.vue.myPokemon[randIndex];
         console.log(app.vue.targetPokemon)
+
+
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let d = new Date();
+        let dateString = months[d.getMonth()] + d.getDate() + "y" + d.getFullYear();
+        if (typeof(Storage) !== "undefined") {
+            if (localStorage.getItem(dateString) !== null){
+                app.vue.parseGuesses(localStorage.getItem(dateString))
+            }
+        } else {
+            // Sorry! No Web Storage support..
+        }
+
     };
 
 
