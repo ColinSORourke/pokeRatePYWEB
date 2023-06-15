@@ -3,7 +3,34 @@
 <link rel="stylesheet" href="css/puzzle.css">
 <link rel="stylesheet" href="css/pokemonEntries.css">
 
+
+
 <div id="vue-target">
+    <div v-if="showModal" class="modalBG">
+        <div class="modalContent">
+            <i class="fa fa-times" @click="showModal = false"></i>
+            <h1>Info</h1>
+            <p>
+                This is a daily Pokemon Puzzle inspired by Wordle!
+            </p>
+            <p>
+                You have 6 Guesses to figure out each day's pokemon! 
+            </p>
+            <p>
+                For each guess we'll tell you:
+            </p>
+            <ul>
+                <li>If the mystery pokemon starts with the same letter, or if it comes earlier/later in the alphabet</li>
+                <li>If the mystery pokemon comes from the same generation, or an earlier/later one.</li>
+                <li>If the mystery pokemon has any of the same types. (Single type pokemon are counted as having "None" as a secondary type)</li>
+                <li>If the mystery pokemon is rated higher or lower than your guess</li>
+            </ul>
+            <p>Good luck!</p>
+        </div>  
+    </div>
+
+    <h1>Guess todays pokemon! <i class="fa fa-question-circle" @click="showModal = true"></i></h1>
+    
     <div class="puzzle_display">
         <div>
             Your Guess

@@ -20,6 +20,7 @@ let init = (app) => {
         myGuesses: [],
         mostRecentGuess: {name: "None"},
         noGuess: true,
+        showModal: false,
     };
 
     app.enumerate = (a) => {
@@ -136,7 +137,9 @@ let init = (app) => {
             while (i < guesses.length){
                 pokName = guesses[i]
                 let guess = app.vue.myPokemon.find(p => p.name == pokName);
+                app.vue.mostRecentGuess = guess;
                 app.vue.myGuesses.push(guess);
+                app.vue.noGuess = false;
                 i += 1
             }
         }
@@ -161,6 +164,11 @@ let init = (app) => {
         if (typeof(Storage) !== "undefined") {
             if (localStorage.getItem(dateString) !== null){
                 app.vue.parseGuesses(localStorage.getItem(dateString))
+            }
+
+            if (localStorage.getItem("visitedPuzzle") == null){
+                localStorage.setItem("visitedPuzzle", "true")
+                app.vue.showModal = true;
             }
         } else {
             // Sorry! No Web Storage support..

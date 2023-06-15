@@ -7,6 +7,18 @@
     grid-template-columns: 1fr 1fr;
 }
 
+h1 {
+    text-align: center;
+}
+
+.fa-question-circle{
+    color: darkblue;
+}
+
+.fa-question-circle:hover{
+    color: blue;
+}
+
 .guess_entry {
     position: relative;
     background: white;
@@ -77,6 +89,9 @@
 }
 
 @media (max-width:600px) {
+    h1 {
+        font-size: 40px;
+    }
     .puzzle_display{
         width: 100%;
     }
@@ -177,4 +192,61 @@
     .autocomplete{
         width: 85%;
     }
+}
+
+/* Tinted background covering whole page*/
+.modalBG {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(37, 34, 34, 0.75);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    align-items: center;
+    display: flex;
+}
+
+/* Modal box itself. */
+.modalContent {
+    position: relative;
+    width: 500px;
+    background-color: white;
+    margin: auto;
+    border: solid;
+    border-width: 8px;
+    border-color:black;
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+.modalContent p{
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.modalContent ul{
+    list-style: square;
+    width: 80%;
+    margin: auto;
+    line-height: 1.3em;
+}
+
+.modalContent li{
+    margin: 6px;
+}
+
+/* X icon in top right. */
+.modalContent .fa-times {
+    font-size: 40px;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+}
+
+.modalContent .fa-times:hover {
+    cursor: pointer;
+    color: red;
 }
