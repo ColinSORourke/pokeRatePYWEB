@@ -41,7 +41,7 @@ from .models import get_user_email
 @action('index')
 @action.uses('home.html', session, auth.flash, url_signer, db, auth)
 def index():
-    with open('apps/pokeRate/static/FullDex.json') as f:
+    with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
     i = 0
     randomPokes = []
@@ -79,7 +79,7 @@ def index():
 @action("pokedex") # "Website/Pokerate/pokedex"
 @action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
 def pokedex():
-    with open('apps/pokeRate/static/FullDex.json') as f:
+    with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
     return dict(
         dexJSON = json.dumps(data),
@@ -93,7 +93,7 @@ def pokedex():
 @action("pokedex/<number>")
 @action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
 def pokedex(number):
-    with open('apps/pokeRate/static/FullDex.json') as f:
+    with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
     return dict(
         dexJSON = json.dumps(data),
@@ -108,7 +108,7 @@ def pokedex(number):
 @action("data")
 @action.uses('data.html', session, auth.flash, url_signer, db, auth, T)
 def data():
-    with open('apps/pokeRate/static/FullDex.json') as f:
+    with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
 
     return dict(
@@ -123,7 +123,7 @@ def data():
 @action("puzzle")
 @action.uses('puzzle.html', session, auth.flash, url_signer, db, auth, T)
 def data():
-    with open('apps/pokeRate/static/FullDex.json') as f:
+    with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
 
     return dict(
@@ -138,7 +138,7 @@ def data():
 def setup():
     db(db.ratings).delete()
     db(db.derived_ratings).delete()
-    with open('apps/pokeRate/static/FullDex.json') as f:
+    with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
     i = 0
     emails = ["colin.orourke@me.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
@@ -240,7 +240,7 @@ def request_delete():
     print("USE THIS LINK TO DELETE YOUR DATA")
     print(URL("delete_confirm", signer=url_signer))
     auth.flash.set("Check your email for link to delete")
-    with open('apps/pokeRate/static/FullDex.json') as f:
+    with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
     i = 0
     randomPokes = []
@@ -282,7 +282,7 @@ def delete_confirm():
     userRatings = db((db.ratings.rater) == get_user_email())
     userRatings.delete()
     auth.flash.set("Your Info has been deleted")
-    with open('apps/pokeRate/static/FullDex.json') as f:
+    with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
     i = 0
     randomPokes = []

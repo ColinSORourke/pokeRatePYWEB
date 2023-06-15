@@ -1,5 +1,8 @@
 * Highlight Pokemon Seeding
 * Puzzle Pokemon Seeding
-* Info tab
+* Info tab & Footer Disclaimer
 * Style pass
 * Update Database Functionality
+* Hook up Emailer to an actual email address
+* Comment Files
+* Add BST to JSON, Scraper, & Puzzle
