@@ -175,6 +175,14 @@ h1 {
     color: blue;
 }
 
+.fa-arrow-circle-up{
+    color: blue;
+}
+
+.fa-arrow-circle-down{
+    color: rgb(111, 111, 12);
+}
+
 .fa-arrow-circle-left{
     color: rgb(111, 111, 12);
 }

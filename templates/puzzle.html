@@ -145,7 +145,7 @@
             <div><i :class="checkGen(p)"></i></div>
             <div><i :class="checkTypePrim(p)"></i></div>
             <div><i :class="checkTypeSecond(p)"></i></div>
-            <div><i class="fa fa-check-circle"></i></div>
+            <div><i :class="checkRate(p)"></i></div>
         </div>
     </div>
 
@@ -171,7 +171,7 @@
 [[block page_scripts]]
 <script>
    let dexJSON = [[=XML(dexJSON)]]
-   let get_all_ratings_url = "[[=XML(get_all_ratings_url)]]"
+   let get_rating_url = "[[=XML(get_rating_url)]]"
    let dex_url = "[[=XML(pokedex_url)]]"
 </script>
 <script src="js/puzzle.js"></script>

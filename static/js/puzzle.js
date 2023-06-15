@@ -47,10 +47,15 @@ let init = (app) => {
         submitGuess(){
             let guess = app.vue.myPokemon.find(p => p.name == app.vue.query);
             if (guess != undefined){
-                app.vue.myGuesses.push(guess);
-                app.vue.mostRecentGuess = guess;
-                app.vue.noGuess = false;
-                app.vue.query = '';
+                axios.get(get_rating_url, { params: { pokID: guess.id } }).then(result => {
+                    let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
+                    guess['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
+                    app.vue.myGuesses.push(guess);
+                    app.vue.mostRecentGuess = guess;
+                    app.vue.noGuess = false;
+                    app.vue.query = '';
+                })
+                
             }
 
             const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -83,6 +88,7 @@ let init = (app) => {
             return "images/Types/" + p.types[i] + "_en.png";
         },
         widthPerc(p){
+            console.log(p.globalAverage);
             if (p.globalAverage == -1){
                 return "width: 50%;";
             }
@@ -129,7 +135,13 @@ let init = (app) => {
             }
         },
         checkRate(p){
-            
+            if (p.globalAverage == app.vue.targetPokemon.globalAverage){
+                return "fa fa-check-circle"
+            } else if (p.globalAverage < app.vue.targetPokemon.globalAverage){
+                return "fa fa-arrow-circle-up"
+            } else {
+                return "fa fa-arrow-circle-down"
+            }
         },
         parseGuesses(guessesStr){
             let guesses = guessesStr.split('---')
@@ -137,9 +149,13 @@ let init = (app) => {
             while (i < guesses.length){
                 pokName = guesses[i]
                 let guess = app.vue.myPokemon.find(p => p.name == pokName);
-                app.vue.mostRecentGuess = guess;
-                app.vue.myGuesses.push(guess);
-                app.vue.noGuess = false;
+                axios.get(get_rating_url, { params: { pokID: guess.id } }).then(result => {
+                    let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
+                    guess['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
+                    app.vue.mostRecentGuess = guess;
+                    app.vue.myGuesses.push(guess);
+                    app.vue.noGuess = false;
+                })                
                 i += 1
             }
         }
@@ -156,7 +172,11 @@ let init = (app) => {
         randIndex = Math.floor(Math.random() * app.vue.myPokemon.length)
         app.vue.targetPokemon = app.vue.myPokemon[randIndex];
         console.log(app.vue.targetPokemon)
-
+        
+        axios.get(get_rating_url, { params: { pokID: app.vue.targetPokemon.id } }).then(result => {
+            let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
+            app.vue.targetPokemon['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
+        })
 
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         let d = new Date();

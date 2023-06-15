@@ -128,7 +128,7 @@ def data():
 
     return dict(
         dexJSON = json.dumps(data),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
+        get_rating_url = URL('get_rating', signer=url_signer),
         pokedex_url = URL('pokedex'),
         req_delete_url = URL('request_delete', signer=url_signer),
     )
@@ -146,15 +146,15 @@ def setup():
         db.derived_ratings.insert(
             pokemon = data['Pokemon'][i]['id']
         )
-    #     j = 0
-    #     while (j < 5):
-    #         ran = random.randint(1,5)
-    #         db.ratings.insert(
-    #             pokemon = data['Pokemon'][i]['id'],
-    #             rater = emails[j % 5],
-    #             rating = ran
-    #         )
-    #         j += 1
+        j = 0
+        while (j < 5):
+            ran = random.randint(1,5)
+            db.ratings.insert(
+                pokemon = data['Pokemon'][i]['id'],
+                rater = emails[j % 5],
+                rating = ran
+            )
+            j += 1
         
         i += 1
     return "ok"
@@ -239,7 +239,7 @@ def get_all_ratings():
 def request_delete():
     print("USE THIS LINK TO DELETE YOUR DATA")
     print(URL("delete_confirm", signer=url_signer))
-
+    auth.flash.set("Check your email for link to delete")
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
     i = 0
@@ -281,7 +281,7 @@ def delete_confirm():
     print("Deleting all data of " + get_user_email())
     userRatings = db((db.ratings.rater) == get_user_email())
     userRatings.delete()
-
+    auth.flash.set("Your Info has been deleted")
     with open('apps/pokeRate/static/FullDex.json') as f:
         data = json.load(f)
     i = 0
