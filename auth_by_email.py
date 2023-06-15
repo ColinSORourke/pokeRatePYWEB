@@ -70,7 +70,6 @@ class AuthByEmail(Fixture):
                 del self.session[EMAIL_KEY]
                 self.flash.set("Login expired")
                 redirect(URL(self.default_path))
-            
 
     def login(self):
 
@@ -85,7 +84,7 @@ class AuthByEmail(Fixture):
             self.emailer.send_email(form.vars['email'], link)
             redirect(URL(WAITING_PATH))
         return dict(form = form)
-    
+
     def wait(self):
         # Controller for waiting page
         return dict()
