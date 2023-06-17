@@ -3611,16 +3611,16 @@
             "id": "008200"
         },
         {
-            "name": "farfetch'd",
-            "fullname": "farfetch'd",
+            "name": "Farfetch'd",
+            "fullname": "Farfetch'd",
             "form": "Basic",
             "significantForm": true,
             "species": "Wild Duck Pokémon",
             "generation": "Generation 1",
             "number": "0083",
             "formList": [
-                "farfetch'd",
-                "Galarian farfetch'd"
+                "Farfetch'd",
+                "Galarian Farfetch'd"
             ],
             "dblink": "https://pokemondb.net/pokedex/0083",
             "types": [
@@ -3640,16 +3640,16 @@
             "id": "008300"
         },
         {
-            "name": "farfetch'd",
-            "fullname": "Galarian farfetch'd",
+            "name": "Farfetch'd",
+            "fullname": "Galarian Farfetch'd",
             "form": "Galarian ",
             "significantForm": true,
             "species": "Wild Duck Pokémon",
             "generation": "Generation 8",
             "number": "0083",
             "formList": [
-                "farfetch'd",
-                "Galarian farfetch'd"
+                "Farfetch'd",
+                "Galarian Farfetch'd"
             ],
             "dblink": "https://pokemondb.net/pokedex/0083",
             "types": [

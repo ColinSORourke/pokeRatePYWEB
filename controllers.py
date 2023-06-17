@@ -41,6 +41,7 @@ from .models import get_user_email
 @action('index')
 @action.uses('home.html', session, auth.flash, url_signer, db, auth)
 def index():
+    print("Loaded Home Page")
     with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
     i = 0

@@ -85,7 +85,7 @@ let init = (app) => {
             return "#" + p['number'];
         },
         typeImagePath(p, i) {
-            return "images/Types/" + p.types[i] + "_en.png";
+            return "images/Types/" + p.types[i].toLowerCase()  + "_en.png";
         },
         widthPerc(p){
             console.log(p.globalAverage);

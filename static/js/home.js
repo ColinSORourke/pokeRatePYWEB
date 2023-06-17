@@ -49,10 +49,7 @@ let init = (app) => {
             return "fave" + p['id'];
         },
         typeImagePath(p, i) {
-            if (p['id'] != undefined ){
-                return "images/Types/" + p.types[i] + "_en.png";
-            }
-            return "images/Types/unknown.png";
+            return "images/Types/" + p.types[i].toLowerCase() + "_en.png";
         },
         widthPerc(p){
             console.log(p.globalAverage);

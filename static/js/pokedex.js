@@ -53,7 +53,7 @@ let init = (app) => {
             return "fave" + p['id'];
         },
         typeImagePath(p, i) {
-            return "images/Types/" + p.types[i] + "_en.png";
+            return "images/Types/" + p.types[i].toLowerCase() + "_en.png";
         },
         widthPerc(p){
             if (p.globalAverage == -1){

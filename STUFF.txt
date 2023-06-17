@@ -1,0 +1,24 @@
+-------- TO DO ---------
+* Highlight & Puzzle Pokemon Seeding
+* Info tab & Footer Disclaimer
+* Style pass
+* Be able to add pokemon
+* Hook up Emailer to an actual email address
+* Comment Files
+
+* Maybe: Add BST to JSON, Scraper, & Puzzle
+
+* STRETCH: Add alternate form viewing to modals for Pokemon with mult forms
+
+
+-------- DOCKER LOCAL LAUNCH --------
+From the py4web directory run:
+    docker build . -t py4web -f ./deployment_tools/docker/Dockerfile
+To build the image
+And run
+    docker run -e PYTHONUNBUFFERED=1 -d --name mypy4web -p 8000:8000 py4web
+to launch the container
+
+run
+    docker buildx build --platform=linux/amd64 . -t py4web -f ./deployment_tools/docker/Dockerfile
+to build an image for launching on Fargate
