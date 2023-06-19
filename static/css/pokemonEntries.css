@@ -1,4 +1,9 @@
-
+@font-face {
+    font-family: "Azeret-Mono";
+    src: url('fonts/Azeret_Mono/AzeretMono-VariableFont_wght.ttf');
+    font-weight: 100;
+    font-style: normal;
+}
 
 .pokemon_list {
     display: flex;
@@ -12,16 +17,15 @@
     background: white;
     color: black;
     border: solid;
-    border-width: 5px;
+    border-width: 2px;
     border-color:black;
-    border-radius: 10px;
+    border-radius: 20px;
     text-align: center;
     margin: 10px;
     align-items: center;
     width: 200px;
-    box-shadow: -5px 5px 5px rgba(52, 49, 49, 0.75);
 
-    transition: all .2s ease-in-out;
+    transition: all .25s ease-in-out;
 }
 
 .pokemon_entry .fa-heart{
@@ -32,13 +36,23 @@
     font-size: 40px;
 }
 
-.pokemon_entry .starContainer .fa-heart{
+.pokemon_entry .favContainer{
+    position: relative;
+    text-align: center;
+    font-size: 0;
+    width: 100%;
+    border-top: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.pokemon_entry .favContainer .fa-heart{
     position: relative;
     top: 0px;
     right: 0px;
 }
 
-.pokemon_entry .starContainer .fa-heart span{
+.pokemon_entry .favContainer .fa-heart span{
     color: black;
     font-size: 28px;
 }
@@ -51,17 +65,34 @@
 
 .pokemon_entry:hover{
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 /******************************************
 STAR LOGIC
 *******************************************/
 
-.pokemon_entry .starContainer{
+.pokemon_entry .ratingContainer{
     position: relative;
     text-align: center;
     font-size: 0;
+    width: 100%;
+    border-top: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.pokemon_entry .ratingText {
+    font-family: "Azeret-Mono";
+    color: black;
+    font-size: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.pokemon_entry .starContainer{
+    margin-top: -5px;
+    position: relative;
     width: min-content;
     margin-left: auto;
     margin-right: auto;
@@ -69,7 +100,7 @@ STAR LOGIC
 }
 
 .pokemon_entry .filledStars{
-    color: lightgreen;
+    color: orange;
     overflow: hidden;
     white-space: nowrap;
 }
@@ -107,7 +138,7 @@ STAR LOGIC
 
 .pokemon_entry .inputStars label:hover::before{
     content: "\f005";
-    color: orange !important;
+    color: goldenrod !important;
     
 }
 
@@ -115,16 +146,28 @@ STAR LOGIC
 
 *****************/
 
+.pokemon_entry .cardTitle{
+    display: grid;
+    height: 16px;
+    grid-template-columns: 3fr 1fr;
+    text-align: left;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    line-height: 1em;
+    font-family: "Azeret-Mono";
+    white-space: normal;
+}
+
 .pokemon_entry .pokeName{
-    margin-top: 5px;
-    font-size: 100%;
+    font-size: 14px;
     font-weight: bold;
-    white-space: nowrap;
 }
 
 .pokemon_entry .pokeNumber{
-    margin-top: -12px;
-    font-size: 85%;
+    text-align: right;
+    font-size: 12px;
+    color: rgb(180, 180, 180)
 }
 
 .pokemon_entry img{
@@ -132,7 +175,7 @@ STAR LOGIC
 }
 
 .pokemon_entry .pokeImgContainer{
-    margin-top: -15px;
+    margin-top: 0px;
 }
 
 .pokemon_entry .pokeImg{
@@ -141,6 +184,11 @@ STAR LOGIC
     margin-right: auto;
 }
 
+.pokemon_entry .unown_img{
+    height: 176px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .pokemon_entry .typesContainer{
     display: flex;
@@ -156,6 +204,10 @@ STAR LOGIC
 @media (max-width:600px) {
     .pokemon_entry .typeImg {
       width: 60px;
+    }
+
+    .pokemon_entry .unown_img {
+        height: 140px;
     }
 }
 

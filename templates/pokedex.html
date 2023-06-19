@@ -85,8 +85,11 @@
                 <div class="pokemon_list">
                     <div v-for="p in pokemonPerCategory[c.title]" class="pokemon_entry" @click="toggleModal(p)">
                         <i v-if="p.userFavorite"class="fa fa-heart"></i>
-                        <div class="pokeName">{{p.fullname}}</div>
-                        <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                        <div class="cardTitle">
+                            <div class="pokeName">{{p.fullname}}</div>
+                            <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                        </div>
+                        
                         <div class="pokeImgContainer">
                             <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
                         </div>
@@ -96,6 +99,55 @@
                             <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
                         </div>
                         
+                        <div class="ratingContainer">
+                            <div class="ratingText">
+                                <div>Rating</div>
+                                <div>{{ p.globalAverage.toFixed(2) }}</div>
+                            </div>
+                            <div class="starContainer">
+                                <div class="filledStars" :style="widthPerc(p)">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="inputStars">
+                                    <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
+                                    <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
+                                    <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
+                                    <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
+                                    <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+        <div v-else>
+            <div class="pokemon_list">
+                <div v-for="p in filteredPokes()" class="pokemon_entry" @click="toggleModal(p)">
+                    <i v-if="p.userFavorite"class="fa fa-heart"></i>
+                    <div class="cardTitle">
+                        <div class="pokeName">{{p.fullname}}</div>
+                        <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                    </div>
+                    
+                    <div class="pokeImgContainer">
+                        <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    </div>
+
+                    <div class="typesContainer">
+                        <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                        <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                    </div>
+                    
+                    <div class="ratingContainer">
+                        <div class="ratingText">
+                            <div>Rating</div>
+                            <div>{{ p.globalAverage.toFixed(2) }}</div>
+                        </div>
                         <div class="starContainer">
                             <div class="filledStars" :style="widthPerc(p)">
                                 <i class="fa fa-star"></i>
@@ -111,40 +163,6 @@
                                 <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
                                 <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>   
-        <div v-else>
-            <div class="pokemon_list">
-                <div v-for="p in filteredPokes()" class="pokemon_entry" @click="toggleModal(p)">
-                    <i v-if="p.userFavorite"class="fa fa-heart"></i>
-                    <div class="pokeName">{{p.fullname}}</div>
-                    <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
-                    <div class="pokeImgContainer">
-                        <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
-                    </div>
-
-                    <div class="typesContainer">
-                        <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
-                        <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
-                    </div>
-                    
-                    <div class="starContainer">
-                        <div class="filledStars" :style="widthPerc(p)">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="inputStars">
-                            <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
-                            <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
-                            <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
-                            <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
-                            <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
                         </div>
                     </div>
                 </div>

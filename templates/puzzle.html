@@ -34,33 +34,45 @@
     <div class="puzzle_display">
         <div>
             Your Guess
-            <div v-if="noGuess == true" class="guess_entry">
-                <div class="pokeName">Guess</div>
-                <div class="pokeNumber">#9999</div>
-                <div class="pokeImgContainer">
-                    <img src="images/PokemonArt/unown-question.png" class="pokeImg" color="black">
+            <div v-if="noGuess == true" class="pokemon_entry">
+                <div class="cardTitle">
+                    <div class="pokeName">Guess</div>
+                    <div class="pokeNumber">#9999</div>
                 </div>
-        
+                
+                <div class="pokeImgContainer">
+                    <img src="images/PokemonArt/unown-question.png" class="unown_img" color="black">
+                </div>
+
                 <div class="typesContainer">
                     <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
                     <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
                 </div>
                 
-                <div class="starContainer">
-                    <div class="filledStars" style="width: 50%">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+                <div class="ratingContainer">
+                    <div class="ratingText">
+                        <div>Rating</div>
+                        <div>???</div>
+                    </div>
+                    <div class="starContainer">
+                        <div class="filledStars" style="width: 50%">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div v-else class="guess_entry">
-                <div class="pokeName">{{mostRecentGuess.name}}</div>
-                <div class="pokeNumber">{{ pokemonNumber(mostRecentGuess) }}</div>
+            <div v-else class="pokemon_entry">
+                <div class="cardTitle">
+                    <div class="pokeName">{{mostRecentGuess.fullname}}</div>
+                    <div class="pokeNumber">{{ pokemonNumber(mostRecentGuess) }}</div>
+                </div>
+                
                 <div class="pokeImgContainer">
-                    <img :src="pokemonImagePath(mostRecentGuess)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    <img loading="lazy" :src="pokemonImagePath(mostRecentGuess)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
                 </div>
 
                 <div class="typesContainer">
@@ -68,13 +80,19 @@
                     <div v-if="mostRecentGuess.types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 1)"  class="typeImg"></div>
                 </div>
                 
-                <div class="starContainer">
-                    <div class="filledStars" :style="widthPerc(mostRecentGuess)">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+                <div class="ratingContainer">
+                    <div class="ratingText">
+                        <div>Rating</div>
+                        <div>{{ mostRecentGuess.globalAverage.toFixed(2) }}</div>
+                    </div>
+                    <div class="starContainer">
+                        <div class="filledStars" :style="widthPerc(mostRecentGuess)">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,34 +100,46 @@
 
         <div>
             Today's Pokemon
-            <div v-if="solved == false && myGuesses.length < 6" class="guess_entry">
-                <div class="pokeName">Mystery</div>
-                <div class="pokeNumber">#9999</div>
-                <div class="pokeImgContainer">
-                    <img src="images/PokemonArt/unown-question.png" class="pokeImg" color="black">
+            <div v-if="solved == false && myGuesses.length < 6" class="pokemon_entry">
+                <div class="cardTitle">
+                    <div class="pokeName">Mystery</div>
+                    <div class="pokeNumber">#9999</div>
                 </div>
-        
+                
+                <div class="pokeImgContainer">
+                    <img src="images/PokemonArt/unown-question.png" class="unown_img" color="black">
+                </div>
+
                 <div class="typesContainer">
                     <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
                     <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
                 </div>
                 
-                <div class="starContainer">
-                    <div class="filledStars" style="width: 50%">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+                <div class="ratingContainer">
+                    <div class="ratingText">
+                        <div>Rating</div>
+                        <div>???</div>
+                    </div>
+                    <div class="starContainer">
+                        <div class="filledStars" style="width: 50%">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div v-else class="guess_entry">
-                <div class="pokeName">{{targetPokemon.name}}</div>
-                <div class="pokeNumber">{{ pokemonNumber(targetPokemon) }}</div>
+            <div v-else class="pokemon_entry">
+                <div class="cardTitle">
+                    <div class="pokeName">{{targetPokemon.fullname}}</div>
+                    <div class="pokeNumber">{{ pokemonNumber(targetPokemon) }}</div>
+                </div>
+                
                 <div class="pokeImgContainer">
-                    <img :src="pokemonImagePath(targetPokemon)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    <img loading="lazy" :src="pokemonImagePath(targetPokemon)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
                 </div>
 
                 <div class="typesContainer">
@@ -117,13 +147,19 @@
                     <div v-if="targetPokemon.types.length == 2" class="typeContainer"><img :src="typeImagePath(targetPokemon, 1)"  class="typeImg"></div>
                 </div>
                 
-                <div class="starContainer">
-                    <div class="filledStars" :style="widthPerc(targetPokemon)">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+                <div class="ratingContainer">
+                    <div class="ratingText">
+                        <div>Rating</div>
+                        <div>{{ targetPokemon.globalAverage.toFixed(2) }}</div>
+                    </div>
+                    <div class="starContainer">
+                        <div class="filledStars" :style="widthPerc(targetPokemon)">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
                     </div>
                 </div>
             </div>

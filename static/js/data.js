@@ -387,14 +387,14 @@ let init = (app) => {
                     worstGenVals[0] = app.data.generations[key]['average'];
                 }
 
-                app.data.generations[key]['faverage'] = faveSum / gen['total'];
-                if (app.data.generations[key]['faverage'] > bestGenVals[1]){
+                app.data.generations[key]['favesum'] = faveSum;
+                if (app.data.generations[key]['favesum'] > bestGenVals[1]){
                     bestGens[1] = key;
-                    bestGenVals[1] = app.data.generations[key]['faverage'];
+                    bestGenVals[1] = app.data.generations[key]['favesum'];
                 }
-                if (app.data.generations[key]['faverage'] < worstGenVals[1]){
+                if (app.data.generations[key]['favesum'] < worstGenVals[1]){
                     worstGens[1] = key;
-                    worstGenVals[1] = app.data.generations[key]['faverage'];
+                    worstGenVals[1] = app.data.generations[key]['favesum'];
                 }
 
 
@@ -452,14 +452,14 @@ let init = (app) => {
                     worstTypeVals[0] = app.data.types[key]['average'];
                 }
 
-                app.data.types[key]['faverage'] = faveSum / type['total'];
-                if (app.data.types[key]['faverage'] > bestTypeVals[1]){
+                app.data.types[key]['favesum'] = faveSum 
+                if (app.data.types[key]['favesum'] > bestTypeVals[1]){
                     bestTypes[1] = key;
-                    bestTypeVals[1] = app.data.types[key]['faverage'];
+                    bestTypeVals[1] = app.data.types[key]['favesum'];
                 }
-                if (app.data.types[key]['faverage'] < worstTypeVals[1]){
+                if (app.data.types[key]['favesum'] < worstTypeVals[1]){
                     worstTypes[1] = key;
-                    worstTypeVals[1] = app.data.types[key]['faverage'];
+                    worstTypeVals[1] = app.data.types[key]['favesum'];
                 }
 
                 if (type['userRates'].length > 0){
