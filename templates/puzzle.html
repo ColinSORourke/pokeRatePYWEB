@@ -23,6 +23,7 @@
                 <li>If the mystery pokemon starts with the same letter, or if it comes earlier/later in the alphabet</li>
                 <li>If the mystery pokemon comes from the same generation, or an earlier/later one.</li>
                 <li>If the mystery pokemon has any of the same types. (Single type pokemon are counted as having "None" as a secondary type)</li>
+                <li>If the mystery pokemon has a higher, lower, or the same Base Stat Total</li>
                 <li>If the mystery pokemon is rated higher or lower than your guess</li>
             </ul>
             <p>Good luck!</p>
@@ -49,6 +50,11 @@
                     <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
                 </div>
                 
+                <div class="ratingText">
+                    <div>BST</div>
+                    <div>???</div>
+                </div>
+
                 <div class="ratingContainer">
                     <div class="ratingText">
                         <div>Rating</div>
@@ -80,6 +86,11 @@
                     <div v-if="mostRecentGuess.types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 1)"  class="typeImg"></div>
                 </div>
                 
+                <div class="ratingText">
+                    <div>BST</div>
+                    <div>{{ mostRecentGuess.bst }}</div>
+                </div>
+
                 <div class="ratingContainer">
                     <div class="ratingText">
                         <div>Rating</div>
@@ -115,6 +126,11 @@
                     <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
                 </div>
                 
+                <div class="ratingText">
+                    <div>BST</div>
+                    <div>???</div>
+                </div>
+
                 <div class="ratingContainer">
                     <div class="ratingText">
                         <div>Rating</div>
@@ -147,6 +163,11 @@
                     <div v-if="targetPokemon.types.length == 2" class="typeContainer"><img :src="typeImagePath(targetPokemon, 1)"  class="typeImg"></div>
                 </div>
                 
+                <div class="ratingText">
+                    <div>BST</div>
+                    <div>{{ mostRecentGuess.bst }}</div>
+                </div>
+
                 <div class="ratingContainer">
                     <div class="ratingText">
                         <div>Rating</div>
