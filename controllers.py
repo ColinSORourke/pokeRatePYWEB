@@ -37,15 +37,14 @@ from .common import db, session, T, cache, logger, flash
 from .common import auth, url_signer
 from .models import get_user_email
 
-
+coreSQL = "SELECT * FROM pokemonTable"
 
 @action('home')
 @action('index')
 @action.uses('home.html', session, auth.flash, url_signer, db, auth)
 def index():
     print("Loaded Home Page")
-    with open('apps/_default/static/FullDex.json') as f:
-        data = json.load(f)
+    data = list(db(db.pokemonTable).select().as_dict().values())
     i = 0
     randomPokes = []
     highlightPoke = None
@@ -89,8 +88,7 @@ def index():
 @action("pokedex") # "Website/Pokerate/pokedex"
 @action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
 def pokedex():
-    with open('apps/_default/static/FullDex.json') as f:
-        data = json.load(f)
+    data = list(db(db.pokemonTable).select().as_dict().values())
     return dict(
         dexJSON = json.dumps(data),
         get_rating_url = URL('get_rating', signer=url_signer),
@@ -103,8 +101,7 @@ def pokedex():
 @action("pokedex/<number>")
 @action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
 def pokedex(number):
-    with open('apps/_default/static/FullDex.json') as f:
-        data = json.load(f)
+    data = list(db(db.pokemonTable).select().as_dict().values())
     return dict(
         dexJSON = json.dumps(data),
         get_rating_url = URL('get_rating', signer=url_signer),
@@ -118,8 +115,7 @@ def pokedex(number):
 @action("data")
 @action.uses('data.html', session, auth.flash, url_signer, db, auth, T)
 def data():
-    with open('apps/_default/static/FullDex.json') as f:
-        data = json.load(f)
+    data = list(db(db.pokemonTable).select().as_dict().values())
 
     return dict(
         dexJSON = json.dumps(data),
@@ -133,8 +129,7 @@ def data():
 @action("puzzle")
 @action.uses('puzzle.html', session, auth.flash, url_signer, db, auth, T)
 def data():
-    with open('apps/_default/static/FullDex.json') as f:
-        data = json.load(f)
+    data = list(db(db.pokemonTable).select().as_dict().values())
 
     seed = dateSeed() * 2
     seed = BlumBlumShub(seed)
@@ -159,6 +154,7 @@ def data():
 @action("setup")
 @action.uses(db)
 def setup():
+    db(db.pokemonTable).delete()
     db(db.ratings).delete()
     db(db.derived_ratings).delete()
     with open('apps/_default/static/FullDex.json') as f:
@@ -166,18 +162,34 @@ def setup():
     i = 0
     emails = ["colin.orourke@me.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
     while (i < len(data)):
-        db.derived_ratings.insert(
-            pokemon = data[i]['pokID']
+        refPok = db.pokemonTable.insert(
+            name = data[i]['name'],
+            fullName = data[i]['fullname'],
+            form = data[i]['form'],
+            significantForm = data[i]['significantForm'],
+            species = data[i]['species'],
+            generation = data[i]['generation'],
+            number = data[i]['number'],
+            pokID = data[i]['pokID'],
+            bst = data[i]['bst'],
+            dbLink = data[i]['dblink'],
+            types = data[i]['types'],
+            formList = data[i]['formList'],
+            category = data[i]['category'],
         )
-        j = 0
-        while (j < 5):
-            ran = random.randint(1,5)
-            db.ratings.insert(
-                pokemon = data[i]['pokID'],
-                rater = emails[j % 5],
-                rating = ran
-            )
-            j += 1
+
+        db.derived_ratings.insert(
+            pokemon = refPok
+        )
+    #     j = 0
+    #     while (j < 5):
+    #         ran = random.randint(1,5)
+    #         db.ratings.insert(
+    #             pokemon = data[i]['pokID'],
+    #             rater = emails[j % 5],
+    #             rating = ran
+    #         )
+    #         j += 1
         
         i += 1
     return "ok"
@@ -216,27 +228,29 @@ def get_rating():
 @action("set_rating", method='POST')
 @action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
 def set_rating():
-    pokID = request.params.get('pokID')
+    id = request.params.get('id')
     rating = request.params.get('rating')
-    assert pokID is not None and rating is not None
-    if (rating != 6):
+    assert id is not None and rating is not None
+    if (rating != 6): 
         db.ratings.update_or_insert(
-            ((db.ratings.pokemon == pokID) & (db.ratings.rater == get_user_email()) & (db.ratings.rating != 6)),
-            pokemon = pokID,
+            ((db.ratings.pokemon == id) & (db.ratings.rater == get_user_email()) & (db.ratings.rating != 6)),
+            pokemon = id,
             rater = get_user_email(),
             rating=rating,
+            processed = False,
         )
         return "Rating Received!"
     elif (rating == 6):
         #stuff
         mySet = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()))
-        thisRate = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()) & (db.ratings.pokemon == pokID))
+        thisRate = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()) & (db.ratings.pokemon == id))
         if (thisRate.count() == 0):
             if (mySet.count() < 10):
                 db.ratings.insert(
-                    pokemon = pokID,
+                    pokemon = id,
                     rater = get_user_email(),
-                    rating = 6
+                    rating = 6,
+                    processed = False,
                 )
                 return "Favorite Received!"
             else:
@@ -263,8 +277,7 @@ def request_delete():
     print("USE THIS LINK TO DELETE YOUR DATA")
     print(URL("delete_confirm", signer=url_signer))
     auth.flash.set("Check your email for link to delete")
-    with open('apps/_default/static/FullDex.json') as f:
-        data = json.load(f)
+    data = list(db(db.pokemonTable).select().as_dict().values())
     i = 0
     randomPokes = []
     highlightPoke = None
@@ -305,8 +318,7 @@ def delete_confirm():
     userRatings = db((db.ratings.rater) == get_user_email())
     userRatings.delete()
     auth.flash.set("Your Info has been deleted")
-    with open('apps/_default/static/FullDex.json') as f:
-        data = json.load(f)
+    data = list(db(db.pokemonTable).select().as_dict().values())
     i = 0
     randomPokes = []
     highlightPoke = None

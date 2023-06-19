@@ -7,20 +7,13 @@ fs.readFile("../FullDex.json", "utf8", (err, jsonString) => {
     fullDex = JSON.parse(jsonString)
 
     var i = 0;
-    while (i < fullDex["Pokemon"].length){
-        var currPoke = fullDex["Pokemon"][i]
+    while (i < fullDex.length){
+        var currPoke = fullDex[i]
 
-        gigaIndex = currPoke['formList'].indexOf("Gigantamax " + currPoke['name'])
-        if (gigaIndex != -1){
-            fullDex["Pokemon"][i]['formList'].splice(gigaIndex, 1)
-            fullDex["Pokemon"][i]['formList'].push("Gigantamax " + currPoke['name'])
+        if (currPoke['form'] == "Gigantamax "){
+            currPoke['pokID'] = String( Number(currPoke['pokID']) + 1).padStart(6, '0')
         }
 
-        var formIndex = currPoke['formList'].indexOf(currPoke['fullname'])
-
-        var id = currPoke['number'] + String(formIndex).padStart(2, '0')
-
-        fullDex["Pokemon"][i]['id'] = id
         i += 1
     }
 

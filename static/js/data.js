@@ -44,7 +44,7 @@ let init = (app) => {
     app.methods = {
         // Complete as you see fit.
         pokemonImagePath(p) {
-            return "images/PokemonArt/" + p['generation'] + "/" + p["fullname"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
+            return "images/PokemonArt/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
         },
         pokemonNumber(p) {
             return "#" + p['number'];
@@ -74,7 +74,7 @@ let init = (app) => {
             return (p.userRating == i)
         },
         ratePok(p, i){
-            var postData = {"pokID": p.id, "rating": i};
+            var postData = {"id": p.id, "rating": i};
             axios.post(set_rating_url, postData).then((response) => {
                 if (response.data == "10 favorites already!"){
                     alert("Max number of favorites!")
@@ -224,7 +224,6 @@ let init = (app) => {
                         gen = "Generation 8"
                     }
                     if (app.data.generations[gen] == null){
-                        //console.log("Adding " + gen);
                         app.data.generations[gen] = {
                             genName: gen,
                             total: 1,

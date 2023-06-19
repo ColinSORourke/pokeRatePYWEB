@@ -97,7 +97,7 @@ LDAP_SETTINGS = {
 T_FOLDER = required_folder(APP_FOLDER, "translations")
 
 # Celery settings
-USE_CELERY = False
+USE_CELERY = True
 CELERY_BROKER = "redis://localhost:6379/0"
 
 # try import private settings

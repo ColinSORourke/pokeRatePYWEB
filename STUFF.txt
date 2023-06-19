@@ -1,12 +1,10 @@
 -------- TO DO ---------
 * Style pass
 * Be able to add pokemon
+* Store Pokemon Data in SQL rather than JSON
+* STore Database externally to Docker Container
 * Hook up Emailer to an actual email address
 * Comment Files
-
-* Maybe: Add BST to JSON, Scraper, & Puzzle
-
-* STRETCH: Add alternate form viewing to modals for Pokemon with mult forms
 
 
 -------- DOCKER LOCAL LAUNCH --------

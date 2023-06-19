@@ -97,6 +97,7 @@ STAR LOGIC
     margin-left: auto;
     margin-right: auto;
     font-family: FontAwesome;
+    
 }
 
 .pokemon_entry .filledStars{
@@ -106,7 +107,7 @@ STAR LOGIC
 }
 
 .pokemon_entry .filledStars i{
-    font-size: 28px;
+    font-size: 32px;
 }
 
 .pokemon_entry .inputStars{
@@ -116,6 +117,7 @@ STAR LOGIC
     overflow: hidden;
     white-space: nowrap;
     direction: rtl;
+    -webkit-text-stroke: 1px white;
 }
 
 .pokemon_entry .inputStars input{
@@ -124,7 +126,7 @@ STAR LOGIC
 
 .pokemon_entry .inputStars label::before{
     content: "\f006";
-    font-size: 28px;
+    font-size: 32px;
 }
 
 .pokemon_entry .inputStars input:checked ~ label::before{
@@ -139,7 +141,6 @@ STAR LOGIC
 .pokemon_entry .inputStars label:hover::before{
     content: "\f005";
     color: goldenrod !important;
-    
 }
 
 /****************
@@ -194,10 +195,11 @@ STAR LOGIC
     display: flex;
     justify-content: center;
     margin-top: -20px;
+    margin-bottom: 5px;
 }
 
 .pokemon_entry .typeImg{
-    margin: 3px;
+    margin: 5px;
     width: 80px;
 }
 

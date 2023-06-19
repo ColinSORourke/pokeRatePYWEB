@@ -79,7 +79,7 @@ let init = (app) => {
             }
         },
         pokemonImagePath(p) {
-            return "images/PokemonArt/" + p['generation'] + "/" + p["fullname"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
+            return "images/PokemonArt/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
         },
         pokemonNumber(p) {
             return "#" + p['number'];
@@ -143,9 +143,9 @@ let init = (app) => {
             }
         },
         checkRate(p){
-            if (p.globalAverage == app.vue.targetPokemon.globalAverage){
+            if (p.globalAverage.toFixed(2) == app.vue.targetPokemon.globalAverage.toFixed(2)){
                 return "fa fa-check-circle"
-            } else if (p.globalAverage < app.vue.targetPokemon.globalAverage){
+            } else if (p.globalAverage.toFixed(2) < app.vue.targetPokemon.globalAverage.toFixed(2)){
                 return "fa fa-arrow-circle-up"
             } else {
                 return "fa fa-arrow-circle-down"

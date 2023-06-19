@@ -10,11 +10,14 @@ To use celery tasks:
 
 """
 from .common import settings, scheduler, db, Field
+print("Tasks started")
+
 
 # example of task that needs db access
 @scheduler.task
 def my_task():
     try:
+        print("Updating Derived Table")
         # this task will be executed in its own thread, connect to db
         db._adapter.reconnect()
         # do something here
@@ -28,7 +31,7 @@ def my_task():
 scheduler.conf.beat_schedule = {
     "my_first_task": {
         "task": "apps.%s.tasks.my_task" % settings.APP_NAME,
-        "schedule": 300.0,
+        "schedule": 15.0,
         "args": (),
     },
 }

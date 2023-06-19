@@ -11,7 +11,7 @@
     <div v-if="showModal" class="modalBG">
         <div class="modalContent">
             <i class="fa fa-times" @click="showModal = false"></i>
-            <div class="pokeName">{{modalPokemon.fullname}}</div>
+            <div class="pokeName">{{modalPokemon.fullName}}</div>
             <div class="pokeNumber">{{ pokemonNumber(modalPokemon) }}</div>
             <div class="pokeImgContainer">
                 <div class="imgArrows">
@@ -86,7 +86,7 @@
                     <div v-for="p in pokemonPerCategory[c]" class="pokemon_entry" @click="toggleModal(p)">
                         <i v-if="p.userFavorite"class="fa fa-heart"></i>
                         <div class="cardTitle">
-                            <div class="pokeName">{{p.fullname}}</div>
+                            <div class="pokeName">{{p.fullName}}</div>
                             <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
                         </div>
                         
@@ -130,7 +130,7 @@
                 <div v-for="p in filteredPokes()" class="pokemon_entry" @click="toggleModal(p)">
                     <i v-if="p.userFavorite"class="fa fa-heart"></i>
                     <div class="cardTitle">
-                        <div class="pokeName">{{p.fullname}}</div>
+                        <div class="pokeName">{{p.fullName}}</div>
                         <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
                     </div>
                     

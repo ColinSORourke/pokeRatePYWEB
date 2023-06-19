@@ -103,7 +103,7 @@
             "Poison"
         ],
         "bst": 525,
-        "pokID": "000300"
+        "pokID": "000301"
     },
     {
         "name": "Charmander",
@@ -233,7 +233,7 @@
             "Flying"
         ],
         "bst": 534,
-        "pokID": "000600"
+        "pokID": "000601"
     },
     {
         "name": "Squirtle",
@@ -334,7 +334,7 @@
             "Water"
         ],
         "bst": 530,
-        "pokID": "000900"
+        "pokID": "000901"
     },
     {
         "name": "Caterpie",
@@ -414,7 +414,7 @@
             "Flying"
         ],
         "bst": 395,
-        "pokID": "001200"
+        "pokID": "001201"
     },
     {
         "name": "Weedle",
@@ -801,7 +801,7 @@
             "Electric"
         ],
         "bst": 320,
-        "pokID": "002500"
+        "pokID": "002501"
     },
     {
         "name": "Raichu",
@@ -1549,7 +1549,7 @@
             "Normal"
         ],
         "bst": 290,
-        "pokID": "005200"
+        "pokID": "005201"
     },
     {
         "name": "Persian",
@@ -1961,7 +1961,7 @@
             "Fighting"
         ],
         "bst": 505,
-        "pokID": "006800"
+        "pokID": "006801"
     },
     {
         "name": "Bellsprout",
@@ -2762,7 +2762,7 @@
             "Poison"
         ],
         "bst": 500,
-        "pokID": "009400"
+        "pokID": "009401"
     },
     {
         "name": "Onix",
@@ -2879,7 +2879,7 @@
             "Water"
         ],
         "bst": 475,
-        "pokID": "009900"
+        "pokID": "009901"
     },
     {
         "name": "Voltorb",
@@ -3787,7 +3787,7 @@
             "Ice"
         ],
         "bst": 535,
-        "pokID": "013100"
+        "pokID": "013101"
     },
     {
         "name": "Ditto",
@@ -3869,7 +3869,7 @@
             "Normal"
         ],
         "bst": 325,
-        "pokID": "013300"
+        "pokID": "013301"
     },
     {
         "name": "Vaporeon",
@@ -4107,7 +4107,7 @@
             "Normal"
         ],
         "bst": 540,
-        "pokID": "014300"
+        "pokID": "014301"
     },
     {
         "name": "Articuno",
@@ -14101,7 +14101,7 @@
             "Poison"
         ],
         "bst": 474,
-        "pokID": "056900"
+        "pokID": "056901"
     },
     {
         "name": "Zorua",
@@ -19703,7 +19703,7 @@
             "Steel"
         ],
         "bst": 600,
-        "pokID": "080900"
+        "pokID": "080901"
     },
     {
         "name": "Grookey",
@@ -19781,7 +19781,7 @@
             "Grass"
         ],
         "bst": 530,
-        "pokID": "081200"
+        "pokID": "081201"
     },
     {
         "name": "Scorbunny",
@@ -19859,7 +19859,7 @@
             "Fire"
         ],
         "bst": 530,
-        "pokID": "081500"
+        "pokID": "081501"
     },
     {
         "name": "Sobble",
@@ -19937,7 +19937,7 @@
             "Water"
         ],
         "bst": 530,
-        "pokID": "081800"
+        "pokID": "081801"
     },
     {
         "name": "Skwovet",
@@ -20055,7 +20055,7 @@
             "Steel"
         ],
         "bst": 495,
-        "pokID": "082300"
+        "pokID": "082301"
     },
     {
         "name": "Blipbug",
@@ -20136,7 +20136,7 @@
             "Psychic"
         ],
         "bst": 505,
-        "pokID": "082600"
+        "pokID": "082601"
     },
     {
         "name": "Nickit",
@@ -20311,7 +20311,7 @@
             "Rock"
         ],
         "bst": 485,
-        "pokID": "083400"
+        "pokID": "083401"
     },
     {
         "name": "Yamper",
@@ -20430,7 +20430,7 @@
             "Fire"
         ],
         "bst": 510,
-        "pokID": "083900"
+        "pokID": "083901"
     },
     {
         "name": "Applin",
@@ -20492,7 +20492,7 @@
             "Dragon"
         ],
         "bst": 485,
-        "pokID": "084100"
+        "pokID": "084101"
     },
     {
         "name": "Appletun",
@@ -20534,7 +20534,7 @@
             "Dragon"
         ],
         "bst": 485,
-        "pokID": "084200"
+        "pokID": "084201"
     },
     {
         "name": "Silicobra",
@@ -20593,7 +20593,7 @@
             "Ground"
         ],
         "bst": 510,
-        "pokID": "084400"
+        "pokID": "084401"
     },
     {
         "name": "Cramorant",
@@ -20737,7 +20737,7 @@
             "Poison"
         ],
         "bst": 502,
-        "pokID": "084900"
+        "pokID": "084901"
     },
     {
         "name": "Sizzlipede",
@@ -20799,7 +20799,7 @@
             "Bug"
         ],
         "bst": 525,
-        "pokID": "085100"
+        "pokID": "085101"
     },
     {
         "name": "Clobbopus",
@@ -20955,7 +20955,7 @@
             "Fairy"
         ],
         "bst": 510,
-        "pokID": "085800"
+        "pokID": "085801"
     },
     {
         "name": "Impidimp",
@@ -21037,7 +21037,7 @@
             "Fairy"
         ],
         "bst": 510,
-        "pokID": "086100"
+        "pokID": "086101"
     },
     {
         "name": "Obstagoon",
@@ -21213,7 +21213,7 @@
             "Fairy"
         ],
         "bst": 495,
-        "pokID": "086900"
+        "pokID": "086901"
     },
     {
         "name": "Falinks",
@@ -21493,7 +21493,7 @@
             "Steel"
         ],
         "bst": 500,
-        "pokID": "087900"
+        "pokID": "087901"
     },
     {
         "name": "Dracozolt",
@@ -21615,7 +21615,7 @@
             "Dragon"
         ],
         "bst": 535,
-        "pokID": "088400"
+        "pokID": "088401"
     },
     {
         "name": "Dreepy",
@@ -21884,7 +21884,7 @@
             "Dark"
         ],
         "bst": 550,
-        "pokID": "089200"
+        "pokID": "089201"
     },
     {
         "name": "Zarude",
