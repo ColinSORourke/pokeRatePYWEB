@@ -31,7 +31,7 @@ let init = (app) => {
     app.methods = {
         // Complete as you see fit.
         pokemonImagePath(p) {
-            if (p['id'] != undefined ){
+            if (p['pokID'] != undefined ){
                 return "images/PokemonArt/" + p['generation'] + "/" + p["fullname"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
             }
             return "images/PokemonArt/Generation 1/Bulbasaur.png"
@@ -40,13 +40,13 @@ let init = (app) => {
             return "#" + p['number'];
         },
         starID(p){
-            return "star" + p['id'];
+            return "star" + p['pokID'];
         },
         starIDRate(p, i){
-            return "star" + i + "_" + p['id'];
+            return "star" + i + "_" + p['pokID'];
         },
         faveID(p){
-            return "fave" + p['id'];
+            return "fave" + p['pokID'];
         },
         typeImagePath(p, i) {
             return "images/Types/" + p.types[i].toLowerCase() + "_en.png";
@@ -138,13 +138,13 @@ let init = (app) => {
             currPoke = randomPokes[i]
             j = 0;
             while(j < pokeRatings.length){
-                if (pokeRatings[j][1] == currPoke['id']){
+                if (pokeRatings[j][1] == currPoke['pokID']){
                     currPoke.totalRatings = pokeRatings[j][8]
                     currPoke.ratings = [pokeRatings[j][2], pokeRatings[j][3], pokeRatings[j][4], pokeRatings[j][5], pokeRatings[j][6], pokeRatings[j][7]]
                     currPoke.globalAverage = ( currPoke.ratings[0] + currPoke.ratings[1]*2 + currPoke.ratings[2]*3 + currPoke.ratings[3]*4 + currPoke.ratings[4]*5 ) / currPoke.totalRatings;
                     randomPokes[i] = currPoke
                 }
-                if (pokeRatings[j][1] == highlightPoke['id'] && highlightPoke.totalRatings == 0){
+                if (pokeRatings[j][1] == highlightPoke['pokID'] && highlightPoke.totalRatings == 0){
                     highlightPoke.totalRatings = pokeRatings[j][8]
                     highlightPoke.ratings = [pokeRatings[j][2], pokeRatings[j][3], pokeRatings[j][4], pokeRatings[j][5], pokeRatings[j][6], pokeRatings[j][7]]
                     highlightPoke.globalAverage = (highlightPoke.ratings[0] + highlightPoke.ratings[1]*2 + highlightPoke.ratings[2]*3 + highlightPoke.ratings[3]*4 + highlightPoke.ratings[4]*5) / highlightPoke.totalRatings;
@@ -154,14 +154,14 @@ let init = (app) => {
 
             j = 0;
             while(j < userRatings.length){
-                if (userRatings[j][0] == currPoke['id']){
+                if (userRatings[j][0] == currPoke['pokID']){
                     if (userRatings[j][1] == 6){
                         randomPokes[i].userFavorite = true;
                     } else {
                         randomPokes[i].userRating = userRatings[j][1];
                     }
                 }
-                if (userRatings[j][0] == highlightPoke['id']){
+                if (userRatings[j][0] == highlightPoke['pokID']){
                     if (userRatings[j][1] == 6){
                         highlightPoke.userFavorite = true;
                     } else {

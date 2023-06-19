@@ -51,22 +51,22 @@ def index():
     highlightPoke = None
     pokIDs = ""
     while (i < 4):
-        randomInd = random.randint(0, len(data['Pokemon']) - 1)
-        randomPoke = data['Pokemon'][randomInd]
+        randomInd = random.randint(0, len(data) - 1)
+        randomPoke = data[randomInd]
         if (randomPoke['significantForm']):
             randomPokes.append(randomPoke)
-            pokIDs += "'" + randomPoke['id'] + "'," 
+            pokIDs += "'" + randomPoke['pokID'] + "'," 
             i += 1
 
     seed = dateSeed()
     seed = BlumBlumShub(seed)
     seed = BlumBlumShub(seed)
-    highlightPoke = data['Pokemon'][(int(seed) % len(data['Pokemon']))]
+    highlightPoke = data[(int(seed) % len(data))]
     while (not highlightPoke['significantForm']):
         seed = BlumBlumShub(seed)
-        highlightPoke = data['Pokemon'][(int(seed) % len(data['Pokemon']))]
+        highlightPoke = data[(int(seed) % len(data))]
 
-    pokIDs += "'" + highlightPoke['id'] + "'"
+    pokIDs += "'" + highlightPoke['pokID'] + "'"
 
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
     sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
@@ -140,13 +140,13 @@ def data():
     seed = BlumBlumShub(seed)
     seed = BlumBlumShub(seed)
 
-    targetPoke = data['Pokemon'][(int(seed) % len(data['Pokemon']))]
+    targetPoke = data[(int(seed) % len(data))]
     # Have to use number
     # When I pass the whole DEXJSon in the MSG response, true is lowercase
     # But when I pass an individual PokemonJSON in the MSG response, true is uppercase
     while (targetPoke['form'] != "Basic"):
         seed = BlumBlumShub(seed)
-        targetPoke = data['Pokemon'][(int(seed) % len(data['Pokemon']))]
+        targetPoke = data[(int(seed) % len(data))]
 
     return dict(
         dexJSON = json.dumps(data),
@@ -165,15 +165,15 @@ def setup():
         data = json.load(f)
     i = 0
     emails = ["colin.orourke@me.com", "collin.orourke@icloud.com", "colllin.orourke@icloud.com", "collllin.orourke@icloud.com", "colllllin.orourke@icloud.com"]
-    while (i < len(data['Pokemon'])):
+    while (i < len(data)):
         db.derived_ratings.insert(
-            pokemon = data['Pokemon'][i]['id']
+            pokemon = data[i]['pokID']
         )
         j = 0
         while (j < 5):
             ran = random.randint(1,5)
             db.ratings.insert(
-                pokemon = data['Pokemon'][i]['id'],
+                pokemon = data[i]['pokID'],
                 rater = emails[j % 5],
                 rating = ran
             )
@@ -270,15 +270,15 @@ def request_delete():
     highlightPoke = None
     pokIDs = ""
     while (i < 4):
-        randomInd = random.randint(0, len(data['Pokemon']) - 1)
-        randomPoke = data['Pokemon'][randomInd]
+        randomInd = random.randint(0, len(data) - 1)
+        randomPoke = data[randomInd]
         if (randomPoke['significantForm']):
             randomPokes.append(randomPoke)
-            pokIDs += "'" + randomPoke['id'] + "'," 
+            pokIDs += "'" + randomPoke['pokID'] + "'," 
             i += 1
 
-    highlightPoke = data['Pokemon'][181]
-    pokIDs += "'" + highlightPoke['id'] + "'"
+    highlightPoke = data[181]
+    pokIDs += "'" + highlightPoke['pokID'] + "'"
 
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
     sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
@@ -312,15 +312,15 @@ def delete_confirm():
     highlightPoke = None
     pokIDs = ""
     while (i < 4):
-        randomInd = random.randint(0, len(data['Pokemon']) - 1)
-        randomPoke = data['Pokemon'][randomInd]
+        randomInd = random.randint(0, len(data) - 1)
+        randomPoke = data[randomInd]
         if (randomPoke['significantForm']):
             randomPokes.append(randomPoke)
-            pokIDs += "'" + randomPoke['id'] + "'," 
+            pokIDs += "'" + randomPoke['pokID'] + "'," 
             i += 1
 
-    highlightPoke = data['Pokemon'][181]
-    pokIDs += "'" + highlightPoke['id'] + "'"
+    highlightPoke = data[181]
+    pokIDs += "'" + highlightPoke['pokID'] + "'"
 
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
     sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"

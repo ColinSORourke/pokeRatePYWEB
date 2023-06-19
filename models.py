@@ -61,14 +61,30 @@ def calcDelete(set):
 # db.commit()
 #
 
+db.define_table('pokemonTable',
+                Field("name"),
+                Field("fullName"),
+                Field("form"),
+                Field("significantForm", "boolean"),
+                Field("species"),
+                Field("generation"),
+                Field("number"),
+                Field("pokID"),
+                Field("bst", "integer"),
+                Field("dbLink"),
+                Field("types", "list:string"),
+                Field("formList", "list:string"),
+                Field("category"),
+                )
+
 db.define_table('ratings',
-                Field("pokemon"),
+                Field("pokemon", "reference pokemonTable"),
                 Field("rating", 'integer', default=0),
                 Field("rater")
                 )
 
 db.define_table('derived_ratings',
-                Field("pokemon"),
+                Field("pokemon", "reference pokemonTable"),
                 Field("onestar", "integer", default=0),
                 Field("twostar", "integer", default=0),
                 Field("threestar", "integer", default=0),
@@ -78,10 +94,12 @@ db.define_table('derived_ratings',
                 Field("ratingcount", "integer", default=0)
                 )
 
-db.ratings._after_insert.append(calcInsert)
-db.ratings._before_update.append(calcUpdate)
-db.ratings._before_delete.append(calcDelete)
+class myVirtualFields:
+    def averageRating(self):
+        sumRatings = (self.derived_ratings.onestar * 1) + (self.derived_rating.twostar * 2) + (self.derived_ratings.threestar * 3) + (self.derived_ratings.fourstar * 4) + (self.derived_ratings.fivestar * 5)
+        return sumRatings / self.derived_ratings.ratingcount
 
+db.derived_ratings.virtualfields.append(myVirtualFields())
 
 db.commit()
 

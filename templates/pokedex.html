@@ -81,9 +81,9 @@
         <input class="SearchBar" type="text" v-model="query" placeholder="Search Pokemon..."/>
         <div v-if="query == ''">
             <div v-for="c in myCategories" class="category">
-                <h2>{{c.title}}</h2>
+                <h2>{{c}}</h2>
                 <div class="pokemon_list">
-                    <div v-for="p in pokemonPerCategory[c.title]" class="pokemon_entry" @click="toggleModal(p)">
+                    <div v-for="p in pokemonPerCategory[c]" class="pokemon_entry" @click="toggleModal(p)">
                         <i v-if="p.userFavorite"class="fa fa-heart"></i>
                         <div class="cardTitle">
                             <div class="pokeName">{{p.fullname}}</div>

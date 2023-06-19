@@ -14,14 +14,14 @@ let init = (app) => {
 
         myDexJSON: dexJSON,
         myCategories: dexJSON["categories"],
-        myPokemon: dexJSON["Pokemon"],
+        myPokemon: dexJSON,
         pokemonPerCategory: {},
         ratingText: "Rating Received!",
         ratingCount: 0,
         showNotif: false,
         fadeCountdown: 0,
         showModal: false,
-        modalPokemon: dexJSON["Pokemon"][0],
+        modalPokemon: dexJSON[0],
         query: "",
         // Complete as you see fit.
     };
@@ -44,13 +44,13 @@ let init = (app) => {
             return "#" + p['number'];
         },
         starID(p){
-            return "star" + p['id'];
+            return "star" + p['pokID'];
         },
         starIDRate(p, i){
-            return "star" + i + "_" + p['id'];
+            return "star" + i + "_" + p['pokID'];
         },
         faveID(p){
-            return "fave" + p['id'];
+            return "fave" + p['pokID'];
         },
         typeImagePath(p, i) {
             return "images/Types/" + p.types[i].toLowerCase() + "_en.png";
@@ -177,11 +177,11 @@ let init = (app) => {
     app.init = () => {
         // Put here any initialization code.
         // Typically this is a server GET call to load the data.
-        app.vue.myCategories = app.data.myCategories;
+        app.vue.myCategories = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Mega", "Alola", "Galar", "Gigantamax", "Hisui", "Paldea"];
         pokemonPerCategory = {};
         i = 0;
-        while (i < app.data.myCategories.length){
-            pokemonPerCategory[app.data.myCategories[i]["title"]] = [];
+        while (i < app.vue.myCategories.length){
+            pokemonPerCategory[app.vue.myCategories[i]] = [];
             i += 1
         }
 
@@ -202,7 +202,7 @@ let init = (app) => {
 
 
                 app.data.myPokemon[i] = currPoke;
-                id_map[currPoke['id']] = i;
+                id_map[currPoke['pokID']] = i;
                 i += 1;
             }
 
@@ -220,7 +220,7 @@ let init = (app) => {
             i = 0;
             while (i < app.data.myPokemon.length){
                 currPoke = app.data.myPokemon[i];
-                if (currPoke["category"] != "Ignore"){
+                if (currPoke["significantForm"]){
                     pokemonPerCategory[currPoke["category"]].push(currPoke);
                     currPoke.categoryIndex = pokemonPerCategory[currPoke["category"]].length - 1
                 }

@@ -10,7 +10,7 @@ let init = (app) => {
     app.data = {
         // Complete as you see fit.
         myDexJSON: dexJSON,
-        myPokemon: dexJSON["Pokemon"].filter((pokemon) => 
+        myPokemon: dexJSON.filter((pokemon) => 
             pokemon.form == "Basic"
         ),
         targetPokemon: {},

@@ -10,7 +10,7 @@ let init = (app) => {
     app.data = {
 
         myDexJSON: dexJSON,
-        myPokemon: dexJSON["Pokemon"],
+        myPokemon: dexJSON,
 
         displayType: "Rate",
 
@@ -50,13 +50,13 @@ let init = (app) => {
             return "#" + p['number'];
         },
         starID(p){
-            return "star" + p['id'];
+            return "star" + p['pokID'];
         },
         starIDRate(p, i){
-            return "star" + i + "_" + p['id'];
+            return "star" + i + "_" + p['pokID'];
         },
         faveID(p){
-            return "fave" + p['id'];
+            return "fave" + p['pokID'];
         },
         typeImagePath(p, i) {
             return "images/Types/" + p.types[i].toLowerCase() + "_en.png";
@@ -322,7 +322,7 @@ let init = (app) => {
                 }
 
                 app.data.myPokemon[i] = currPoke
-                id_map[currPoke['id']] = i;
+                id_map[currPoke['pokID']] = i;
                 i += 1;
             }
 
