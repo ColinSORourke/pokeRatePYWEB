@@ -47,7 +47,7 @@ let init = (app) => {
         submitGuess(){
             let guess = app.vue.myPokemon.find(p => p.name == app.vue.query);
             if (guess != undefined){
-                axios.get(get_rating_url, { params: { pokID: guess.id } }).then(result => {
+                axios.get(get_rating_url, { params: { pokID: guess.pokID } }).then(result => {
                     let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
                     guess['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
                     app.vue.myGuesses.push(guess);
@@ -133,6 +133,15 @@ let init = (app) => {
                 }
             }
         },
+        checkBST(p){
+            if (p.bst == app.vue.targetPokemon.bst){
+                return "fa fa-check-circle"
+            } else if (p.bst < app.vue.targetPokemon.bst){
+                return "fa fa-arrow-circle-up"
+            } else {
+                return "fa fa-arrow-circle-down"
+            }
+        },
         checkRate(p){
             if (p.globalAverage == app.vue.targetPokemon.globalAverage){
                 return "fa fa-check-circle"
@@ -149,7 +158,7 @@ let init = (app) => {
             while (i < guesses.length){
                 pokName = guesses[i]
                 let guess = app.vue.myPokemon.find(p => p.name == pokName);
-                axios.get(get_rating_url, { params: { pokID: guess.id } }).then(result => {
+                axios.get(get_rating_url, { params: { pokID: guess.pokID } }).then(result => {
                     let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
                     guess['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
                     app.vue.mostRecentGuess = guess;
@@ -172,7 +181,8 @@ let init = (app) => {
         randIndex = Math.floor(Math.random() * app.vue.myPokemon.length)
         app.vue.targetPokemon = targetPokemon;
 
-        axios.get(get_rating_url, { params: { pokID: app.vue.targetPokemon.id } }).then(result => {
+        axios.get(get_rating_url, { params: { pokID: app.vue.targetPokemon.pokID } }).then(result => {
+            console.log(result)
             let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
             app.vue.targetPokemon['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
         })

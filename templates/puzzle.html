@@ -168,11 +168,12 @@
     
     <div class="data-table">
         <div class="data-header">
-            <div>Pokemon</div>
+            <div style="font-size: 14px">Pokemon</div>
             <div>Alphabet</div>
             <div>Gen</div>
-            <div>Type 1</div>
-            <div>Type 2</div>
+            <div>Type1</div>
+            <div>Type2</div>
+            <div>BST</div>
             <div>Rating</div>
         </div>
         <div class="data-row" v-for="p in myGuesses">
@@ -181,6 +182,7 @@
             <div><i :class="checkGen(p)"></i></div>
             <div><i :class="checkTypePrim(p)"></i></div>
             <div><i :class="checkTypeSecond(p)"></i></div>
+            <div><i :class="checkBST(p)"></i></div>
             <div><i :class="checkRate(p)"></i></div>
         </div>
     </div>

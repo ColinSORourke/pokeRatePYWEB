@@ -78,13 +78,13 @@ db.define_table('pokemonTable',
                 )
 
 db.define_table('ratings',
-                Field("pokemon", "reference pokemonTable"),
+                Field("pokemon"),
                 Field("rating", 'integer', default=0),
                 Field("rater")
                 )
 
 db.define_table('derived_ratings',
-                Field("pokemon", "reference pokemonTable"),
+                Field("pokemon"),
                 Field("onestar", "integer", default=0),
                 Field("twostar", "integer", default=0),
                 Field("threestar", "integer", default=0),

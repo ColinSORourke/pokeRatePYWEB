@@ -48,13 +48,14 @@ h1 {
 
 .data-header {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
     text-align: center;
+    font-size: 10px;
 }
 
 .data-row {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
     text-align: center;
 }
 
