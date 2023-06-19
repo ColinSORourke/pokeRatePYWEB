@@ -50,11 +50,15 @@ a .pokemon_entry {
 }
 
 .about{
-
     width: 100%;
     height: 100%;
+    white-space: normal;
 }
 
 .about h1 {
     font-size: 40px;
+}
+
+.about p{
+    text-align: left;
 }

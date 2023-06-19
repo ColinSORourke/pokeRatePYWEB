@@ -1,6 +1,4 @@
 -------- TO DO ---------
-* Highlight & Puzzle Pokemon Seeding
-* Info tab & Footer Disclaimer
 * Style pass
 * Be able to add pokemon
 * Hook up Emailer to an actual email address
