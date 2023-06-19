@@ -27,6 +27,8 @@ Warning: Fixtures MUST be declared with @action.uses({fixtures}) else your app w
 
 import json
 import random
+import math
+import datetime
 
 from py4web import action, request, abort, redirect, URL
 from yatl.helpers import A
@@ -56,7 +58,14 @@ def index():
             pokIDs += "'" + randomPoke['id'] + "'," 
             i += 1
 
-    highlightPoke = data['Pokemon'][181]
+    seed = dateSeed()
+    seed = BlumBlumShub(seed)
+    seed = BlumBlumShub(seed)
+    highlightPoke = data['Pokemon'][(int(seed) % len(data['Pokemon']))]
+    while (not highlightPoke['significantForm']):
+        seed = BlumBlumShub(seed)
+        highlightPoke = data['Pokemon'][(int(seed) % len(data['Pokemon']))]
+
     pokIDs += "'" + highlightPoke['id'] + "'"
 
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
@@ -127,8 +136,21 @@ def data():
     with open('apps/_default/static/FullDex.json') as f:
         data = json.load(f)
 
+    seed = dateSeed() * 2
+    seed = BlumBlumShub(seed)
+    seed = BlumBlumShub(seed)
+
+    targetPoke = data['Pokemon'][(int(seed) % len(data['Pokemon']))]
+    # Have to use number
+    # When I pass the whole DEXJSon in the MSG response, true is lowercase
+    # But when I pass an individual PokemonJSON in the MSG response, true is uppercase
+    while (targetPoke['form'] != "Basic"):
+        seed = BlumBlumShub(seed)
+        targetPoke = data['Pokemon'][(int(seed) % len(data['Pokemon']))]
+
     return dict(
         dexJSON = json.dumps(data),
+        myTargetPokemon = json.dumps(targetPoke),
         get_rating_url = URL('get_rating', signer=url_signer),
         pokedex_url = URL('pokedex'),
         req_delete_url = URL('request_delete', signer=url_signer),
@@ -317,3 +339,12 @@ def delete_confirm():
         req_delete_url = URL('request_delete', signer=url_signer),
         pokedex_url = URL('pokedex')
     )
+
+def dateSeed():
+    today = datetime.datetime.now()
+    uniqueYear = (today.year * 32 % 10000)
+    return uniqueYear + (today.month * 100) + today.day
+
+
+def BlumBlumShub(seed):
+    return math.pow(seed, 2) % 50515093

@@ -88,7 +88,6 @@ let init = (app) => {
             return "images/Types/" + p.types[i].toLowerCase()  + "_en.png";
         },
         widthPerc(p){
-            console.log(p.globalAverage);
             if (p.globalAverage == -1){
                 return "width: 50%;";
             }
@@ -145,6 +144,7 @@ let init = (app) => {
         },
         parseGuesses(guessesStr){
             let guesses = guessesStr.split('---')
+            console.log(guesses)
             var i = 0;
             while (i < guesses.length){
                 pokName = guesses[i]
@@ -170,9 +170,8 @@ let init = (app) => {
     // And this initializes it.
     app.init = () => {
         randIndex = Math.floor(Math.random() * app.vue.myPokemon.length)
-        app.vue.targetPokemon = app.vue.myPokemon[randIndex];
-        console.log(app.vue.targetPokemon)
-        
+        app.vue.targetPokemon = targetPokemon;
+
         axios.get(get_rating_url, { params: { pokID: app.vue.targetPokemon.id } }).then(result => {
             let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
             app.vue.targetPokemon['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
