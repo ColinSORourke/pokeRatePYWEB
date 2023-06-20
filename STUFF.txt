@@ -13,6 +13,29 @@ And run
     docker run -e PYTHONUNBUFFERED=1 -d --name mypy4web -p 8000:8000 py4web
 to launch the container
 
+
+-------- DOCKER AWS LAUNCH ---------
 run
     docker buildx build --platform=linux/amd64 . -t py4web -f ./deployment_tools/docker/Dockerfile
 to build an image for launching on Fargate
+
+run 
+    docker images
+to get the image ID to tag
+
+run 
+    docker tag [IMAGE ID] 711470021623.dkr.ecr.us-east-1.amazonaws.com/colin-image-repo:latest
+to tag the image to push to ECR
+
+Delete the previous image from ECR
+
+run
+    docker push 711470021623.dkr.ecr.us-east-1.amazonaws.com/colin-image-repo:latest
+to push the image to ECR
+    if "Authorization token expired" - remove rm ~/.docker/config.json
+    And run
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 711470021623.dkr.ecr.us-east-1.amazonaws.com
+        if "Security token invalid"
+        update AWS Access Key environment variables
+
+Restart the task in Pokerating-container-cluster in ECS
