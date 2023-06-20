@@ -73,31 +73,31 @@
             </div>
             <div v-else class="pokemon_entry">
                 <div class="cardTitle">
-                    <div class="pokeName">{{mostRecentGuess.fullName}}</div>
-                    <div class="pokeNumber">{{ pokemonNumber(mostRecentGuess) }}</div>
+                    <div class="pokeName">{{mostRecentGuess().fullName}}</div>
+                    <div class="pokeNumber">{{ pokemonNumber(mostRecentGuess()) }}</div>
                 </div>
                 
                 <div class="pokeImgContainer">
-                    <img loading="lazy" :src="pokemonImagePath(mostRecentGuess)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                    <img loading="lazy" :src="pokemonImagePath(mostRecentGuess())" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
                 </div>
 
                 <div class="typesContainer">
-                    <div class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 0)"  class="typeImg"></div>
-                    <div v-if="mostRecentGuess.types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess, 1)"  class="typeImg"></div>
+                    <div class="typeContainer"><img :src="typeImagePath(mostRecentGuess(), 0)"  class="typeImg"></div>
+                    <div v-if="mostRecentGuess().types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess(), 1)"  class="typeImg"></div>
                 </div>
                 
                 <div class="ratingText">
                     <div>BST</div>
-                    <div>{{ mostRecentGuess.bst }}</div>
+                    <div>{{ mostRecentGuess().bst }}</div>
                 </div>
 
                 <div class="ratingContainer">
                     <div class="ratingText">
                         <div>Rating</div>
-                        <div>{{ mostRecentGuess.globalAverage.toFixed(2) }}</div>
+                        <div>{{ mostRecentGuess().globalAverage.toFixed(2) }}</div>
                     </div>
                     <div class="starContainer">
-                        <div class="filledStars" :style="widthPerc(mostRecentGuess)">
+                        <div class="filledStars" :style="widthPerc(mostRecentGuess())">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -165,7 +165,7 @@
                 
                 <div class="ratingText">
                     <div>BST</div>
-                    <div>{{ mostRecentGuess.bst }}</div>
+                    <div>{{ mostRecentGuess().bst }}</div>
                 </div>
 
                 <div class="ratingContainer">

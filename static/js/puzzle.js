@@ -18,7 +18,6 @@ let init = (app) => {
         query: "",
         acSuggestions: [],
         myGuesses: [],
-        mostRecentGuess: {name: "None"},
         noGuess: true,
         showModal: false,
     };
@@ -46,36 +45,38 @@ let init = (app) => {
         },
         submitGuess(){
             let guess = app.vue.myPokemon.find(p => p.name == app.vue.query);
+
             if (guess != undefined){
-                axios.get(get_rating_url, { params: { pokID: guess.pokID } }).then(result => {
+                guess['globalAverage'] = 2.5
+                app.vue.myGuesses.push(guess);
+                app.vue.query = '';
+                axios.get(get_rating_url, { params: { id: guess.id } }).then(result => {
                     let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
-                    guess['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
-                    app.vue.myGuesses.push(guess);
-                    app.vue.mostRecentGuess = guess;
+                    app.vue.myGuesses[app.vue.myGuesses.length - 1]['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
                     app.vue.noGuess = false;
+                    app.vue.query = 'l';
                     app.vue.query = '';
                 })
                 
-            }
+                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                let d = new Date();
+                let dateString = months[d.getMonth()] + d.getDate() + "y" + d.getFullYear();
 
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            let d = new Date();
-            let dateString = months[d.getMonth()] + d.getDate() + "y" + d.getFullYear();
-
-            if (typeof(Storage) !== "undefined") {
-                if (localStorage.getItem(dateString) !== null){
-                    prevGuesses = localStorage.getItem(dateString)
-                    prevGuesses = prevGuesses + "---" + guess.name;
-                    localStorage.setItem(dateString, prevGuesses);
+                if (typeof(Storage) !== "undefined") {
+                    if (localStorage.getItem(dateString) !== null){
+                        prevGuesses = localStorage.getItem(dateString)
+                        prevGuesses = prevGuesses + "---" + guess.name;
+                        localStorage.setItem(dateString, prevGuesses);
+                    } else {
+                        localStorage.setItem(dateString, guess.name);
+                    }
                 } else {
-                    localStorage.setItem(dateString, guess.name);
+                    // Sorry! No Web Storage support..
                 }
-            } else {
-                // Sorry! No Web Storage support..
-            }
 
-            if (guess.name == app.vue.targetPokemon.name){
-                app.vue.solved = true;
+                if (guess.name == app.vue.targetPokemon.name){
+                    app.vue.solved = true;
+                }
             }
         },
         pokemonImagePath(p) {
@@ -151,19 +152,34 @@ let init = (app) => {
                 return "fa fa-arrow-circle-down"
             }
         },
+        mostRecentGuess(){
+            if (app.vue.myGuesses.length > 0){
+                return app.vue.myGuesses[app.vue.myGuesses.length - 1]
+            } else {
+                return {name: "None"}
+            }  
+        },
         parseGuesses(guessesStr){
             let guesses = guessesStr.split('---')
-            console.log(guesses)
             var i = 0;
             while (i < guesses.length){
                 pokName = guesses[i]
                 let guess = app.vue.myPokemon.find(p => p.name == pokName);
-                axios.get(get_rating_url, { params: { pokID: guess.pokID } }).then(result => {
+                guess["globalAverage"] = 2.5
+                app.vue.myGuesses.push(guess);
+                if (guess.name == app.vue.targetPokemon.name){
+                    app.vue.solved = true;
+                }
+                axios.get(get_rating_url, { params: { id: guess.id} }).then(result => {
                     let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
-                    guess['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
-                    app.vue.mostRecentGuess = guess;
-                    app.vue.myGuesses.push(guess);
-                    app.vue.noGuess = false;
+                    j = 0
+                    while (j < app.vue.myGuesses.length){
+                        if (app.vue.myGuesses[j].id = guess.id){
+                            app.vue.myGuesses[j]['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
+                            app.vue.noGuess = false;
+                        }
+                        j += 1
+                    }
                 })                
                 i += 1
             }
@@ -180,9 +196,9 @@ let init = (app) => {
     app.init = () => {
         randIndex = Math.floor(Math.random() * app.vue.myPokemon.length)
         app.vue.targetPokemon = targetPokemon;
+        app.vue.targetPokemon['globalAverage'] = 2.5
 
-        axios.get(get_rating_url, { params: { pokID: app.vue.targetPokemon.pokID } }).then(result => {
-            console.log(result)
+        axios.get(get_rating_url, { params: { id: app.vue.targetPokemon.id } }).then(result => {
             let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
             app.vue.targetPokemon['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
         })

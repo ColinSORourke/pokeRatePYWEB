@@ -28,6 +28,11 @@ def calcInsert(row, id):
         }
     set.update(**myupdate)
 
+def addDerivedPokemon(row, id):
+    db.derived_ratings.insert(
+        pokemon = id
+    )
+
 
 def calcUpdate(set, rowTo):
     fields = ["onestar", "twostar", "threestar", "fourstar", "fivestar", "favorites"]
@@ -81,7 +86,6 @@ db.define_table('ratings',
                 Field("pokemon", "reference pokemonTable"),
                 Field("rating", 'integer', default=0),
                 Field("rater"),
-                Field("process", "boolean", default=False)
                 )
 
 db.define_table('derived_ratings',
@@ -101,6 +105,11 @@ class myVirtualFields:
         return sumRatings / self.derived_ratings.ratingcount
 
 db.derived_ratings.virtualfields.append(myVirtualFields())
+
+db.pokemonTable._after_insert.append(addDerivedPokemon)
+db.ratings._after_insert.append(calcInsert)
+db.ratings._before_update.append(calcUpdate)
+db.ratings._before_delete.append(calcDelete)
 
 db.commit()
 

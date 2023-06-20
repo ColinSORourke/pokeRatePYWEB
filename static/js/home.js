@@ -52,7 +52,6 @@ let init = (app) => {
             return "images/Types/" + p.types[i].toLowerCase() + ".png";
         },
         widthPerc(p){
-            console.log(p.globalAverage);
             if (p.globalAverage == -1 || isNaN(p.globalAverage)){
                 return "width: 50%;";
             }
@@ -138,13 +137,13 @@ let init = (app) => {
             currPoke = randomPokes[i]
             j = 0;
             while(j < pokeRatings.length){
-                if (pokeRatings[j][1] == currPoke['pokID']){
+                if (pokeRatings[j][1] == currPoke['id']){
                     currPoke.totalRatings = pokeRatings[j][8]
                     currPoke.ratings = [pokeRatings[j][2], pokeRatings[j][3], pokeRatings[j][4], pokeRatings[j][5], pokeRatings[j][6], pokeRatings[j][7]]
                     currPoke.globalAverage = ( currPoke.ratings[0] + currPoke.ratings[1]*2 + currPoke.ratings[2]*3 + currPoke.ratings[3]*4 + currPoke.ratings[4]*5 ) / currPoke.totalRatings;
                     randomPokes[i] = currPoke
                 }
-                if (pokeRatings[j][1] == highlightPoke['pokID'] && highlightPoke.totalRatings == 0){
+                if (pokeRatings[j][1] == highlightPoke['id'] && highlightPoke.totalRatings == 0){
                     highlightPoke.totalRatings = pokeRatings[j][8]
                     highlightPoke.ratings = [pokeRatings[j][2], pokeRatings[j][3], pokeRatings[j][4], pokeRatings[j][5], pokeRatings[j][6], pokeRatings[j][7]]
                     highlightPoke.globalAverage = (highlightPoke.ratings[0] + highlightPoke.ratings[1]*2 + highlightPoke.ratings[2]*3 + highlightPoke.ratings[3]*4 + highlightPoke.ratings[4]*5) / highlightPoke.totalRatings;
@@ -154,14 +153,14 @@ let init = (app) => {
 
             j = 0;
             while(j < userRatings.length){
-                if (userRatings[j][0] == currPoke['pokID']){
+                if (userRatings[j][0] == currPoke['id']){
                     if (userRatings[j][1] == 6){
                         randomPokes[i].userFavorite = true;
                     } else {
                         randomPokes[i].userRating = userRatings[j][1];
                     }
                 }
-                if (userRatings[j][0] == highlightPoke['pokID']){
+                if (userRatings[j][0] == highlightPoke['id']){
                     if (userRatings[j][1] == 6){
                         highlightPoke.userFavorite = true;
                     } else {

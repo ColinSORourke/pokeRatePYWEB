@@ -221,7 +221,7 @@
         <h1>Generations</h1>
         <div class="pokemon_list">
             <div v-if="displayType == 'Rate'" v-for="n in 9" class="databox">
-                <i v-if="getGen(n).statuses[0] == 1" class="fa-solid fa-star"></i>
+                <i v-if="getGen(n).statuses[0] == 1" class="fa fa-star"></i>
                 <i v-if="getGen(n).statuses[0] == -1" class="fa fa-thumbs-down"></i>
                 <h3>{{getGen(n).genName}}</h3>
                 <div>Average rating:<br>{{abbrevNum(getGen(n).average)}}</div>
@@ -241,7 +241,7 @@
         <h1>Types</h1>
         <div class="pokemon_list">
             <div v-if="displayType == 'Rate'" v-for="t in types" class="databox">
-                <i v-if="t.statuses[0] == 1" class="fa-solid fa-star"></i>
+                <i v-if="t.statuses[0] == 1" class="fa fa-star"></i>
                 <i v-if="t.statuses[0] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Average rating:<br>{{abbrevNum(t.average)}}</div>
