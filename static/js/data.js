@@ -321,7 +321,7 @@ let init = (app) => {
                 }
 
                 app.data.myPokemon[i] = currPoke
-                id_map[currPoke['pokID']] = i;
+                id_map[currPoke['id']] = i;
                 i += 1;
             }
 
