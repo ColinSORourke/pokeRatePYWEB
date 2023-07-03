@@ -20,6 +20,7 @@ let init = (app) => {
         myGuesses: [],
         noGuess: true,
         showModal: false,
+        loading: 0,
     };
 
     app.enumerate = (a) => {
@@ -50,17 +51,14 @@ let init = (app) => {
                 guess['globalAverage'] = 2.5
                 app.vue.myGuesses.push(guess);
                 app.vue.query = '';
+                app.vue.loading += 1;
                 axios.get(get_rating_url, { params: { id: guess.id } }).then(result => {
                     let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
                     app.vue.myGuesses[app.vue.myGuesses.length - 1]['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
+                    app.vue.loading -= 1;
                     app.vue.noGuess = false;
-                    app.vue.query = 'l';
-                    app.vue.query = '';
                 })
-                
-                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                let d = new Date();
-                let dateString = months[d.getMonth()] + d.getDate() + "y" + d.getFullYear();
+                let dateString = app.vue.dateString()
 
                 if (typeof(Storage) !== "undefined") {
                     if (localStorage.getItem(dateString) !== null){
@@ -144,7 +142,9 @@ let init = (app) => {
             }
         },
         checkRate(p){
-            if (p.globalAverage.toFixed(2) == app.vue.targetPokemon.globalAverage.toFixed(2)){
+            if (app.vue.loading != 0){
+                return "fa fa-spinner"
+            } else if (p.globalAverage.toFixed(2) == app.vue.targetPokemon.globalAverage.toFixed(2)){
                 return "fa fa-check-circle"
             } else if (p.globalAverage.toFixed(2) < app.vue.targetPokemon.globalAverage.toFixed(2)){
                 return "fa fa-arrow-circle-up"
@@ -170,25 +170,29 @@ let init = (app) => {
                 if (guess.name == app.vue.targetPokemon.name){
                     app.vue.solved = true;
                 }
+                app.vue.loading += 1
                 axios.get(get_rating_url, { params: { id: guess.id} }).then(result => {
                     let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
                     j = 0
                     while (j < app.vue.myGuesses.length){
-                        if (app.vue.myGuesses[j].id = guess.id){
+                        if (app.vue.myGuesses[j].id == guess.id){
                             app.vue.myGuesses[j]['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
                             app.vue.noGuess = false;
                             if (guess.name == app.vue.targetPokemon.name){
-                                app.vue.solved = false;
                                 app.vue.solved = true;
                             }
-                            app.vue.query = 'l';
-                            app.vue.query = '';
                         }
                         j += 1
                     }
+                    app.vue.loading -= 1;
                 })                
                 i += 1
             }
+        },
+        dateString(){
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            let d = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}));
+            return months[d.getMonth()] + d.getDate() + "y" + d.getFullYear();
         }
     }
     // This creates the Vue instance.
@@ -204,14 +208,15 @@ let init = (app) => {
         app.vue.targetPokemon = targetPokemon;
         app.vue.targetPokemon['globalAverage'] = 2.5
 
+        app.vue.loading += 1
         axios.get(get_rating_url, { params: { id: app.vue.targetPokemon.id } }).then(result => {
             let totalRates = (result.data.fiveRates) + (result.data.fourRates) + (result.data.threeRates) + (result.data.twoRates ) + (result.data.oneRates)
             app.vue.targetPokemon['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
+            app.vue.loading -= 1;
         })
 
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        let d = new Date();
-        let dateString = months[d.getMonth()] + d.getDate() + "y" + d.getFullYear();
+        
+        let dateString = app.vue.dateString()
         if (typeof(Storage) !== "undefined") {
             if (localStorage.getItem(dateString) !== null){
                 app.vue.parseGuesses(localStorage.getItem(dateString))

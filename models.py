@@ -38,11 +38,13 @@ def calcUpdate(set, rowTo):
     fields = ["onestar", "twostar", "threestar", "fourstar", "fivestar", "favorites"]
     rowFrom = set.select()[0]
     derived_set = db( (db.derived_ratings.pokemon == rowFrom.pokemon) )
-    myupdate = {
-        fields[rowFrom.rating - 1]: derived_set.select()[0][fields[rowFrom.rating - 1]] - 1,
-        fields[rowTo.rating - 1]: derived_set.select()[0][fields[rowTo.rating - 1]] + 1
-    }
-    derived_set.update(**myupdate)
+    if (rowFrom['rating'] != rowTo['rating']):
+        myupdate = {
+            fields[rowFrom.rating - 1]: derived_set.select()[0][fields[rowFrom.rating - 1]] - 1,
+            fields[rowTo.rating - 1]: derived_set.select()[0][fields[rowTo.rating - 1]] + 1
+        }
+        derived_set.update(**myupdate)
+    
 
 def calcDelete(set):
     fields = ["onestar", "twostar", "threestar", "fourstar", "fivestar", "favorites"]

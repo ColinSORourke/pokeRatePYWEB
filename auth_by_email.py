@@ -6,7 +6,7 @@ from pydal.validators import IS_EMAIL
 import calendar
 import time
 
-# Key to access the email in the session
+# Key to access the user's email in the session
 EMAIL_KEY = "_user_email"
 
 LOGIN_PATH = "auth_by_email/login"
@@ -14,15 +14,17 @@ LOGOUT_PATH = "auth_by_email/logout"
 WAITING_PATH = "auth_by_email/waiting"
 CONFIRMATION_PATH = "auth_by_email/confirm"
 
-EXPIRATION_TIME = 900
+# 12 Hours expiration
+# If changed, change session type in Common.py as well
+EXPIRATION_TIME = 3600 * 12
 
 class TestEmailer(object):
     # Dummy class for sending emails. Prints link instead
     def send_email(self, email, link):
         print("Use this link " + link)
 
-class AuthByEmail(Fixture):
 
+class AuthByEmail(Fixture):
     def __init__(self, session, url_signer, emailer=None, default_path='home'):
         self.session = session
         self.emailer = emailer or TestEmailer()
@@ -61,18 +63,20 @@ class AuthByEmail(Fixture):
     def login_url(self):
          return URL(LOGIN_PATH)
     
+    # When the fixture is requested, it will check that the users session has not expired
+    # If expired, it will throw a warning, and log the user out.
     def on_request(self, context):
         activity = self.session.get("recent_activity")
         time_now = calendar.timegm(time.gmtime())
         if (self.current_user):
             if (time_now - activity > EXPIRATION_TIME):
-                print("Session expired")
                 del self.session[EMAIL_KEY]
                 self.flash.set("Login expired")
                 redirect(URL(self.default_path))
 
+    # Manages the login page
     def login(self):
-
+        # If user is already logged in, we don't need to be here
         if self.session.get(EMAIL_KEY):
             redirect(URL(self.default_path))
 
@@ -85,13 +89,15 @@ class AuthByEmail(Fixture):
             redirect(URL(WAITING_PATH))
         return dict(form = form)
 
+    # Wait around!
     def wait(self):
         # Controller for waiting page
         return dict()
     
+    # Controller for the confimation of sign in.
     def confirm(self, email=None):
-        # Controller for the confirmation page
-        # If the link is valid, tells the user they are logged in, creates session
+        # Can only be accessed by a valid signed link.
+        # With a valid link, will load the home page with a flash that the user signed in
 
         assert email is not None
         self.session[EMAIL_KEY] = email
@@ -100,7 +106,9 @@ class AuthByEmail(Fixture):
         self.session["recent_activity"] = calendar.timegm(time.gmtime())
         redirect(URL(self.default_path))
 
+    # Controller for the log out
     def logout(self):
+        # Will load the home page with a flash that the user logged out
         del self.session[EMAIL_KEY]
         self.flash.set("Logged out")
         redirect(URL(self.default_path))
@@ -109,9 +117,10 @@ class AuthByEmail(Fixture):
         context['template_inject'] = {"user": self.current_user}
 
 
-
+# Enforced version, if we want non-logged in requests to fail.
 class AuthByEmailEnforcer(Fixture):
      
+    # Created by wrapping a regular AuthByEmail as a variable of AuthByEmail enforcer
     def __init__(self, auth):
         self.auth = auth
         self.session = auth.session
@@ -122,7 +131,6 @@ class AuthByEmailEnforcer(Fixture):
         time_now = calendar.timegm(time.gmtime())
         if (self.auth.current_user):
             if (time_now - activity > EXPIRATION_TIME):
-                print("Session expired")
                 del self.session[EMAIL_KEY]
         if self.session.get(EMAIL_KEY):
             # The user is logged in

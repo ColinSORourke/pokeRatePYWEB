@@ -66,7 +66,7 @@
         <h1>Generations</h1>
         <div class="pokemon_list">
             <div v-for="n in 9" class="databox">
-                <i v-if="getGen(n).statuses[2] == 1" class="fa-solid fa-star"></i>
+                <i v-if="getGen(n).statuses[2] == 1" class="fa fa-star"></i>
                 <i v-if="getGen(n).statuses[2] == -1" class="fa fa-thumbs-down"></i>
                 <h3>{{getGen(n).genName}}</h3>
                 <div>Average rating:<br>{{abbrevNum(getGen(n).userAve)}}</div>
@@ -76,7 +76,7 @@
         <h1>Types</h1>
         <div class="pokemon_list">
             <div v-for="t in types" class="databox">
-                <i v-if="t.statuses[2] == 1" class="fa-solid fa-star"></i>
+                <i v-if="t.statuses[2] == 1" class="fa fa-star"></i>
                 <i v-if="t.statuses[2] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Average rating:<br>{{abbrevNum(t.userAve)}}</div>
@@ -229,7 +229,7 @@
                 <div>Worst Pokemon:<br><a :href="dexPath(getGen(n).worstPoke)">{{getGen(n).worstPoke.fullName}}</a></div>
             </div>
             <div v-if="displayType == 'Fave'" v-for="n in 9" class="databox">
-                <i v-if="getGen(n).statuses[1] == 1" class="fa-solid fa-star"></i>
+                <i v-if="getGen(n).statuses[1] == 1" class="fa fa-star"></i>
                 <i v-if="getGen(n).statuses[1] == -1" class="fa fa-thumbs-down"></i>
                 <h3>{{getGen(n).genName}}</h3>
                 <div>Total faves:<br>{{abbrevNum(getGen(n).favesum)}}</div>
@@ -249,7 +249,7 @@
                 <div>Worst Pokemon:<br><a :href="dexPath(t.worstPoke)">{{t.worstPoke.fullName}}</a></div>
             </div>
             <div v-if="displayType == 'Fave'" v-for="t in types" class="databox">
-                <i v-if="t.statuses[1] == 1" class="fa-solid fa-star"></i>
+                <i v-if="t.statuses[1] == 1" class="fa fa-star"></i>
                 <i v-if="t.statuses[1] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Total faves:<br>{{abbrevNum(t.favesum)}}</div>
