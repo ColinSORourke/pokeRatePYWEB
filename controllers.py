@@ -31,6 +31,12 @@ import math
 import datetime
 import time
 
+import smtplib
+from smtplib import SMTP
+from email.message import EmailMessage
+import os
+import ssl
+
 from py4web import action, request, abort, redirect, URL
 from yatl.helpers import A
 from .common import db, session, T, cache, logger, flash
@@ -44,49 +50,7 @@ from .models import get_user_email
 @action.uses('home.html', session, auth.flash, url_signer, db, auth)
 def index():
     # Load the static data of every pokemon 
-    data = json.loads(db(db.pokemonTable).select().as_json())
-
-    # Select 4 random pokemon
-    i = 0
-    randomPokes = []
-    highlightPoke = None
-    pokIDs = ""
-    while (i < 4):
-        randomInd = random.randint(0, len(data) - 1)
-        randomPoke = data[randomInd]
-        if (randomPoke['significantForm']):
-            randomPokes.append(randomPoke)
-            pokIDs += "" + str(randomPoke['id']) + "," 
-            i += 1
-
-    # Select the highlight pokemon of the day
-    seed = dateSeed()
-    seed = BlumBlumShub(seed)
-    seed = BlumBlumShub(seed)
-    highlightPoke = data[(int(seed) % len(data))]
-    while (not highlightPoke['significantForm']):
-        seed = BlumBlumShub(seed)
-        highlightPoke = data[(int(seed) % len(data))]
-    pokIDs += "" + str(highlightPoke['id']) + ""
-
-    # Query the database to receive the ratings of the 5 pokemon to display on the page
-    sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
-    sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
-    pokeRatings = db.executesql(sqlA)
-    userRatings = db.executesql(sqlB)
-
-    # Return that info to the user
-    return dict(
-        randomJSON = json.dumps(randomPokes),
-        highlightJSON = json.dumps(highlightPoke),
-        pokeRatings = json.dumps(pokeRatings),
-        userRatings = json.dumps(userRatings),
-        get_rating_url = URL('get_rating', signer=url_signer),
-        set_rating_url = URL('set_rating', signer=url_signer),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
-        req_delete_url = URL('request_delete', signer=url_signer),
-        pokedex_url = URL('pokedex')
-    )
+    return indexDict(db, url_signer)
 
 # Page that displays all the pokemon.
 @action("pokedex")
@@ -298,41 +262,11 @@ def get_all_ratings():
 @action.uses('home.html', session, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
 def request_delete():
     print("USE THIS LINK TO DELETE YOUR DATA")
-    print(URL("delete_confirm", signer=url_signer))
+    myLink = URL("delete_confirm", get_user_email(), signer=url_signer)
+    SendDeleteEmail(get_user_email(), myLink)
+    print(myLink)
     auth.flash.set("Check your email for link to delete")
-    data = json.loads(db(db.pokemonTable).select().as_json())
-    i = 0
-    randomPokes = []
-    highlightPoke = None
-    pokIDs = ""
-    while (i < 4):
-        randomInd = random.randint(0, len(data) - 1)
-        randomPoke = data[randomInd]
-        if (randomPoke['significantForm']):
-            randomPokes.append(randomPoke)
-            pokIDs += "'" + randomPoke['pokID'] + "'," 
-            i += 1
-
-    highlightPoke = data[181]
-    pokIDs += "'" + highlightPoke['pokID'] + "'"
-
-    sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
-    sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
-
-    pokeRatings = db.executesql(sqlA)
-    userRatings = db.executesql(sqlB)
-
-    return dict(
-        randomJSON = json.dumps(randomPokes),
-        highlightJSON = json.dumps(highlightPoke),
-        pokeRatings = json.dumps(pokeRatings),
-        userRatings = json.dumps(userRatings),
-        get_rating_url = URL('get_rating', signer=url_signer),
-        set_rating_url = URL('set_rating', signer=url_signer),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
-        req_delete_url = URL('request_delete', signer=url_signer),
-        pokedex_url = URL('pokedex')
-    )
+    return indexDict(db, url_signer)
 
 @action("delete_confirm")
 @action.uses('home.html', session, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
@@ -341,39 +275,7 @@ def delete_confirm():
     userRatings = db((db.ratings.rater) == get_user_email())
     userRatings.delete()
     auth.flash.set("Your Info has been deleted")
-    data = json.loads(db(db.pokemonTable).select().as_json())
-    i = 0
-    randomPokes = []
-    highlightPoke = None
-    pokIDs = ""
-    while (i < 4):
-        randomInd = random.randint(0, len(data) - 1)
-        randomPoke = data[randomInd]
-        if (randomPoke['significantForm']):
-            randomPokes.append(randomPoke)
-            pokIDs += "'" + randomPoke['pokID'] + "'," 
-            i += 1
-
-    highlightPoke = data[181]
-    pokIDs += "'" + highlightPoke['pokID'] + "'"
-
-    sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
-    sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
-
-    pokeRatings = db.executesql(sqlA)
-    userRatings = db.executesql(sqlB)
-
-    return dict(
-        randomJSON = json.dumps(randomPokes),
-        highlightJSON = json.dumps(highlightPoke),
-        pokeRatings = json.dumps(pokeRatings),
-        userRatings = json.dumps(userRatings),
-        get_rating_url = URL('get_rating', signer=url_signer),
-        set_rating_url = URL('set_rating', signer=url_signer),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
-        req_delete_url = URL('request_delete', signer=url_signer),
-        pokedex_url = URL('pokedex')
-    )
+    return indexDict(db, url_signer)
 
 
 # Date seed function that converts every date to a unique integer seed
@@ -385,3 +287,87 @@ def dateSeed():
 # BlumBlumShub Pseudorandom algorithm
 def BlumBlumShub(seed):
     return math.pow(seed, 2) % 50515093
+
+def SendDeleteEmail(useremail, link):
+    host = os.environ.get("SMTPEndpoint")
+    user = os.environ.get("SMTPUser")
+    password = os.environ.get("SMTPPassword")
+    context = ssl.create_default_context()
+
+    msg = EmailMessage()
+    msg.set_content("Use this link to delete all info: http://pokerating.com" + link)
+    msg.add_alternative("""\
+    <html>
+        <body>
+            <p>Hello!</p>
+            <p>Use this
+                <a href="{myLink}">
+                    LINK
+                </a> to delete all information associated with this email on Pokerating.com.
+            </p>
+            <p>If you did not request this email, or are receiving it in error, take no action</p>
+        </body>
+    </html>
+        """.format(myLink = "http://pokerating.com" + link), subtype="html")
+    msg['Subject'] = "Delete link for Pokerating.com"
+    msg['From'] = "NO-REPLY@Pokerating.com"
+    msg["To"] = useremail
+    print("Finished Crafting message")
+
+    with SMTP(host,2587) as server :
+        # securing using tls
+        server.starttls(context=context)
+
+        # authenticating with the server to prove our identity
+        server.login(user=user, password=password)
+
+        # sending a plain text email
+        print("About to send message")
+        server.send_message(msg)
+        server.quit()
+        print("Message Sent")
+
+def indexDict(db, url_signer):
+    data = json.loads(db(db.pokemonTable).select().as_json())
+
+    # Select 4 random pokemon
+    i = 0
+    randomPokes = []
+    highlightPoke = None
+    pokIDs = ""
+    while (i < 4):
+        randomInd = random.randint(0, len(data) - 1)
+        randomPoke = data[randomInd]
+        if (randomPoke['significantForm']):
+            randomPokes.append(randomPoke)
+            pokIDs += "" + str(randomPoke['id']) + "," 
+            i += 1
+
+    # Select the highlight pokemon of the day
+    seed = dateSeed()
+    seed = BlumBlumShub(seed)
+    seed = BlumBlumShub(seed)
+    highlightPoke = data[(int(seed) % len(data))]
+    while (not highlightPoke['significantForm']):
+        seed = BlumBlumShub(seed)
+        highlightPoke = data[(int(seed) % len(data))]
+    pokIDs += "" + str(highlightPoke['id']) + ""
+
+    # Query the database to receive the ratings of the 5 pokemon to display on the page
+    sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
+    sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
+    pokeRatings = db.executesql(sqlA)
+    userRatings = db.executesql(sqlB)
+
+    # Return that info to the user
+    return dict(
+        randomJSON = json.dumps(randomPokes),
+        highlightJSON = json.dumps(highlightPoke),
+        pokeRatings = json.dumps(pokeRatings),
+        userRatings = json.dumps(userRatings),
+        get_rating_url = URL('get_rating', signer=url_signer),
+        set_rating_url = URL('set_rating', signer=url_signer),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
+        req_delete_url = URL('request_delete', signer=url_signer),
+        pokedex_url = URL('pokedex')
+    )

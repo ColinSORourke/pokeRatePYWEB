@@ -19,6 +19,9 @@ run
     docker buildx build --platform=linux/amd64 . -t py4web -f ./deployment_tools/docker/Dockerfile
 to build an image for launching on Fargate
 
+To test image locally, you can run:
+    docker run -p 8000:8000 py4web
+
 run 
     docker images
 to get the image ID to tag

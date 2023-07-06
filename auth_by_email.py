@@ -6,6 +6,12 @@ from pydal.validators import IS_EMAIL
 import calendar
 import time
 
+import smtplib
+from smtplib import SMTP
+from email.message import EmailMessage
+import os
+import ssl
+
 # Key to access the user's email in the session
 EMAIL_KEY = "_user_email"
 
@@ -20,7 +26,45 @@ EXPIRATION_TIME = 3600 * 12
 
 class TestEmailer(object):
     # Dummy class for sending emails. Prints link instead
-    def send_email(self, email, link):
+    def send_email(self, useremail, link):
+        host = os.environ.get("SMTPEndpoint")
+        user = os.environ.get("SMTPUser")
+        password = os.environ.get("SMTPPassword")
+        context = ssl.create_default_context()
+
+        msg = EmailMessage()
+        msg.set_content("Use this link to sign in: http://pokerating.com" + link)
+        msg.add_alternative("""\
+        <html>
+            <body>
+                <p>Hello!</p>
+                <p>Use this
+                    <a href="{myLink}">
+                        LINK
+                    </a> to sign into Pokerating.com.
+                </p>
+                <p>If you did not request this email, or are receiving it in error, take no action</p>
+            </body>
+        </html>
+            """.format(myLink = "http://pokerating.com" + link), subtype="html")
+        msg['Subject'] = "Login link for Pokerating.com"
+        msg['From'] = "NO-REPLY@Pokerating.com"
+        msg["To"] = useremail
+        print("Finished Crafting message")
+
+        with SMTP(host,2587) as server :
+            # securing using tls
+            server.starttls(context=context)
+
+            # authenticating with the server to prove our identity
+            server.login(user=user, password=password)
+
+            # sending a plain text email
+            print("About to send message")
+            server.send_message(msg)
+            server.quit()
+            print("Message Sent")
+
         print("Use this link " + link)
 
 

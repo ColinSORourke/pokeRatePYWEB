@@ -17,3 +17,4 @@ static/font-awesome-4.7.0
 static/js/vue-lazyload
 static/css/fonts
 settings.py
+.env
