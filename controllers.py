@@ -30,6 +30,7 @@ import random
 import math
 import datetime
 import time
+import calendar
 
 import smtplib
 from smtplib import SMTP
@@ -262,10 +263,20 @@ def get_all_ratings():
 @action.uses('home.html', session, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
 def request_delete():
     print("USE THIS LINK TO DELETE YOUR DATA")
-    myLink = URL("delete_confirm", get_user_email(), signer=url_signer)
-    SendDeleteEmail(get_user_email(), myLink)
-    print(myLink)
-    auth.flash.set("Check your email for link to delete")
+    activity = session.get("recent_activity")
+    time_now = calendar.timegm(time.gmtime())
+    if (time_now - activity > 300):
+        session["recentEmails"] = 0
+        session["recent_activity"] = calendar.timegm(time.gmtime())
+
+    if (session["recentEmails"] < 5):
+        myLink = URL("delete_confirm", get_user_email(), signer=url_signer)
+        SendDeleteEmail(get_user_email(), myLink)
+        session["recentEmails"] += 1
+        print(myLink)
+        auth.flash.set("Check your email for link to delete")
+    else:
+        auth.flash.set("Too many emails sent recently!")
     return indexDict(db, url_signer)
 
 @action("delete_confirm")

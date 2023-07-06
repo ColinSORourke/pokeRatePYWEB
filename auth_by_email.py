@@ -124,13 +124,30 @@ class AuthByEmail(Fixture):
         if self.session.get(EMAIL_KEY):
             redirect(URL(self.default_path))
 
+        if not self.session.get("recentEmails"):
+            self.session["recentEmails"] = 0
+
+        if not self.session.get("recent_activity"):
+            self.session["recent_activity"] = calendar.timegm(time.gmtime())
+
         form = Form([Field('email', requires=IS_EMAIL())], csrf_session = self.session)
         if form.accepted:
             # Send an email to the user asking to confirm the email by clicking on a link
             # The link will cause the user to be logged in
-            link = URL(CONFIRMATION_PATH, form.vars['email'], signer=self.url_signer)
-            self.emailer.send_email(form.vars['email'], link)
-            redirect(URL(WAITING_PATH))
+            activity = self.session.get("recent_activity")
+            time_now = calendar.timegm(time.gmtime())
+            if (time_now - activity > 300):
+                self.session["recentEmails"] = 0
+                self.session["recent_activity"] = calendar.timegm(time.gmtime())
+
+            if (self.session.get("recentEmails") < 5):
+                link = URL(CONFIRMATION_PATH, form.vars['email'], signer=self.url_signer)
+                self.emailer.send_email(form.vars['email'], link)
+                self.session["recentEmails"] += 1
+                redirect(URL(WAITING_PATH))
+            else:
+                self.flash.set("Too many emails sent recently!")
+                redirect(URL(WAITING_PATH))
         return dict(form = form)
 
     # Wait around!
