@@ -92,7 +92,7 @@ let init = (app) => {
             })
         },
         dexPath(p){
-            return dex_url + "/" + p["id"]
+            return dex_url + "/" + p["pokID"]
         },
         abbrevNum(n){
             return Intl.NumberFormat('en-US', {

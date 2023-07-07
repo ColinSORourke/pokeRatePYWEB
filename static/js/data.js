@@ -105,7 +105,7 @@ let init = (app) => {
             })
         },
         dexPath(p){
-            return dex_url + "/" + p["id"]
+            return dex_url + "/" + p["pokID"]
         },
         setDisplayType(t){
             app.data.displayType = t;

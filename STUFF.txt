@@ -1,6 +1,4 @@
 -------- TO DO ---------
-* Store Database externally to Docker Container
-* Hook up Emailer to an actual email address
 * Style pass with Natalie
 * Comment Files
 

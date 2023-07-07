@@ -202,13 +202,14 @@ let init = (app) => {
 
 
                 app.data.myPokemon[i] = currPoke;
-                id_map[currPoke['id']] = i;
+                id_map[currPoke['pokID']] = i;
+                trueid_map[currPoke['id']] = i;
                 i += 1;
             }
 
             i=0
             while (i < result.data.userRatings.length){
-                pokInd = id_map[ result.data.userRatings[i]['pokemon'] ]
+                pokInd = trueid_map[ result.data.userRatings[i]['pokemon'] ]
                 if (result.data.userRatings[i]['rating'] == 6){
                     app.data.myPokemon[pokInd].userFavorite = true;
                 } else {
