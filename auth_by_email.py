@@ -21,7 +21,7 @@ EMAIL_KEY = "_user_email"
 
 #REMOTE_ADDR when running local container
 #HTTP_X_FORWARDED_FOR when running on ECS
-USER_IP_KEY = "REMOTE_ADDR"
+USER_IP_KEY = "HTTP_X_FORWARDED_FOR"
 
 LOGIN_PATH = "auth_by_email/login"
 LOGOUT_PATH = "auth_by_email/logout"

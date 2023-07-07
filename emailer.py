@@ -144,7 +144,7 @@ class emailer(Fixture):
         msg['Subject'] = "Login link for Pokerating.com"
         msg['From'] = "NO-REPLY@Pokerating.com"
         msg["To"] = target
-        print("Finished Crafting message")
+        #print("Finished Crafting message")
 
         with SMTP(host,2587) as server :
             # securing using tls
@@ -154,14 +154,14 @@ class emailer(Fixture):
             server.login(user=user, password=password)
 
             # sending a plain text email
-            print("About to send message")
+            #print("About to send message")
             server.send_message(msg)
             server.quit()
             self.codeSent(target)
             self.codeSentIP(sourceip)
-            print("Message Sent")
+            #print("Message Sent")
 
-        print("Use this link " + link)
+        #print("Use this link " + link)
 
     def sendDeleteEmail(self, target, link, sourceip):
         host = os.environ.get("SMTPEndpoint")
@@ -187,7 +187,7 @@ class emailer(Fixture):
         msg['Subject'] = "Delete link for Pokerating.com"
         msg['From'] = "NO-REPLY@Pokerating.com"
         msg["To"] = target
-        print("Finished Crafting message")
+        #print("Finished Crafting message")
 
         with SMTP(host,2587) as server :
             # securing using tls
@@ -197,9 +197,9 @@ class emailer(Fixture):
             server.login(user=user, password=password)
 
             # sending a plain text email
-            print("About to send message")
+            #print("About to send message")
             server.send_message(msg)
             server.quit()
             self.codeSent(target)
             self.codeSentIP(sourceip)
-            print("Message Sent")
+            #print("Message Sent")

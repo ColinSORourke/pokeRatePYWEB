@@ -44,10 +44,11 @@ from .common import db, myMailer, session, T, cache, logger, flash
 
 from .common import auth, url_signer
 from .models import get_user_email
+from .__init__ import __version__
 
 #REMOTE_ADDR when running local container
 #HTTP_X_FORWARDED_FOR when running on ECS
-USER_IP_KEY = "REMOTE_ADDR"
+USER_IP_KEY = "HTTP_X_FORWARDED_FOR"
 
 # Main Home Page
 @action('home')
@@ -70,7 +71,8 @@ def pokedex():
         set_rating_url = URL('set_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
         req_delete_url = URL('request_delete', signer=url_signer),
-        target_poke = "000000"
+        target_poke = "000000",
+        __version__ = __version__
     )
 
 # Page that displays all the pokemon.
@@ -87,7 +89,8 @@ def pokedex(number):
         set_rating_url = URL('set_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
         req_delete_url = URL('request_delete', signer=url_signer),
-        target_poke = number
+        target_poke = number,
+        __version__ = __version__
     )
 
 # Page that displays the ranking data of all the pokemon.
@@ -103,7 +106,8 @@ def data():
         set_rating_url = URL('set_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
         req_delete_url = URL('request_delete', signer=url_signer),
-        pokedex_url = URL('pokedex')
+        pokedex_url = URL('pokedex'),
+        __version__ = __version__
     )
 
 # Page that plays a daily puzzle
@@ -168,7 +172,6 @@ def data():
 #     end = time.perf_counter()
 #     return str(end - start)
 
-
 # Get rating returns the rating data of an individual pokemon
 @action("get_rating")
 @action.uses(session, url_signer.verify(), db, auth)
@@ -203,7 +206,8 @@ def get_rating():
         fiveRates = ratings[4],
         sixRates = ratings[5],
         userRate = userRating,
-        userFavorite = userFavorite
+        userFavorite = userFavorite,
+        __version__ = __version__
     )
 
 # Set rating Post funciotn
@@ -260,18 +264,19 @@ def get_all_ratings():
 
     return dict(
         allRatings = allRatings,
-        userRatings = userRatings
+        userRatings = userRatings,
+        __version__ = __version__
     )
 
 @action("request_delete")
 @action.uses('home.html', session, myMailer, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
 def request_delete():
-    print("USE THIS LINK TO DELETE YOUR DATA")
+    #print("USE THIS LINK TO DELETE YOUR DATA")
     myMailer.active()
     if (myMailer.canEmail(get_user_email(), request.environ.get(USER_IP_KEY))):
         myLink = URL("delete_confirm", signer=url_signer)
         myMailer.sendDeleteEmail(get_user_email(), myLink, request.environ.get(USER_IP_KEY))
-        print(myLink)
+        #print(myLink)
         auth.flash.set("Check your email for link to delete")
     else:
         auth.flash.set("Too many emails sent recently!")
@@ -280,7 +285,7 @@ def request_delete():
 @action("delete_confirm")
 @action.uses('home.html', session, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
 def delete_confirm():
-    print("Deleting all data of " + get_user_email())
+    #print("Deleting all data of " + get_user_email())
     userRatings = db((db.ratings.rater) == get_user_email())
     userRatings.delete()
     auth.flash.set("Your Info has been deleted")
@@ -341,5 +346,6 @@ def indexDict(db, url_signer):
         set_rating_url = URL('set_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
         req_delete_url = URL('request_delete', signer=url_signer),
-        pokedex_url = URL('pokedex')
+        pokedex_url = URL('pokedex'),
+        __version__ = __version__
     )
