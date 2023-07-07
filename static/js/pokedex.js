@@ -188,7 +188,6 @@ let init = (app) => {
         app.addRateData(app.data.myPokemon)
         axios.get(get_all_ratings_url).then((result) => {
             id_map = {};
-            trueid_
             derived_rates = result.data.allRatings;
             i = 0;
             while (i < result.data.allRatings.length){
