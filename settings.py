@@ -20,6 +20,11 @@ DB_POOL_SIZE = 1
 DB_MIGRATE = True
 DB_FAKE_MIGRATE = True # maybe?
 
+SPAM_DB_URI = "sqlite://storage.db"
+SPAM_DB_POOL_SIZE = 1
+SPAM_DB_MIGRATE = True
+SPAM_DB_FAKE_MIGRATE = False # maybe?
+
 # location where static files are stored:
 STATIC_FOLDER = required_folder(APP_FOLDER, "static")
 

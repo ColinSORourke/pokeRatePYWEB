@@ -12,8 +12,16 @@ from email.message import EmailMessage
 import os
 import ssl
 
+from .common import spam_db
+
+
+
 # Key to access the user's email in the session
 EMAIL_KEY = "_user_email"
+
+#REMOTE_ADDR when running local container
+#HTTP_X_FORWARDED_FOR when running on ECS
+USER_IP_KEY = "REMOTE_ADDR"
 
 LOGIN_PATH = "auth_by_email/login"
 LOGOUT_PATH = "auth_by_email/logout"
@@ -24,67 +32,23 @@ CONFIRMATION_PATH = "auth_by_email/confirm"
 # If changed, change session type in Common.py as well
 EXPIRATION_TIME = 3600 * 12
 
-class TestEmailer(object):
-    # Dummy class for sending emails. Prints link instead
-    def send_email(self, useremail, link):
-        host = os.environ.get("SMTPEndpoint")
-        user = os.environ.get("SMTPUser")
-        password = os.environ.get("SMTPPassword")
-        context = ssl.create_default_context()
-
-        msg = EmailMessage()
-        msg.set_content("Use this link to sign in: http://pokerating.com" + link)
-        msg.add_alternative("""\
-        <html>
-            <body>
-                <p>Hello!</p>
-                <p>Use this
-                    <a href="{myLink}">
-                        LINK
-                    </a> to sign into Pokerating.com.
-                </p>
-                <p>If you did not request this email, or are receiving it in error, take no action</p>
-            </body>
-        </html>
-            """.format(myLink = "http://pokerating.com" + link), subtype="html")
-        msg['Subject'] = "Login link for Pokerating.com"
-        msg['From'] = "NO-REPLY@Pokerating.com"
-        msg["To"] = useremail
-        print("Finished Crafting message")
-
-        with SMTP(host,2587) as server :
-            # securing using tls
-            server.starttls(context=context)
-
-            # authenticating with the server to prove our identity
-            server.login(user=user, password=password)
-
-            # sending a plain text email
-            print("About to send message")
-            server.send_message(msg)
-            server.quit()
-            print("Message Sent")
-
-        print("Use this link " + link)
-
-
 class AuthByEmail(Fixture):
     def __init__(self, session, url_signer, emailer=None, default_path='home'):
         self.session = session
-        self.emailer = emailer or TestEmailer()
+        self.emailer = emailer
         self.url_signer = url_signer
         self.default_path = default_path
         self.__prerequisites__ = [session]
         self.flash = Flash()
         
         # Register path to login
-        f = action.uses("auth_by_email_login.html", self.flash, session, url_signer)(self.login)
+        f = action.uses("auth_by_email_login.html", self.flash, session, url_signer, emailer)(self.login)
         action(LOGIN_PATH, method=["GET", "POST"])(f)
         # Register path to waiting
         f = action.uses("auth_by_email_wait.html", self.flash, session)(self.wait)
         action(WAITING_PATH, method=["GET"])(f)
         # Register path to confimation
-        f = action.uses("auth_by_email_wait.html", self.flash, session, url_signer.verify())(self.confirm)
+        f = action.uses("auth_by_email_wait.html", self.flash, session, url_signer.verify(), emailer)(self.confirm)
         action(CONFIRMATION_PATH + "/<email>", method=["GET"])(f)
 
         f = action.uses("auth_by_email_login.html", self.flash, session)(self.logout)
@@ -124,26 +88,14 @@ class AuthByEmail(Fixture):
         if self.session.get(EMAIL_KEY):
             redirect(URL(self.default_path))
 
-        if not self.session.get("recentEmails"):
-            self.session["recentEmails"] = 0
-
-        if not self.session.get("recent_activity"):
-            self.session["recent_activity"] = calendar.timegm(time.gmtime())
-
         form = Form([Field('email', requires=IS_EMAIL())], csrf_session = self.session)
         if form.accepted:
             # Send an email to the user asking to confirm the email by clicking on a link
             # The link will cause the user to be logged in
-            activity = self.session.get("recent_activity")
-            time_now = calendar.timegm(time.gmtime())
-            if (time_now - activity > 300):
-                self.session["recentEmails"] = 0
-                self.session["recent_activity"] = calendar.timegm(time.gmtime())
-
-            if (self.session.get("recentEmails") < 5):
+            self.emailer.active()
+            if (self.emailer.canEmail(form.vars['email'], request.environ.get(USER_IP_KEY))):
                 link = URL(CONFIRMATION_PATH, form.vars['email'], signer=self.url_signer)
-                self.emailer.send_email(form.vars['email'], link)
-                self.session["recentEmails"] += 1
+                self.emailer.sendLoginEmail(form.vars['email'], link, request.environ.get(USER_IP_KEY))
                 redirect(URL(WAITING_PATH))
             else:
                 self.flash.set("Too many emails sent recently!")
@@ -163,8 +115,10 @@ class AuthByEmail(Fixture):
         assert email is not None
         self.session[EMAIL_KEY] = email
         self.session.expiration = EXPIRATION_TIME
-        self.flash.set("Successful Login")
-        self.session["recent_activity"] = calendar.timegm(time.gmtime())
+        self.flash.set("Successful Login!")
+        self.emailer.active()
+        self.emailer.codeUsed(email)
+        self.emailer.codeUsedIP(request.environ.get(USER_IP_KEY))
         redirect(URL(self.default_path))
 
     # Controller for the log out

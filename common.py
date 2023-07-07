@@ -41,6 +41,14 @@ db = DAL(
     fake_migrate=settings.DB_FAKE_MIGRATE,
 )
 
+spam_db = DAL(
+    settings.SPAM_DB_URI,
+    folder=settings.DB_FOLDER,
+    pool_size=settings.SPAM_DB_POOL_SIZE,
+    migrate=settings.SPAM_DB_MIGRATE,
+    fake_migrate=settings.SPAM_DB_FAKE_MIGRATE,
+)
+
 # #######################################################
 # define global objects that may or may not be used by the actions
 # #######################################################
@@ -117,6 +125,9 @@ if settings.USE_CELERY:
 
 from py4web.utils.url_signer import URLSigner
 from .auth_by_email import AuthByEmail
+from .emailer import emailer
+
+myMailer = emailer(session, spam_db)
 
 url_signer = URLSigner(session, lifespan = 600)
-auth = AuthByEmail(session, url_signer)
+auth = AuthByEmail(session, url_signer, myMailer)

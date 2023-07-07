@@ -3,7 +3,7 @@ This file defines the database models
 """
 
 import datetime
-from .common import db, Field
+from .common import spam_db, db, Field
 from pydal.validators import *
 from .common import auth
 
@@ -101,6 +101,30 @@ db.define_table('derived_ratings',
                 Field("ratingcount", "integer", default=0)
                 )
 
+spam_db.define_table("emails",
+                     Field("email"),
+                     Field("codessent", "integer", default=0),
+                     Field("lastcodesent", "integer"),
+                     Field("codesused", "integer", default=0),
+                     Field("lastcodeused", "integer"),
+                     Field("codeswithoutresponse", "integer",  default=0)
+                     )
+
+spam_db.define_table("ips",
+                     Field("ip"),
+                     Field("codessent", "integer", default=0),
+                     Field("lastcodesent", "integer"),
+                     Field("codesused", "integer", default=0),
+                     Field("lastcodeused", "integer"),
+                     Field("codeswithoutresponse", "integer",  default=0)
+                     )
+
+spam_db.define_table("daily",
+                     Field("day"),
+                     Field("codessent", "integer", default=0)
+                     )
+
+
 class myVirtualFields:
     def averageRating(self):
         sumRatings = (self.derived_ratings.onestar * 1) + (self.derived_rating.twostar * 2) + (self.derived_ratings.threestar * 3) + (self.derived_ratings.fourstar * 4) + (self.derived_ratings.fivestar * 5)
@@ -114,4 +138,4 @@ db.ratings._before_update.append(calcUpdate)
 db.ratings._before_delete.append(calcDelete)
 
 db.commit()
-
+spam_db.commit()

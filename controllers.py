@@ -40,10 +40,14 @@ import ssl
 
 from py4web import action, request, abort, redirect, URL
 from yatl.helpers import A
-from .common import db, session, T, cache, logger, flash
+from .common import db, myMailer, session, T, cache, logger, flash
 
 from .common import auth, url_signer
 from .models import get_user_email
+
+#REMOTE_ADDR when running local container
+#HTTP_X_FORWARDED_FOR when running on ECS
+USER_IP_KEY = "REMOTE_ADDR"
 
 # Main Home Page
 @action('home')
@@ -260,19 +264,13 @@ def get_all_ratings():
     )
 
 @action("request_delete")
-@action.uses('home.html', session, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
+@action.uses('home.html', session, myMailer, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
 def request_delete():
     print("USE THIS LINK TO DELETE YOUR DATA")
-    activity = session.get("recent_activity")
-    time_now = calendar.timegm(time.gmtime())
-    if (time_now - activity > 300):
-        session["recentEmails"] = 0
-        session["recent_activity"] = calendar.timegm(time.gmtime())
-
-    if (session["recentEmails"] < 5):
-        myLink = URL("delete_confirm", get_user_email(), signer=url_signer)
-        SendDeleteEmail(get_user_email(), myLink)
-        session["recentEmails"] += 1
+    myMailer.active()
+    if (myMailer.canEmail(get_user_email(), request.environ.get(USER_IP_KEY))):
+        myLink = URL("delete_confirm", signer=url_signer)
+        myMailer.sendDeleteEmail(get_user_email(), myLink, request.environ.get(USER_IP_KEY))
         print(myLink)
         auth.flash.set("Check your email for link to delete")
     else:
@@ -286,6 +284,8 @@ def delete_confirm():
     userRatings = db((db.ratings.rater) == get_user_email())
     userRatings.delete()
     auth.flash.set("Your Info has been deleted")
+    myMailer.codeUsed(get_user_email())
+    myMailer.codeUsedIP(request.environ.get(USER_IP_KEY))
     return indexDict(db, url_signer)
 
 
@@ -298,45 +298,6 @@ def dateSeed():
 # BlumBlumShub Pseudorandom algorithm
 def BlumBlumShub(seed):
     return math.pow(seed, 2) % 50515093
-
-def SendDeleteEmail(useremail, link):
-    host = os.environ.get("SMTPEndpoint")
-    user = os.environ.get("SMTPUser")
-    password = os.environ.get("SMTPPassword")
-    context = ssl.create_default_context()
-
-    msg = EmailMessage()
-    msg.set_content("Use this link to delete all info: http://pokerating.com" + link)
-    msg.add_alternative("""\
-    <html>
-        <body>
-            <p>Hello!</p>
-            <p>Use this
-                <a href="{myLink}">
-                    LINK
-                </a> to delete all information associated with this email on Pokerating.com.
-            </p>
-            <p>If you did not request this email, or are receiving it in error, take no action</p>
-        </body>
-    </html>
-        """.format(myLink = "http://pokerating.com" + link), subtype="html")
-    msg['Subject'] = "Delete link for Pokerating.com"
-    msg['From'] = "NO-REPLY@Pokerating.com"
-    msg["To"] = useremail
-    print("Finished Crafting message")
-
-    with SMTP(host,2587) as server :
-        # securing using tls
-        server.starttls(context=context)
-
-        # authenticating with the server to prove our identity
-        server.login(user=user, password=password)
-
-        # sending a plain text email
-        print("About to send message")
-        server.send_message(msg)
-        server.quit()
-        print("Message Sent")
 
 def indexDict(db, url_signer):
     data = json.loads(db(db.pokemonTable).select().as_json())
