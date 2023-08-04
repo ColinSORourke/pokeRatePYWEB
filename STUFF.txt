@@ -40,3 +40,11 @@ to push the image to ECR
         update AWS Access Key environment variables
 
 Restart the task in Pokerating-container-cluster in ECS
+
+-------- ADD NEW POKEMON ---------
+Get NewPokemon.json by running scraper on appropriate pokemon
+Add NewPokemon images to the Static/images/PokemonArt/whatever
+Add current IP to AWS Security Group associated with database
+Push Docker Launch with new images
+Launch local container with Add controller path enabled
+Visit ADD url.

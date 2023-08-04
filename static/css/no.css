@@ -447,6 +447,11 @@ nav li:hover > ul {
   opacity:1
 }
 
+nav input[type=checkbox]:checked ~ ul{
+  visibility:visible;
+  opacity:1
+}
+
 nav>li>ul>li:first-child:before{
   content:'';
   position:absolute;

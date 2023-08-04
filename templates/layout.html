@@ -35,9 +35,10 @@
         <ul>
           [[if globals().get('user'):]]
           <li>
-            <a class="navbar-link is-primary">
+            <label for="email" class="navbar-link is-primary">
               [[=globals().get('user',{}).get('email')]]
-            </a>
+            </label>
+            <input type="checkbox" id="email">
             <ul>
               <li><a href="[[=URL('auth_by_email/logout')]]">Logout</a></li>
               <li><a href="[[=XML(req_delete_url)]]">Delete My Info!</a></li>
@@ -70,8 +71,11 @@
         Pokémon images & names © 1995-2023 Nintendo/Game Freak.
       </p>
       <p>
-        Made in Py4Web. 0.9.1
+        Made in Py4Web. 0.9.2
       </p>
+
+      <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'K3K7NVT1M');kofiwidget2.draw();</script> 
+
     </footer>
   </body>
   <!-- You've gotta have utils.js -->

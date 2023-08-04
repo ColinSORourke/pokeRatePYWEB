@@ -21,7 +21,8 @@ EMAIL_KEY = "_user_email"
 
 #REMOTE_ADDR when running local container
 #HTTP_X_FORWARDED_FOR when running on ECS
-USER_IP_KEY = "HTTP_X_FORWARDED_FOR"
+USER_IP_KEY_AWS = "HTTP_X_FORWARDED_FOR"
+USER_IP_KEY_DOCKER = "REMOTE_ADDR"
 
 LOGIN_PATH = "auth_by_email/login"
 LOGOUT_PATH = "auth_by_email/logout"
@@ -93,9 +94,13 @@ class AuthByEmail(Fixture):
             # Send an email to the user asking to confirm the email by clicking on a link
             # The link will cause the user to be logged in
             self.emailer.active()
-            if (self.emailer.canEmail(form.vars['email'], request.environ.get(USER_IP_KEY))):
+            userip = request.environ.get(USER_IP_KEY_AWS)
+            if (userip == None):
+                userip = request.environ.get(USER_IP_KEY_DOCKER)
+
+            if (self.emailer.canEmail(form.vars['email'], userip)):
                 link = URL(CONFIRMATION_PATH, form.vars['email'], signer=self.url_signer)
-                self.emailer.sendLoginEmail(form.vars['email'], link, request.environ.get(USER_IP_KEY))
+                self.emailer.sendLoginEmail(form.vars['email'], link, userip)
                 redirect(URL(WAITING_PATH))
             else:
                 self.flash.set("Too many emails sent recently!")
@@ -118,7 +123,10 @@ class AuthByEmail(Fixture):
         self.flash.set("Successful Login!")
         self.emailer.active()
         self.emailer.codeUsed(email)
-        self.emailer.codeUsedIP(request.environ.get(USER_IP_KEY))
+        userip = request.environ.get(USER_IP_KEY_AWS)
+        if (userip == None):
+            userip = request.environ.get(USER_IP_KEY_DOCKER)
+        self.emailer.codeUsedIP(userip)
         redirect(URL(self.default_path))
 
     # Controller for the log out

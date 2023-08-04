@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Walking Wake",
+        "fullname": "Walking Wake",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Paradox Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1009",
+        "dblink": "https://pokemondb.net/pokedex/1009",
+        "formList": [
+            "Walking Wake"
+        ],
+        "types": [
+            "Water",
+            "Dragon"
+        ],
+        "bst": 590,
+        "pokID": "100900"
+    },
+    {
+        "name": "Iron Leaves",
+        "fullname": "Iron Leaves",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Paradox Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1010",
+        "dblink": "https://pokemondb.net/pokedex/1010",
+        "formList": [
+            "Iron Leaves"
+        ],
+        "types": [
+            "Grass",
+            "Psychic"
+        ],
+        "bst": 590,
+        "pokID": "101000"
+    }
+]
