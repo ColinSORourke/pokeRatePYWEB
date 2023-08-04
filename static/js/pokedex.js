@@ -146,10 +146,14 @@ let init = (app) => {
               }).format(n);
         },
         filteredPokes(){
+            normalizedQuery = app.vue.query.charAt(0).toUpperCase() + app.vue.query.toLowerCase().slice(1)
+            if (app.vue.myCategories.includes(normalizedQuery)){
+                return app.vue.pokemonPerCategory[normalizedQuery]
+            }
             return app.vue.myPokemon.filter((pokemon) =>
                 ( pokemon.fullName.toLowerCase().includes(app.vue.query.toLowerCase()) 
                 || 
-                  pokemon.types.includes(app.vue.query.charAt(0).toUpperCase() + app.vue.query.toLowerCase().slice(1)) )
+                  pokemon.types.includes(normalizedQuery))
                 &&
                 pokemon.significantForm
             );
