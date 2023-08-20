@@ -87,7 +87,7 @@
                     <div v-if="mostRecentGuess().types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess(), 1)"  class="typeImg"></div>
                 </div>
                 
-                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">{{ mostRecentGuess().generation }}</div>
+                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">{{ getGen(mostRecentGuess()) }}</div>
                 <div class="ratingText">
                     <div>BST</div>
                     <div>{{ mostRecentGuess().bst }}</div>
@@ -165,7 +165,7 @@
                     <div class="typeContainer"><img :src="typeImagePath(targetPokemon, 0)"  class="typeImg"></div>
                     <div v-if="targetPokemon.types.length == 2" class="typeContainer"><img :src="typeImagePath(targetPokemon, 1)"  class="typeImg"></div>
                 </div>
-                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">{{ targetPokemon.generation }}</div>
+                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">{{ getGen(targetPokemon) }}</div>
                 <div class="ratingText">
                     <div>BST</div>
                     <div>{{ targetPokemon.bst }}</div>

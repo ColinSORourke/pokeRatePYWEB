@@ -118,6 +118,9 @@ let init = (app) => {
                 return "fa fa-check-circle"
             }
         },
+        getGen(p){
+            return "Generation " + p.generation[11];
+        },
         checkTypePrim(p){
             if (app.vue.targetPokemon.types.includes(p.types[0])){
                 return "fa fa-check-circle"
