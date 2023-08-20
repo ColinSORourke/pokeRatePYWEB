@@ -50,6 +50,7 @@
                     <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
                 </div>
                 
+                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">Generation ???</div>
                 <div class="ratingText">
                     <div>BST</div>
                     <div>???</div>
@@ -86,6 +87,7 @@
                     <div v-if="mostRecentGuess().types.length == 2" class="typeContainer"><img :src="typeImagePath(mostRecentGuess(), 1)"  class="typeImg"></div>
                 </div>
                 
+                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">{{ mostRecentGuess().generation }}</div>
                 <div class="ratingText">
                     <div>BST</div>
                     <div>{{ mostRecentGuess().bst }}</div>
@@ -126,6 +128,7 @@
                     <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
                 </div>
                 
+                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">Generation ???</div>
                 <div class="ratingText">
                     <div>BST</div>
                     <div>???</div>
@@ -162,10 +165,10 @@
                     <div class="typeContainer"><img :src="typeImagePath(targetPokemon, 0)"  class="typeImg"></div>
                     <div v-if="targetPokemon.types.length == 2" class="typeContainer"><img :src="typeImagePath(targetPokemon, 1)"  class="typeImg"></div>
                 </div>
-                
+                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">{{ targetPokemon.generation }}</div>
                 <div class="ratingText">
                     <div>BST</div>
-                    <div>{{ mostRecentGuess().bst }}</div>
+                    <div>{{ targetPokemon.bst }}</div>
                 </div>
 
                 <div class="ratingContainer">

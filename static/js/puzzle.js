@@ -161,6 +161,8 @@ let init = (app) => {
         mostRecentGuess(){
             if (app.vue.recentGuess != {}){
                 return app.vue.recentGuess
+            } else if (app.vue.myGuesses.length > 0){
+                return app.vue.myGuesses[app.vue.myGuesses.length - 1]
             } else {
                 return {name: "None"}
             }  
@@ -185,7 +187,6 @@ let init = (app) => {
                         if (app.vue.myGuesses[j].id == guess.id){
                             app.vue.myGuesses[j]['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
                             app.vue.noGuess = false;
-                            app.vue.recentGuess = app.vue.myGuesses[j]
                             if (guess.name == app.vue.targetPokemon.name){
                                 app.vue.solved = true;
                             }
