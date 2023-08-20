@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAAQEAAAEAIAAwAAAAFgAAACgAAAABAAAAAgAAAAEAIAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAA=="/>
     <link rel="stylesheet" href="css/no.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://use.typekit.net/hde2teg.css">
     <style>.py4web-validation-error{margin-top:-16px; font-size:0.8em;color:red}</style>
     [[block page_head]]<!-- individual pages can customize header here -->[[end]]
   </head>
@@ -15,23 +16,33 @@
       <nav class="black" style="position: fixed; top: 0; z-index: 2;">
         <!-- Logo -->
         <a href="[[=URL('home')]]">
-          <b>PokeRating</b>
+          <b style="font-size:30px">PokeRating</b>
         </a>
-        <a href="[[=URL('pokedex')]]">
-          <b>Pokedex</b>
-        </a>
-        <a href="[[=URL('rankings')]]">
-          <b>Rankings</b>
-        </a>
-        <a href="[[=URL('puzzle')]]">
-          <b>Puzzle</b>
-        </a>
+
+        [[block page_left_menu]][[end]]
+
+        
+        
         <!-- Do not touch this -->
         <label for="hamburger">☰</label>
         <input type="checkbox" id="hamburger">
         <!-- Left menu ul/li -->
-        [[block page_left_menu]][[end]]
+        
         <!-- Right menu ul/li -->
+
+        <a style="border-color: green" class="tab" href="[[=URL('home')]]">
+          <b>Home</b>
+        </a>
+        <a style="border-color: red"class="tab" href="[[=URL('pokedex')]]">
+          <b>Pokedex</b>
+        </a>
+        <a style="border-color: blue" class="tab" href="[[=URL('rankings')]]">
+          <b>Rankings</b>
+        </a>
+        <a style="border-color: yellow" class="tab" href="[[=URL('puzzle')]]">
+          <b>Puzzle</b>
+        </a>
+
         <ul>
           [[if globals().get('user'):]]
           <li>
@@ -53,7 +64,7 @@
       </nav>
     </header>
     <!-- beginning of HTML inserted by extending template -->
-    <center style="background-color: floralwhite;">
+    <center style="background-color: white;">
       <div class="fakeHeader">
       </div>
       <div>
@@ -66,16 +77,13 @@
       </main>
     </center>
     <!-- end of HTML inserted by extending template -->
-    <footer class="black padded">
+    <footer class="black">
       <p>
-        Pokémon images & names © 1995-2023 Nintendo/Game Freak.
+        Pokémon images & names © 1995-2023 Nintendo/Game Freak.<br>Made in Py4Web. 0.9.2<br>Developed by <a href="https://colinsor.com">Colin O'Rourke</a>, designed by <a href="https://natorourke.com">Natalie O'Rourke</a>
       </p>
-      <p>
-        Made in Py4Web. 0.9.2
-      </p>
-
-      <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'K3K7NVT1M');kofiwidget2.draw();</script> 
-
+      <div style="margin-top: 5px; text-align: right;">
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'K3K7NVT1M');kofiwidget2.draw();</script> 
+      </div>
     </footer>
   </body>
   <!-- You've gotta have utils.js -->

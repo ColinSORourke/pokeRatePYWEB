@@ -177,12 +177,14 @@ STAR LOGIC
 
 .pokemon_entry .pokeImgContainer{
     margin-top: 0px;
-}
-
-.pokemon_entry .pokeImg{
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+    height: 176px;
+}
+
+.pokemon_entry .pokeImg{
+    width: 100%;
 }
 
 .pokemon_entry .unown_img{

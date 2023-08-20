@@ -111,6 +111,23 @@ header, footer {
   width:100%;
 }
 
+footer{
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  padding-left: 2em;
+  padding-right: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+footer p{
+  margin-bottom: 0px;
+  font-family: freight-sans-pro;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.3em;
+}
+
 code {
   background: #f4f5f6;
   border-radius: .4rem;
@@ -319,7 +336,7 @@ nav {
   padding: 0 1.5em;
   display: table;
   width: 100vw;
-  height: 40px;
+height: 40px;
 }
 
 nav ul {
@@ -332,19 +349,23 @@ nav > input[type=checkbox], nav > label {
   display: none;
 }
 
+nav a.tab{
+  border-bottom: 5px blue solid;
+}
+
 @media (min-width:600px) {
   nav > * {
     display: table-cell;
     vertical-align: middle;
   }
-  nav > ul:last-child {
-    float:right;
+  nav > ul {
+    float: right;
   }
   nav > ul > li {
     padding: 1.5em 0.5em
   }
   nav > a{
-    width: 120px;
+    width: 100px;
   }
 }
 
@@ -387,8 +408,10 @@ nav li:hover > a {
 
 nav a {
   padding:0 5px;
+  padding-right: 15px;
   text-decoration:none;
   text-align:center;
+  font-family: freight-sans-pro;
   color: black;
 }
 

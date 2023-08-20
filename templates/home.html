@@ -7,115 +7,138 @@
    <Transition name="notify">
       <div v-if="showNotif" class="notifs">{{ratingText}}</div>
    </Transition>
-   <div class="highlight">
-      <h1>Highlight</h1>
-      <div class="pokemon_list">
-         <a v-if="highlightPoke != null" :href="dexPath(highlightPoke)" data-interception="off">
+
+   <div class = columns>
+    <div class="highlight">
+        <h1>Highlight</h1>
+        <div class="pokemon_list">
+           <a v-if="highlightPoke != null" :href="dexPath(highlightPoke)" data-interception="off">
             <div class="pokemon_entry">
-               <i v-if="highlightPoke.userFavorite" class="fa fa-heart"></i>
-               <div class="pokeName">{{highlightPoke.fullName}}</div>
-               <div class="pokeNumber">{{ pokemonNumber(highlightPoke) }}</div>
-               <div class="pokeImgContainer">
-                   <img loading="lazy" :src="pokemonImagePath(highlightPoke)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
-               </div>
-      
-               <div class="typesContainer">
-                   <div class="typeContainer"><img :src="typeImagePath(highlightPoke, 0)"  class="typeImg"></div>
-                   <div v-if="highlightPoke.types.length == 2" class="typeContainer"><img :src="typeImagePath(highlightPoke, 1)"  class="typeImg"></div>
-               </div>
-               
-               <div class="starContainer">
-                   <div class="filledStars" :style="widthPerc(highlightPoke)">
-                       <i class="fa fa-star"></i>
-                       <i class="fa fa-star"></i>
-                       <i class="fa fa-star"></i>
-                       <i class="fa fa-star"></i>
-                       <i class="fa fa-star"></i>
-                   </div>
-                   <div class="inputStars">
-                       <input type="radio" :id="starIDRate(highlightPoke, 5)" value="5" :name="starID(highlightPoke)" :checked="check(highlightPoke, 5)"><label @click="ratePok(highlightPoke, 5)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 5)"></label>
-                       <input type="radio" :id="starIDRate(highlightPoke, 4)" value="4" :name="starID(highlightPoke)" :checked="check(highlightPoke, 4)"><label @click="ratePok(highlightPoke, 4)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 4)"></label>
-                       <input type="radio" :id="starIDRate(highlightPoke, 3)" value="3" :name="starID(highlightPoke)" :checked="check(highlightPoke, 3)"><label @click="ratePok(highlightPoke, 3)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 3)"></label>
-                       <input type="radio" :id="starIDRate(highlightPoke, 2)" value="2" :name="starID(highlightPoke)" :checked="check(highlightPoke, 2)"><label @click="ratePok(highlightPoke, 2)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 2)"></label>
-                       <input type="radio" :id="starIDRate(highlightPoke, 1)" value="1" :name="starID(highlightPoke)" :checked="check(highlightPoke, 1)"><label @click="ratePok(highlightPoke, 1)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 1)"></label>
-                   </div>
-               </div>
-            </div>
-         </a>
-      </div>
+              <div class="highlightBubbles">
+                  <img class="hlCircTL" :src="highlightImagePath(highlightPoke, 0)">
+                  <img class="hlCircLR" :src="highlightImagePath(highlightPoke, 0)">
+              </div>
+              <i v-if="highlightPoke.userFavorite"class="fa fa-heart"></i>
+              <div class="cardTitle">
+                  <div class="pokeName">{{highlightPoke.fullName}}</div>
+                  <div class="pokeNumber">{{ pokemonNumber(highlightPoke) }}</div>
+              </div>
+              
+              <div class="pokeImgContainer">
+                  <img loading="lazy" :src="pokemonImagePath(highlightPoke)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+              </div>
+  
+              <div class="typesContainer">
+                  <div class="typeContainer"><img :src="typeImagePath(highlightPoke, 0)"  class="typeImg"></div>
+                  <div v-if="highlightPoke.types.length == 2" class="typeContainer"><img :src="typeImagePath(highlightPoke, 1)"  class="typeImg"></div>
+              </div>
+              
+              <div class="ratingContainer">
+                  <div class="ratingText">
+                      <div>Rating</div>
+                      <div>{{ highlightPoke.globalAverage.toFixed(2) }}</div>
+                  </div>
+                  <div class="starContainer">
+                      <div class="filledStars" :style="widthPerc(highlightPoke)">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                      </div>
+                      <div class="inputStars">
+                          <input type="radio" :id="starIDRate(highlightPoke, 5)" value="5" :name="starID(highlightPoke)" :checked="check(highlightPoke, 5)"><label @click="ratePok(highlightPoke, 5)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 5)"></label>
+                          <input type="radio" :id="starIDRate(highlightPoke, 4)" value="4" :name="starID(highlightPoke)" :checked="check(highlightPoke, 4)"><label @click="ratePok(highlightPoke, 4)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 4)"></label>
+                          <input type="radio" :id="starIDRate(highlightPoke, 3)" value="3" :name="starID(highlightPoke)" :checked="check(highlightPoke, 3)"><label @click="ratePok(highlightPoke, 3)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 3)"></label>
+                          <input type="radio" :id="starIDRate(highlightPoke, 2)" value="2" :name="starID(highlightPoke)" :checked="check(highlightPoke, 2)"><label @click="ratePok(highlightPoke, 2)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 2)"></label>
+                          <input type="radio" :id="starIDRate(highlightPoke, 1)" value="1" :name="starID(highlightPoke)" :checked="check(highlightPoke, 1)"><label @click="ratePok(highlightPoke, 1)" class="fa fa-star-o" :for="starIDRate(highlightPoke, 1)"></label>
+                      </div>
+                  </div>
+              </div> 
+              </div>
+           </a>
+        </div>
+     </div>
+     <div id="randoms">
+        <h1>Randoms!</h1>
+        <div class="pokemon_list">
+           
+           <a v-for="p in randomPokes" :href="dexPath(p)" data-interception="off">
+              <div class="pokemon_entry">
+                 <i v-if="p.userFavorite"class="fa fa-heart"></i>
+                 <div class="cardTitle">
+                     <div class="pokeName">{{p.fullName}}</div>
+                     <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
+                 </div>
+                 
+                 <div class="pokeImgContainer">
+                     <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
+                 </div>
+     
+                 <div class="typesContainer">
+                     <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                     <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                 </div>
+                 
+                 <div class="ratingContainer">
+                     <div class="ratingText">
+                         <div>Rating</div>
+                         <div>{{ p.globalAverage.toFixed(2) }}</div>
+                     </div>
+                     <div class="starContainer">
+                         <div class="filledStars" :style="widthPerc(p)">
+                             <i class="fa fa-star"></i>
+                             <i class="fa fa-star"></i>
+                             <i class="fa fa-star"></i>
+                             <i class="fa fa-star"></i>
+                             <i class="fa fa-star"></i>
+                         </div>
+                         <div class="inputStars">
+                             <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
+                             <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
+                             <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
+                             <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
+                             <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                         </div>
+                     </div>
+                 </div>
+              </div>
+           </a>
+        </div>
+     </div>
+     <div class="about">
+        <h1>Info</h1>
+        <p>
+          Welcome to Pokerating.com! This is a fansite where everyone can rate every Pokemon however they please. If you have strong opinions about Pokemon and want to discover what the world thinks, this is the place for you! Each user can also pick up to 10 Favorite Pokemon, and that data is displayed as well.
+        </p>
+        <p>
+          To post ratings, you just need to login via a unique link we'll send to your email. 
+        </p>
+        <p>
+          The Rankings page aggregates all the ratings into interesting trends, and the Puzzle page is a daily Wordle-like puzzle to guess a Pokemon!
+        </p>
+        <p>
+          The site was made by a big nerd who wants to make video games, you can find him on <a href="https://twitter.com/StormWindBoy">Twitter</a>.
+        </p>
+        <h1>Privacy Policy</h1>
+        <p>
+          No personal information is required to access this website or view any regular pages.
+        </p>
+        <p>
+          A valid email is required to post ratings. It is only used for account validation, and is only visible to the site administrator.
+        </p>
+        <p>
+          All user data associated with an email can be deleted upon request.
+        </p>
+     </div>
    </div>
-   <div id="randoms">
-      <h1>Randoms!</h1>
-      <div class="pokemon_list">
-         
-         <a v-for="p in randomPokes" :href="dexPath(p)" data-interception="off">
-            <div class="pokemon_entry">
-               <i v-if="p.userFavorite"class="fa fa-heart"></i>
-               <div class="cardTitle">
-                   <div class="pokeName">{{p.fullName}}</div>
-                   <div class="pokeNumber">{{ pokemonNumber(p) }}</div>
-               </div>
-               
-               <div class="pokeImgContainer">
-                   <img loading="lazy" :src="pokemonImagePath(p)" alt="images/PokemonArt/Generation 1/Bulbasaur.png" class="pokeImg">
-               </div>
    
-               <div class="typesContainer">
-                   <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
-                   <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
-               </div>
-               
-               <div class="ratingContainer">
-                   <div class="ratingText">
-                       <div>Rating</div>
-                       <div>{{ p.globalAverage.toFixed(2) }}</div>
-                   </div>
-                   <div class="starContainer">
-                       <div class="filledStars" :style="widthPerc(p)">
-                           <i class="fa fa-star"></i>
-                           <i class="fa fa-star"></i>
-                           <i class="fa fa-star"></i>
-                           <i class="fa fa-star"></i>
-                           <i class="fa fa-star"></i>
-                       </div>
-                       <div class="inputStars">
-                           <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
-                           <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
-                           <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
-                           <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
-                           <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
-                       </div>
-                   </div>
-               </div>
-            </div>
-         </a>
-      </div>
+   <div>
+    <p>
+        more stuff!
+    </p>
    </div>
-   <div class="about">
-      <h1>Info</h1>
-      <p>
-        Welcome to Pokerating.com! This is a fansite where everyone can rate every Pokemon however they please. If you have strong opinions about Pokemon and want to discover what the world thinks, this is the place for you! Each user can also pick up to 10 Favorite Pokemon, and that data is displayed as well.
-      </p>
-      <p>
-        To post ratings, you just need to login via a unique link we'll send to your email. 
-      </p>
-      <p>
-        The Rankings page aggregates all the ratings into interesting trends, and the Puzzle page is a daily Wordle-like puzzle to guess a Pokemon!
-      </p>
-      <p>
-        The site was made by a big nerd who wants to make video games, you can find him on <a href="https://twitter.com/StormWindBoy">Twitter</a>.
-      </p>
-      <h1>Privacy Policy</h1>
-      <p>
-        No personal information is required to access this website or view any regular pages.
-      </p>
-      <p>
-        A valid email is required to post ratings. It is only used for account validation, and is only visible to the site administrator.
-      </p>
-      <p>
-        All user data associated with an email can be deleted upon request.
-      </p>
-   </div>
+
 </div>
 
 [[block page_scripts]]

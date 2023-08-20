@@ -51,6 +51,9 @@ let init = (app) => {
         typeImagePath(p, i) {
             return "images/Types/" + p.types[i].toLowerCase() + ".png";
         },
+        highlightImagePath(p, i) {
+            return "images/Types/circles/circle.png";
+        },
         widthPerc(p){
             if (p.globalAverage == -1 || isNaN(p.globalAverage)){
                 return "width: 50%;";
