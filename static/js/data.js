@@ -59,10 +59,10 @@ let init = (app) => {
             return "fave" + p['pokID'];
         },
         typeImagePath(p, i) {
-            return "images/Types/" + p.types[i].toLowerCase() + "_en.png";
+            return "images/Types/" + p.types[i].toLowerCase() + ".png";
         },
         typeImagePathB(t) {
-            return "images/Types/" + t.toLowerCase() + "_en.png";
+            return "images/Types/" + t.toLowerCase() + ".png";
         },
         widthPerc(p){
             if (p.globalAverage == -1){
