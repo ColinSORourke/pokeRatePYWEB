@@ -21,6 +21,7 @@ let init = (app) => {
         noGuess: true,
         showModal: false,
         loading: 0,
+        recentGuess: {},
     };
 
     app.enumerate = (a) => {
@@ -50,6 +51,7 @@ let init = (app) => {
             if (guess != undefined){
                 guess['globalAverage'] = 2.5
                 app.vue.myGuesses.push(guess);
+                app.vue.recentGuess = guess;
                 app.vue.query = '';
                 app.vue.loading += 1;
                 axios.get(get_rating_url, { params: { id: guess.id } }).then(result => {
@@ -57,6 +59,7 @@ let init = (app) => {
                     app.vue.myGuesses[app.vue.myGuesses.length - 1]['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
                     app.vue.loading -= 1;
                     app.vue.noGuess = false;
+                    app.vue.recentGuess = app.vue.myGuesses[app.vue.myGuesses.length - 1];
                 })
                 let dateString = app.vue.dateString()
 
@@ -79,6 +82,9 @@ let init = (app) => {
         },
         pokemonImagePath(p) {
             return "images/PokemonArt/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
+        },
+        setGuess(p){
+            app.vue.recentGuess = p;
         },
         pokemonNumber(p) {
             return "#" + p['number'];
@@ -153,8 +159,8 @@ let init = (app) => {
             }
         },
         mostRecentGuess(){
-            if (app.vue.myGuesses.length > 0){
-                return app.vue.myGuesses[app.vue.myGuesses.length - 1]
+            if (app.vue.recentGuess != {}){
+                return app.vue.recentGuess
             } else {
                 return {name: "None"}
             }  
@@ -167,6 +173,7 @@ let init = (app) => {
                 let guess = app.vue.myPokemon.find(p => p.name == pokName);
                 guess["globalAverage"] = 2.5
                 app.vue.myGuesses.push(guess);
+                app.vue.recentGuess = guess;
                 if (guess.name == app.vue.targetPokemon.name){
                     app.vue.solved = true;
                 }
@@ -178,6 +185,7 @@ let init = (app) => {
                         if (app.vue.myGuesses[j].id == guess.id){
                             app.vue.myGuesses[j]['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
                             app.vue.noGuess = false;
+                            app.vue.recentGuess = app.vue.myGuesses[j]
                             if (guess.name == app.vue.targetPokemon.name){
                                 app.vue.solved = true;
                             }

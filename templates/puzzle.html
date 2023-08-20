@@ -198,7 +198,7 @@
             <div>Rating</div>
         </div>
         <div class="data-row" v-for="p in myGuesses">
-            <div>{{p.name}}</div>
+            <div style="cursor: pointer; background-color: lightblue; border-radius: 12px;" @click="setGuess(p)">{{p.name}}</div>
             <div><i :class="checkAlph(p)"></i></div>
             <div><i :class="checkGen(p)"></i></div>
             <div><i :class="checkTypePrim(p)"></i></div>
