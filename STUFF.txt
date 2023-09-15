@@ -48,3 +48,7 @@ Add current IP to AWS Security Group associated with database
 Push Docker Launch with new images
 Launch local container with Add controller path enabled
 Visit ADD url.
+
+-------- Py4Web Local Launch -------
+Export EnvVariables like in the Dockerfile
+Run Py4Web

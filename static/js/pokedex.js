@@ -157,6 +157,9 @@ let init = (app) => {
                 &&
                 pokemon.significantForm
             );
+        },
+        categoryBinding(c){
+            return "/pokedex#" + c
         }
     };
 

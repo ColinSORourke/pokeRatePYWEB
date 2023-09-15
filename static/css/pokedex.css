@@ -2,6 +2,40 @@
 MODAL LOGIC
 ****************************************/
 
+html {
+    scroll-padding-top: 80px;
+}
+
+#returnToTop {
+    position: fixed;
+    font-size: 50px;
+    color: blue;
+    top: 80px;
+    right: 20px;
+    z-index: 5;
+}
+
+@media (min-width:800px){
+    .Top{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+}
+
+.hyperlinks {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: freight-sans-pro;
+    font-size: 20px;
+}
+
+.hyperlinks a{
+    margin-top: auto;
+    margin-bottom: auto;
+}
 
 /* Tinted background covering whole page*/
 .modalBG {
@@ -334,9 +368,39 @@ MODAL STYLE
     text-align: center;
 }
 
-.SearchBar {
-    display: block;
-    width: 350px !important;
-    margin: 20px auto !important;
-    background-color: white !important;
+.SearchBarDiv{
+    height: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+}
+
+.SearchBar{
+    border-radius: 25px !important;
+}
+
+.SearchBarDiv i{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.Top{
+    width: 95%;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+h1{
+    font-family: freight-sans-pro;
+    font-size: 50px;
+}
+
+h2{
+    font-family: freight-sans-pro;
+    font-size: 40px;
+    text-align: left;
+    width: 95%;
+    margin: auto;
+    border-bottom: 5px solid black;
 }
