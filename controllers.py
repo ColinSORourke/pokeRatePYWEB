@@ -359,7 +359,6 @@ def indexDict(db, url_signer):
         highlightPoke = data[(int(seed) % len(data))]
     pokIDs += "" + str(highlightPoke['id']) + ""
 
-    highlightPoke = data[2]
     # Query the database to receive the ratings of the 5 pokemon to display on the page
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
     sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"

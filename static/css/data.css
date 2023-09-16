@@ -7,8 +7,12 @@
 }
 
 .tabs {
+    font-family: freight-sans-pro;
+    font-size: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    width: 95%;
+    margin: auto;
 }
 
 .tabs div{
@@ -43,23 +47,37 @@
     border-color: black;
     border: solid;
     border-width: 4px;
-
     width: 250px;
     text-align: center;
-
     background-color: white;
+    border-radius: 15px;
+    margin: 10px;
+    line-height: 1.2em;
+    font-family: freight-sans-pro;
 }
 
-.databox div{
-    margin-bottom: 5px;
-    line-height: 1.1em;
+.subdatabox{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    border-top: 2px solid black;
+    margin-top: 5px;
+    height: 175px;
+}
+
+.ratingNum{
+    font-size: 28px;
+    line-height: 1.5em;
+}
+
+.subdatabox div{
+    padding: 5px;
 }
 
 .databox .fa{
     position: absolute;
-    bottom: 0;
-    right: 0;
-    font-size: 40px;
+    top: 5px;
+    right: 5px;
+    font-size: 28px;
 }
 
 .databox .fa-star{
@@ -71,5 +89,21 @@
 }
 
 .typeImg {
-    width: 125px;
+    margin-top: 5px;
+    width: 140px;
+}
+
+h1 {
+    font-family: freight-sans-pro;
+    width: 95%;
+    margin: auto;
+    text-align: left;
+    font-size: 50px;
+    border-bottom: 5px solid black;
+    line-height: 5rem;
+}
+
+.dataPoke{
+    height: 100px;
+    width: 100px;
 }

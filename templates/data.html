@@ -68,8 +68,8 @@
             <div v-for="n in 9" class="databox">
                 <i v-if="getGen(n).statuses[2] == 1" class="fa fa-star"></i>
                 <i v-if="getGen(n).statuses[2] == -1" class="fa fa-thumbs-down"></i>
-                <h3>{{getGen(n).genName}}</h3>
-                <div>Average rating:<br>{{abbrevNum(getGen(n).userAve)}}</div>
+                <h3>{{romanNumGen(getGen(n).genName)}}</h3>
+                <div>Average rating:<br><span class="ratingNum">{{abbrevNum(getGen(n).userAve)}}</span></div>
             </div>
         </div>
 
@@ -79,7 +79,7 @@
                 <i v-if="t.statuses[2] == 1" class="fa fa-star"></i>
                 <i v-if="t.statuses[2] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
-                <div>Average rating:<br>{{abbrevNum(t.userAve)}}</div>
+                <div>Average rating:<br><span class="ratingNum">{{abbrevNum(t.userAve)}}</span></div>
             </div>
         </div>
     </div>
@@ -220,41 +220,53 @@
 
         <h1>Generations</h1>
         <div class="pokemon_list">
-            <div v-if="displayType == 'Rate'" v-for="n in 9" class="databox">
+            <div v-if="displayType == 'Rate'" v-for="n in 9" class="databox" :style="genBoxShadow(n, 0)">
                 <i v-if="getGen(n).statuses[0] == 1" class="fa fa-star"></i>
                 <i v-if="getGen(n).statuses[0] == -1" class="fa fa-thumbs-down"></i>
-                <h3>{{getGen(n).genName}}</h3>
-                <div>Average rating:<br>{{abbrevNum(getGen(n).average)}}</div>
-                <div>Best Pokemon:<br><a :href="dexPath(getGen(n).bestPoke)">{{getGen(n).bestPoke.fullName}}</a></div>
-                <div>Worst Pokemon:<br><a :href="dexPath(getGen(n).worstPoke)">{{getGen(n).worstPoke.fullName}}</a></div>
+                <h3>{{romanNumGen(getGen(n).genName)}}</h3>
+                <div>Average rating:<br><span class="ratingNum">{{abbrevNum(getGen(n).average)}}</span></div>
+                <div class="subdatabox">
+                    <div style="border-right: 2px solid black">Highest Rated: <br><a :href="dexPath(getGen(n).bestPoke)"><img :src="pokemonImagePath(getGen(n).bestPoke)" class="dataPoke"></a><br>{{getGen(n).bestPoke.fullName}}</div>
+                    <div>Lowest Rated:<br><a :href="dexPath(getGen(n).worstPoke)"><img :src="pokemonImagePath(getGen(n).worstPoke)" class="dataPoke"></a><br>{{getGen(n).worstPoke.fullName}}</div>
+                </div>
+                
             </div>
-            <div v-if="displayType == 'Fave'" v-for="n in 9" class="databox">
+            <div v-if="displayType == 'Fave'" v-for="n in 9" class="databox" :style="genBoxShadow(n, 1)">
                 <i v-if="getGen(n).statuses[1] == 1" class="fa fa-star"></i>
                 <i v-if="getGen(n).statuses[1] == -1" class="fa fa-thumbs-down"></i>
-                <h3>{{getGen(n).genName}}</h3>
-                <div>Total faves:<br>{{abbrevNum(getGen(n).favesum)}}</div>
-                <div>Best Pokemon:<br><a :href="dexPath(getGen(n).mostFavesPoke)">{{getGen(n).mostFavesPoke.fullName}}</a></div>
-                <div>Worst Pokemon:<br><a :href="dexPath(getGen(n).leastFavesPoke)">{{getGen(n).leastFavesPoke.fullName}}</a></div>
+                <h3>{{romanNumGen(getGen(n).genName)}}</h3>
+                <div>Total faves:<br><span class="ratingNum">{{abbrevNum(getGen(n).favesum)}}</span></div>
+                <div class="subdatabox">
+                    <div style="border-right: 2px solid black">Most Favorites: <br><a :href="dexPath(getGen(n).mostFavesPoke)"><img :src="pokemonImagePath(getGen(n).mostFavesPoke)" class="dataPoke"></a><br>{{getGen(n).mostFavesPoke.fullName}} </div>
+                    <div>Least Favorites: <br><a :href="dexPath(getGen(n).leastFavesPoke)"><img :src="pokemonImagePath(getGen(n).leastFavesPoke)" class="dataPoke"></a><br>{{getGen(n).leastFavesPoke.fullName}}</div>
+                </div>
+                
             </div>
         </div>
 
         <h1>Types</h1>
         <div class="pokemon_list">
-            <div v-if="displayType == 'Rate'" v-for="t in types" class="databox">
+            <div v-if="displayType == 'Rate'" v-for="t in types" class="databox" :style="typeBoxShadow(t, 0)">
                 <i v-if="t.statuses[0] == 1" class="fa fa-star"></i>
                 <i v-if="t.statuses[0] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
-                <div>Average rating:<br>{{abbrevNum(t.average)}}</div>
-                <div>Best Pokemon:<br><a :href="dexPath(t.bestPoke)">{{t.bestPoke.fullName}}</a></div>
-                <div>Worst Pokemon:<br><a :href="dexPath(t.worstPoke)">{{t.worstPoke.fullName}}</a></div>
+                <div>Average rating:<br><span class="ratingNum">{{abbrevNum(t.average)}}</span></div>
+                <div class="subdatabox">
+                    <div style="border-right: 2px solid black">Highest Rated: <br><a :href="dexPath(t.bestPoke)"><img :src="pokemonImagePath(t.bestPoke)" class="dataPoke"></a><br>{{t.bestPoke.fullName}}</div>
+                    <div>Lowest Rated: <br><a :href="dexPath(t.worstPoke)"><img :src="pokemonImagePath(t.worstPoke)" class="dataPoke"></a><br>{{t.worstPoke.fullName}}</div>
+                </div>
+                
             </div>
-            <div v-if="displayType == 'Fave'" v-for="t in types" class="databox">
+            <div v-if="displayType == 'Fave'" v-for="t in types" class="databox" :style="typeBoxShadow(t, 1)">
                 <i v-if="t.statuses[1] == 1" class="fa fa-star"></i>
                 <i v-if="t.statuses[1] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
-                <div>Total faves:<br>{{abbrevNum(t.favesum)}}</div>
-                <div>Best Pokemon:<br><a :href="dexPath(t.mostFavesPoke)">{{t.mostFavesPoke.fullName}}</a></div>
-                <div>Worst Pokemon:<br><a :href="dexPath(t.leastFavesPoke)">{{t.leastFavesPoke.fullName}}</a></div>
+                <div>Total faves:<br><span class="ratingNum">{{abbrevNum(t.favesum)}}</span></div>
+                <div class="subdatabox">
+                    <div style="border-right: 2px solid black">Most Favorites:<br><a :href="dexPath(t.mostFavesPoke)"><img :src="pokemonImagePath(t.mostFavesPoke)" class="dataPoke"></a><br>{{t.mostFavesPoke.fullName}}</div>
+                    <div>Least Favorites:<br><a :href="dexPath(t.leastFavesPoke)"><img :src="pokemonImagePath(t.leastFavesPoke)" class="dataPoke"></a><br>{{t.leastFavesPoke.fullName}}</div>
+                </div>
+                
             </div>
         </div>
     </div>
