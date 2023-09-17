@@ -47,10 +47,11 @@
           [[if globals().get('user'):]]
           <li>
             <label for="email" class="navbar-link is-primary">
-              [[=globals().get('user',{}).get('email')]]
+              Signed In!
             </label>
             <input type="checkbox" id="email">
             <ul>
+              <li>[[=globals().get('user',{}).get('email')]]</li>
               <li><a href="[[=URL('auth_by_email/logout')]]">Logout</a></li>
               <li><a href="[[=XML(req_delete_url)]]">Delete My Info!</a></li>
             </ul>

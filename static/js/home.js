@@ -52,7 +52,13 @@ let init = (app) => {
             return "images/Types/" + p.types[i].toLowerCase() + ".png";
         },
         highlightImagePath(p, i) {
-            return "images/Types/circles/circle.png";
+            console.log(p.types.length);
+            if (i == 1 && p.types.length == 1){
+                return "images/Types/Blurs/" + p.types[0].toLowerCase() + "Blur.png";
+            } else {
+                return "images/Types/Blurs/" + p.types[i].toLowerCase() + "Blur.png";
+            }
+             
         },
         widthPerc(p){
             if (p.globalAverage == -1 || isNaN(p.globalAverage)){

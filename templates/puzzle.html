@@ -192,33 +192,34 @@
     
     <div class="data-table">
         <div class="data-header">
-            <div style="font-size: 18px">Pokemon</div>
-            <div>Alphabet</div>
-            <div>Gen</div>
-            <div>Type1</div>
-            <div>Type2</div>
-            <div>BST</div>
+            <div style="font-size: 18px; border-right: 2px solid black">Pokemon</div>
+            <div style="border-right: 2px solid black">Alphabet</div>
+            <div style="border-right: 2px solid black">Gen</div>
+            <div style="border-right: 2px solid black">Type1</div>
+            <div style="border-right: 2px solid black">Type2</div>
+            <div style="border-right: 2px solid black">BST</div>
             <div>Rating</div>
         </div>
         <div class="data-row" v-for="p in myGuesses">
-            <div style="cursor: pointer; background-color: lightblue; border-radius: 12px;" @click="setGuess(p)">{{p.name}}</div>
-            <div><i :class="checkAlph(p)"></i></div>
-            <div><i :class="checkGen(p)"></i></div>
-            <div><i :class="checkTypePrim(p)"></i></div>
-            <div><i :class="checkTypeSecond(p)"></i></div>
-            <div><i :class="checkBST(p)"></i></div>
-            <div><i :class="checkRate(p)"></i></div>
+            <div style="cursor: pointer; border-right: 2px solid black; padding-top: 5px;" @click="setGuess(p)" class="">{{p.name}}</div>
+            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkAlph(p)"></i></div>
+            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkGen(p)"></i></div>
+            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkTypePrim(p)"></i></div>
+            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkTypeSecond(p)"></i></div>
+            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkBST(p)"></i></div>
+            <div ><i :class="checkRate(p)"></i></div>
         </div>
     </div>
 
     <div class="guessBox" v-if="myGuesses.length < 6 && !solved">
         <div class="autocomplete">
-            <input v-model="query" @input="onchange" type="text">
+            <input v-model="query" @input="onchange" type="text" placeholder="Search Pokemon...">
+            <i class="fa fa-search"></i>
             <ul class="autocomplete_results">
                 <li class="autocomplete_result" v-for="p in acSuggestions" @click="acFill(p)">{{p.name}}</li>
             </ul>
         </div>
-        <input type="button" @click="submitGuess()" value="Guess">
+        <input type="button" @click="submitGuess()" value="Guess" id="submit">
     </div>
     
 

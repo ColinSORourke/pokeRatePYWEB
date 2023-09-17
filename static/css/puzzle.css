@@ -41,7 +41,7 @@ h1 {
 }
 
 .data-table {
-    width: 500px;
+    width: 600px;
     margin: auto;
     font-size: 18px;
 }
@@ -61,23 +61,32 @@ h1 {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
     text-align: center;
-    margin-top: 5px;
 }
 
 .guessBox {
-    width: 420px;
+    width: 600px;
     margin: auto;
+    margin-top: 15px;
     display: grid;
     grid-template-columns: 3fr 1fr;
 }
 
 .autocomplete {
     position: relative;
-    width: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .autocomplete input{
     margin-bottom: 0px;
+    border-radius: 20px;
+}
+
+.autocomplete i{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 24px;
 }
 
 .autocomplete_results {
@@ -200,3 +209,30 @@ h1 {
     cursor: default;
     transform: none;
 }   
+
+.modalContent {
+    font-family: freight-sans-pro;
+}
+
+h1 {
+    font-family: freight-sans-pro;
+}
+
+.puzzle_display {
+    font-family: freight-sans-pro;
+}
+
+.data-table {
+    font-family: freight-sans-pro;
+}
+
+.guessClick:hover{
+    text-decoration: underline;
+}
+
+#submit{
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    margin-top: 2px;
+}
