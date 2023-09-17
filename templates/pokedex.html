@@ -77,10 +77,11 @@
 
     <div class="mainPage">
         <div id="PageTop" class="Top">
-            <h1>All Pokemon</h1>
+            <h1 style="width: 290px">All Pokemon</h1>
             <div class="hyperlinks">
                 <a v-for="c in myCategories" :href="categoryBinding(c)">{{c}}</a>
             </div>
+            <div></div>
             <div class="SearchBarDiv">
                 <input class="SearchBar" type="text" v-model="query" placeholder="Search Pokemon..."/>
                 <i class="fa fa-search"></i>

@@ -23,6 +23,19 @@
  global style
  ****************************************************/
 
+center::before {
+  background-image: url("../images/GeometricPattern2.png");
+  background-size: cover;
+  content: "";
+  height: 100%;
+  left:0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  will-change: transform;
+  z-index: -1;
+}
+
 *, *:after, *:before {
   border:0;
   margin:0;
@@ -121,10 +134,12 @@ footer{
 }
 
 footer p{
-  margin-bottom: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
   font-family: freight-sans-pro;
+  color: #dfdfdf;
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.3em;
 }
 
@@ -260,7 +275,7 @@ input[type='checkbox'], input[type='radio'] {
  ****************************************************/
 
 .fakeHeader {
-  height: 75px;
+  height: 60px;
   width: 100%;
   background-color: #111;
 }
@@ -323,9 +338,13 @@ body > center > * {
 .success{background-color:#2ecc40;color:white}
 .warning{background-color:#ffdc00;color:#111}
 .error{background-color:#cc1f00;color:white}
-.info{background-color:green;color:#111}
+.info{
+  background-color:#71d268;
+  color:#111;
+  font-family: freight-sans-pro;
+  font-weight: 500;}
 .white{background-color:white;color:#111;padding 5px;}
-.black{background-color:#111;color:white}
+.black{background-color:#343434;color:white}
 
 /****************************************************
  navigation and nested menu
@@ -336,7 +355,7 @@ nav {
   padding: 0 1.5em;
   display: table;
   width: 100vw;
-height: 40px;
+  height: 10px;
 }
 
 nav ul {
@@ -350,7 +369,9 @@ nav > input[type=checkbox], nav > label {
 }
 
 nav a.tab{
-  border-bottom: 5px blue solid;
+  border-bottom: 3px blue solid;
+  font-weight:500;
+  padding-top: 5px;
 }
 
 @media (min-width:600px) {
@@ -362,7 +383,7 @@ nav a.tab{
     float: right;
   }
   nav > ul > li {
-    padding: 1.5em 0.5em
+    padding: 0.75em 0.5em
   }
   nav > a{
     width: 100px;
@@ -541,9 +562,9 @@ input[type=checkbox]:checked ~ div {visibility:visible; opacity:1}
  ****************************************************/
 
 [role="alert"] {
-  margin: 1.5em;
   margin-right: 1.5em;
   margin-left: auto;
+  margin-top: -15px;
   padding: 0.5em;
   padding-left: 0.8em;
   padding-right: 2em;

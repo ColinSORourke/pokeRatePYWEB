@@ -6,6 +6,9 @@
 }
 
 .pokemon_list {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
@@ -233,16 +236,17 @@ NOTIFS CODE
 
 .notifs {
     position: fixed;
-    background-color: lightblue;
-    padding-left: 3px;
-    padding-right: 3px;
-    border: solid;
-    border-width: 2px;
-    border-color:black;
-    border-radius: 5px;
+    background-color: #0a6dc4;
+    text-align: center;
+    width: 200px;
+    padding: 10px;
+    border-radius: 30px;
     top: 80px;
-    left: 5px;
+    left: 3%;
     z-index: 2;
+    color: white;
+    font-family: freight-sans-pro;
+    font-weight: 500;
 }
 
 @media (max-width:600px) {

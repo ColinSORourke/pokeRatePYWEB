@@ -83,7 +83,7 @@ let init = (app) => {
                     app.vue.ratingCount += 1;
                 
                     if (app.vue.ratingCount > 1){
-                        app.vue.ratingText =  response.data + "(" + app.vue.ratingCount + ")";
+                        app.vue.ratingText =  response.data + " (" + app.vue.ratingCount + ")";
                     } else {
                         app.vue.ratingText = response.data
                     }
