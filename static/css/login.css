@@ -1,0 +1,50 @@
+h1 {
+    text-align: center;
+    font-family: freight-sans-pro;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+h2 {
+    text-align: center;
+    font-family: freight-sans-pro;
+    font-size: 36px;
+    font-weight: normal;
+    color: #979797
+}
+
+form {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#no_table_email{
+    border-radius: 25px !important;
+    background-color: #f0f0f0 !important;
+    border: 0px solid black !important;
+    font-family: freight-sans-pro !important;
+    text-align: center;
+}
+
+input{
+    width: 200px;
+    font-size: 30px !important;
+    padding: 10px !important;
+    height: auto !important;
+    border-radius: 50px !important;
+}
+
+#policy{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: freight-sans-pro;
+}
+
+#policy h1{
+    font-size: 36px;
+    margin-bottom: 5px;
+    text-align: left;
+}

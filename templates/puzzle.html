@@ -9,7 +9,7 @@
     <div v-if="showModal" class="modalBG">
         <div class="modalContent">
             <i class="fa fa-times" @click="showModal = false"></i>
-            <h1>Info</h1>
+            <h1>How To Play</h1>
             <p>
                 This is a daily Pokemon Puzzle inspired by Wordle!
             </p>
@@ -30,11 +30,12 @@
         </div>  
     </div>
 
-    <h1>Guess todays pokemon! <i class="fa fa-question-circle" @click="showModal = true"></i></h1>
+    <h1>Guess todays pokemon!</h1>
+    <h3 @click="showModal = true"><i class="fa fa-question-circle"></i> How to play <i class="fa fa-question-circle"></i></h3>
     
     <div class="puzzle_display">
         <div>
-            Your Guess
+            <span>Your Guess</span>
             <div v-if="noGuess == true" class="pokemon_entry">
                 <div class="cardTitle">
                     <div class="pokeName">Guess</div>
@@ -112,7 +113,7 @@
         </div>
 
         <div>
-            Today's Pokemon
+            <span>Today's Pokemon</span>
             <div v-if="solved == false && myGuesses.length < 6" class="pokemon_entry">
                 <div class="cardTitle">
                     <div class="pokeName">Mystery</div>
@@ -219,7 +220,7 @@
                 <li class="autocomplete_result" v-for="p in acSuggestions" @click="acFill(p)">{{p.name}}</li>
             </ul>
         </div>
-        <input type="button" @click="submitGuess()" value="Guess" id="submit">
+        <input type="button" @click="submitGuess()" value="GUESS" id="submit">
     </div>
     
 

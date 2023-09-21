@@ -9,11 +9,13 @@
 .tabs {
     font-family: freight-sans-pro;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 16px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 95%;
-    margin: auto;
+    width: 450px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .tabs div{
@@ -45,9 +47,8 @@
 
 .databox{
     position: relative;
-    border-color: #535353;
     color: #7e7e7e;
-    border: solid;
+    border: solid 2px #535353;
     border-width: 2px;
     width: 250px;
     text-align: center;
@@ -74,7 +75,7 @@
     color: black;
 }
 
-.subdatabox div{
+.subdatabox .best{
     padding: 5px;
     margin-top: auto;
     margin-bottom: auto;
@@ -124,4 +125,22 @@ h1 {
 .dataPoke{
     height: 100px;
     width: 100px;
+}
+
+#pagetitle {
+    display: flex;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+#pagetitle h1{
+    width: auto;
+    margin: 5px;
+    border: 0px;
+    font-size: 50px;
+    margin-right: 20px;
+    font-weight: 600;
+    color: black;
 }

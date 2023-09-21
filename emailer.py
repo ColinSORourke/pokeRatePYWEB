@@ -88,6 +88,7 @@ class emailer(Fixture):
         result = self.db.executesql(mySql)
 
         self.session["recentEmails"] += 1
+        self.db.commit()
 
     def codeSentIP(self, myip):
         self.db.ips.update_or_insert(
@@ -97,6 +98,7 @@ class emailer(Fixture):
         )
         mySql = "UPDATE ips SET codessent = codessent + 1, codeswithoutresponse = codeswithoutresponse + 1 WHERE ip='" + myip + "'"
         result = self.db.executesql(mySql)
+        self.db.commit()
 
     def codeUsed(self, target):
         self.db.emails.update_or_insert(
@@ -109,6 +111,7 @@ class emailer(Fixture):
         result = self.db.executesql(mySql)
 
         self.session["recentEmails"] = 0
+        self.db.commit()
 
     def codeUsedIP(self, myip):
         self.db.ips.update_or_insert(
@@ -119,6 +122,7 @@ class emailer(Fixture):
         )
         mySql = "UPDATE ips SET codesused = codesused + 1 WHERE ip='" + myip + "'"
         result = self.db.executesql(mySql)
+        self.db.commit()
 
     def sendLoginEmail(self, target, link, sourceip):
         host = os.environ.get("SMTPEndpoint")

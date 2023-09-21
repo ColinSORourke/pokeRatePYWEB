@@ -7,8 +7,28 @@
     grid-template-columns: 1fr 1fr;
 }
 
+.puzzle_display span {
+    font-family: freight-sans-pro;
+    font-size: 30px;
+    font-weight: 500;
+}
+
 h1 {
     text-align: center;
+    font-family: freight-sans-pro;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+h3 {
+    text-align: center;
+    font-family: freight-sans-pro;
+    font-size: 30px;
+    margin-top: 8px;
+    color: #5E5E5E;
+    font-weight:normal;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .fa-question-circle{
@@ -84,7 +104,7 @@ h1 {
 
 .autocomplete i{
     position: absolute;
-    top: 5px;
+    top: 8px;
     right: 10px;
     font-size: 24px;
 }
@@ -214,14 +234,6 @@ h1 {
     font-family: freight-sans-pro;
 }
 
-h1 {
-    font-family: freight-sans-pro;
-}
-
-.puzzle_display {
-    font-family: freight-sans-pro;
-}
-
 .data-table {
     font-family: freight-sans-pro;
 }
@@ -233,6 +245,14 @@ h1 {
 #submit{
     color: white;
     background-color: black;
-    border-radius: 20px;
-    margin-top: 2px;
+    border-radius: 25px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.autocomplete input {
+    border-radius: 25px !important;
+    background-color: #f0f0f0 !important;
+    border: 0px solid black !important;
+    font-family: freight-sans-pro !important;
 }

@@ -48,7 +48,8 @@ from .__init__ import __version__
 
 #REMOTE_ADDR when running local container
 #HTTP_X_FORWARDED_FOR when running on ECS
-USER_IP_KEY = "HTTP_X_FORWARDED_FOR"
+USER_IP_KEY_AWS = "HTTP_X_FORWARDED_FOR"
+USER_IP_KEY_DOCKER = "REMOTE_ADDR"
 
 # Main Home Page
 @action('home')
@@ -302,9 +303,12 @@ def get_all_ratings():
 def request_delete():
     #print("USE THIS LINK TO DELETE YOUR DATA")
     myMailer.active()
-    if (myMailer.canEmail(get_user_email(), request.environ.get(USER_IP_KEY))):
+    userip = request.environ.get(USER_IP_KEY_AWS)
+    if (userip == None):
+        userip = request.environ.get(USER_IP_KEY_DOCKER)
+    if (myMailer.canEmail(get_user_email(), userip)):
         myLink = URL("delete_confirm", signer=url_signer)
-        myMailer.sendDeleteEmail(get_user_email(), myLink, request.environ.get(USER_IP_KEY))
+        myMailer.sendDeleteEmail(get_user_email(), myLink, userip)
         #print(myLink)
         auth.flash.set("Check your email for link to delete")
     else:

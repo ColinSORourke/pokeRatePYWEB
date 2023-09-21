@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+  [[if globals().get('user'):]]
+  <script>
+    function showEmail() {
+      alert("You are signed in as [[=globals().get('user',{}).get('email')]]")
+    }
+  </script>
+  [[pass]]
   <head>
     <base href="[[=URL('static')]]/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +50,7 @@
           Puzzle
         </a>
 
-        <ul>
+        <ul style="right: 20px;">
           [[if globals().get('user'):]]
           <li>
             <label for="email" class="navbar-link is-primary">
@@ -51,7 +58,7 @@
             </label>
             <input type="checkbox" id="email">
             <ul>
-              <li>[[=globals().get('user',{}).get('email')]]</li>
+              <li><a onclick="showEmail()">Email</a></li>
               <li><a href="[[=URL('auth_by_email/logout')]]">Logout</a></li>
               <li><a href="[[=XML(req_delete_url)]]">Delete My Info!</a></li>
             </ul>

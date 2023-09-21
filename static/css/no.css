@@ -23,6 +23,7 @@
  global style
  ****************************************************/
 
+/* FIX FOR JITTERY BACKGROUND TAKEN FROM: https://www.blindemanwebsites.com/today-i-learned/2020/jittery-scrolling/ */
 center::before {
   background-image: url("../images/GeometricPattern2.png");
   background-size: cover;
@@ -67,7 +68,8 @@ p {
 }
 
 b, label, strong {
-  font-weight:bold
+  font-weight:bold;
+  font-family: freight-sans-pro;
 }
 
 ul {
@@ -262,7 +264,7 @@ fieldset {
 }
 
 input[type='checkbox'], input[type='radio'] {
-  display: inline;
+  display: none;
 }
 
 [disabled] {
@@ -275,7 +277,7 @@ input[type='checkbox'], input[type='radio'] {
  ****************************************************/
 
 .fakeHeader {
-  height: 60px;
+  height: 50px;
   width: 100%;
   background-color: #111;
 }
@@ -361,7 +363,7 @@ nav {
 nav ul {
   list-style:none;
   position:relative;
-  padding:0
+  padding:0;
 }
 
 nav > input[type=checkbox], nav > label {
@@ -439,6 +441,10 @@ nav.black ul ul a {
   color: black
 }
 
+nav.black ul ul span {
+  color: black;
+}
+
 nav.black a, nav.black > label {
   color: white
 }
@@ -476,7 +482,16 @@ nav ul ul a {
   font-size:12px;
   line-height:16px;
   display: block;
-  color: #111;
+}
+
+nav ul ul span {
+  padding:10px 8px;
+  color:#333;
+  font-weight:700;
+  font-size:10px;
+  line-height:16px;
+  display: block;
+  font-family: freight-sans-pro;
 }
 
 nav ul ul ul {
