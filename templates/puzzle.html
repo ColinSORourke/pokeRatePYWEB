@@ -11,26 +11,26 @@
             <i class="fa fa-times" @click="showModal = false"></i>
             <h1>How To Play</h1>
             <p>
-                This is a daily Pokemon Puzzle inspired by Wordle!
+                This is a daily Pokémon Puzzle inspired by Wordle!
             </p>
             <p>
-                You have 6 Guesses to figure out each day's pokemon! 
+                You have 6 Guesses to figure out each day's Pokémon! 
             </p>
             <p>
                 For each guess we'll tell you:
             </p>
             <ul>
-                <li>If the mystery pokemon starts with the same letter, or if it comes earlier/later in the alphabet</li>
-                <li>If the mystery pokemon comes from the same generation, or an earlier/later one.</li>
-                <li>If the mystery pokemon has any of the same types. (Single type pokemon are counted as having "None" as a secondary type)</li>
-                <li>If the mystery pokemon has a higher, lower, or the same Base Stat Total</li>
-                <li>If the mystery pokemon is rated higher or lower than your guess</li>
+                <li>If the mystery Pokémon's name starts with the same letter, or if it comes earlier/later in the alphabet</li>
+                <li>If the mystery Pokémon comes from the same generation, or an earlier/later one.</li>
+                <li>If the mystery Pokémon has any of the same types. (Single type Pokémon are counted as having "None" as a secondary type)</li>
+                <li>If the mystery Pokémon has a higher, lower, or the same Base Stat Total</li>
+                <li>If the mystery Pokémon is rated higher or lower than your guess</li>
             </ul>
             <p>Good luck!</p>
         </div>  
     </div>
 
-    <h1>Guess todays pokemon!</h1>
+    <h1>Guess todays Pokémon!</h1>
     <h3 @click="showModal = true"><i class="fa fa-question-circle"></i> How to play <i class="fa fa-question-circle"></i></h3>
     
     <div class="puzzle_display">
@@ -113,7 +113,7 @@
         </div>
 
         <div>
-            <span>Today's Pokemon</span>
+            <span>Today's Pokémon</span>
             <div v-if="solved == false && myGuesses.length < 6" class="pokemon_entry">
                 <div class="cardTitle">
                     <div class="pokeName">Mystery</div>
@@ -214,7 +214,7 @@
 
     <div class="guessBox" v-if="myGuesses.length < 6 && !solved">
         <div class="autocomplete">
-            <input v-model="query" @input="onchange" type="text" placeholder="Search Pokemon...">
+            <input v-model="query" @input="onchange" type="text" placeholder="Search Pokémon...">
             <i class="fa fa-search"></i>
             <ul class="autocomplete_results">
                 <li class="autocomplete_result" v-for="p in acSuggestions" @click="acFill(p)">{{p.name}}</li>

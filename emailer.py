@@ -70,6 +70,7 @@ class emailer(Fixture):
         return True
     
     def codeSent(self, target):
+        target = target.lower()
         today = date.today().strftime("%m/%d/%Y")
 
         self.db.emails.update_or_insert(
@@ -101,6 +102,7 @@ class emailer(Fixture):
         self.db.commit()
 
     def codeUsed(self, target):
+        target = target.lower()
         self.db.emails.update_or_insert(
             ((self.db.emails.email == target)),
             email = target,

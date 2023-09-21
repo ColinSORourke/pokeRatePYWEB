@@ -9,7 +9,7 @@
 
    <div class = columns>
     <div class="highlight">
-        <h1>Highlight</h1>
+        <h1>Pokémon of the day!</h1>
         <div class="pokemon_list">
            <a v-if="highlightPoke != null" :href="dexPath(highlightPoke)" data-interception="off">
             <div class="pokemon_entry">
@@ -59,7 +59,7 @@
         </div>
      </div>
      <div id="randoms">
-        <h1>Randoms!</h1>
+        <h1>Explore</h1>
         <div class="pokemon_list">
            
            <a v-for="p in randomPokes" :href="dexPath(p)" data-interception="off">
@@ -108,13 +108,13 @@
      <div class="about">
         <h1>Info</h1>
         <p>
-          Welcome to Pokerating.com! This is a fansite where everyone can rate every Pokemon however they please. If you have strong opinions about Pokemon and want to discover what the world thinks, this is the place for you! Each user can also pick up to 10 Favorite Pokemon, and that data is displayed as well.
+          Welcome to PokéRating.com! This is a fansite where everyone can rate every Pokémon however they please. If you have strong opinions about Pokémon and want to discover what the world thinks, this is the place for you! Each user can also pick up to 10 Favorite Pokémon, and that data is displayed as well.
         </p>
         <p>
           To post ratings, you just need to login via a unique link we'll send to your email. 
         </p>
         <p>
-          The Rankings page aggregates all the ratings into interesting trends, and the Puzzle page is a daily Wordle-like puzzle to guess a Pokemon!
+          The Rankings page aggregates all the ratings into interesting trends, and the Puzzle page is a daily Wordle-like puzzle to guess a Pokémon!
         </p>
         <p>
           The site was made by a big nerd who wants to make video games, you can find him on <a href="https://twitter.com/StormWindBoy">Twitter</a>.
