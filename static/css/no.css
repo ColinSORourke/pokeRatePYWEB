@@ -29,6 +29,7 @@ center::before {
   background-size: cover;
   content: "";
   height: 100%;
+  opacity: 50%;
   left:0;
   position: fixed;
   top: 0;
@@ -219,10 +220,6 @@ thead th {
   min-width: 100px;
 }
 
-[role="button"]:focus, [role="button"]:hover, button:focus, button:hover, input[type='button']:focus, input[type='button']:hover, input[type='reset']:focus, input[type='reset']:hover, input[type='submit']:focus, input[type='submit']:hover {
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 /****************************************************
  forms
  ****************************************************/
@@ -279,6 +276,7 @@ input[type='checkbox'], input[type='radio'] {
 .fakeHeader {
   height: 50px;
   width: 100%;
+  opacity: 0%;
   background-color: #111;
 }
 
@@ -476,9 +474,10 @@ nav ul ul li {
 }
 
 nav ul ul a {
+  font-family: freight-sans-pro;
   padding:10px 15px;
   color:#333;
-  font-weight:700;
+  font-weight:500;
   font-size:12px;
   line-height:16px;
   display: block;

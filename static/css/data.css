@@ -20,28 +20,28 @@
 
 .tabs div{
     border-bottom: solid;
-    border-color: grey;
+    border-color: #7E7E7E;
 }
 
 .tabs .no_data{
-    background-color: lightgrey;
+    background-color: #dfdfdf;
 }
 
 .tabs div:hover{
-    border-color: blue;
+    border-color: #329ae3;
     border-width: 10px;
     cursor: pointer;
 }
 
 .tabs .no_data:hover{
-    background-color: lightgrey;
+    background-color: #dfdfdf;
     border-color: black;
     border-width: 3px;
     cursor: not-allowed;
 }
 
 .tabs .active{
-    border-color: red !important;
+    border-color: #E5603d !important;
     border-width: 10px;
 }
 
@@ -89,11 +89,11 @@
 }
 
 .databox .fa-star{
-    color: gold;
+    color: #F4D23B;
 }
 
 .databox .fa-thumbs-down{
-    color: red;
+    color: #E5603d;
 }
 
 .typeImg {

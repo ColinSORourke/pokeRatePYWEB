@@ -35,29 +35,36 @@
     position: absolute;
     top: -15px;
     right: -15px;
-    color: red;
+    color: #F97175;
     font-size: 40px;
 }
 
 .pokemon_entry .favContainer{
     position: relative;
+    display: flex;
+    justify-content: center;
     text-align: center;
-    font-size: 0;
     width: 100%;
     border-top: solid;
     border-width: 2px;
     border-color: black;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-family: "Azeret-Mono";
 }
+
 
 .pokemon_entry .favContainer .fa-heart{
     position: relative;
     top: 0px;
     right: 0px;
+    margin-right: 5px;
 }
 
-.pokemon_entry .favContainer .fa-heart span{
+.pokemon_entry .favContainer div{
     color: black;
-    font-size: 28px;
+    font-size: 26px;
+    line-height: 1.5em;
 }
 
 @media (max-width:600px) {

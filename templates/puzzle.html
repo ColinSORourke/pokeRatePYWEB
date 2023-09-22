@@ -31,7 +31,7 @@
     </div>
 
     <h1>Guess todays Pokémon!</h1>
-    <h3 @click="showModal = true"><i class="fa fa-question-circle"></i> How to play <i class="fa fa-question-circle"></i></h3>
+    <h3 @click="showModal = true">How to play</h3>
     
     <div class="puzzle_display">
         <div>
@@ -193,21 +193,21 @@
     
     <div class="data-table">
         <div class="data-header">
-            <div style="font-size: 18px; border-right: 2px solid black">Pokemon</div>
-            <div style="border-right: 2px solid black">Alphabet</div>
-            <div style="border-right: 2px solid black">Gen</div>
-            <div style="border-right: 2px solid black">Type1</div>
-            <div style="border-right: 2px solid black">Type2</div>
-            <div style="border-right: 2px solid black">BST</div>
+            <div style="font-size: 18px; border-right: 2px solid #dfdfdf">Pokemon</div>
+            <div style="border-right: 2px solid #dfdfdf">Letter</div>
+            <div style="border-right: 2px solid #dfdfdf">Gen</div>
+            <div style="border-right: 2px solid #dfdfdf">Type1</div>
+            <div style="border-right: 2px solid #dfdfdf">Type2</div>
+            <div style="border-right: 2px solid #dfdfdf">BST</div>
             <div>Rating</div>
         </div>
         <div class="data-row" v-for="p in myGuesses">
-            <div style="cursor: pointer; border-right: 2px solid black; padding-top: 5px;" @click="setGuess(p)" class="">{{p.name}}</div>
-            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkAlph(p)"></i></div>
-            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkGen(p)"></i></div>
-            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkTypePrim(p)"></i></div>
-            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkTypeSecond(p)"></i></div>
-            <div style="border-right: 2px solid black; padding-top: 5px;"><i :class="checkBST(p)"></i></div>
+            <div style="cursor: pointer; border-right: 2px solid #dfdfdf; padding-top: 5px;" @click="setGuess(p)" class="guessname">{{p.name}}</div>
+            <div style="border-right: 2px solid #dfdfdf; padding-top: 5px;"><i :class="checkAlph(p)"></i></div>
+            <div style="border-right: 2px solid #dfdfdf; padding-top: 5px;"><i :class="checkGen(p)"></i></div>
+            <div style="border-right: 2px solid #dfdfdf; padding-top: 5px;"><i :class="checkTypePrim(p)"></i></div>
+            <div style="border-right: 2px solid #dfdfdf; padding-top: 5px;"><i :class="checkTypeSecond(p)"></i></div>
+            <div style="border-right: 2px solid #dfdfdf; padding-top: 5px;"><i :class="checkBST(p)"></i></div>
             <div style="padding-top: 5px"><i :class="checkRate(p)"></i></div>
         </div>
     </div>

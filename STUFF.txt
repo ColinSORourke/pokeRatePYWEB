@@ -51,4 +51,4 @@ Visit ADD url.
 
 -------- Py4Web Local Launch -------
 Export EnvVariables like in the Dockerfile
-Run Py4Web
+python3 py4web.py run ./apps 

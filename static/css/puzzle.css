@@ -10,7 +10,9 @@
 .puzzle_display span {
     font-family: freight-sans-pro;
     font-size: 30px;
-    font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 60px;
+    color: #343434;
 }
 
 h1 {
@@ -23,9 +25,8 @@ h1 {
 h3 {
     text-align: center;
     font-family: freight-sans-pro;
-    font-size: 30px;
-    margin-top: 8px;
-    color: #5E5E5E;
+    font-size: 20px;
+    color: #7E7E7E;
     font-weight:normal;
     text-decoration: underline;
     cursor: pointer;
@@ -97,22 +98,19 @@ h3 {
     margin-right: 20px;
 }
 
-.autocomplete input{
-    margin-bottom: 0px;
-    border-radius: 20px;
-}
-
 .autocomplete i{
     position: absolute;
     top: 8px;
     right: 10px;
     font-size: 24px;
+    color: #7E7E7E;
 }
 
 .autocomplete_results {
     padding: 0;
     margin: 0;
-    border: 1px solid #eeeeee;
+    margin-top: 2px;
+    
     overflow: auto;
 }
 
@@ -121,36 +119,37 @@ h3 {
     text-align: left;
     padding: 4px 2px;
     cursor: pointer;
+    border: 1px solid #dfdfdf;
     margin-bottom: 2px;
 }
 
 .autocomplete_result:hover {
-    background-color: #4AAE9B;
+    background-color: #749F91;
     color: white;
 }
 
 .fa-check-circle {
-    color: green;
+    color: #63bb5b;
 }
 
 .fa-times-circle {
-    color: red;
+    color: #E5603d;
 }
 
 .fa-arrow-circle-right{
-    color: blue;
+    color: #329ae3;
 }
 
 .fa-arrow-circle-up{
-    color: blue;
+    color: #329ae3;
 }
 
 .fa-arrow-circle-down{
-    color: rgb(111, 111, 12);
+    color: #FF9C54;
 }
 
 .fa-arrow-circle-left{
-    color: rgb(111, 111, 12);
+    color: #FF9C54;
 }
 
 @media (max-width:600px) {
@@ -187,29 +186,36 @@ h3 {
     width: 500px;
     background-color: white;
     margin: auto;
-    border: solid;
-    border-width: 8px;
-    border-color:black;
+    border: 8px solid #343434;
     border-radius: 10px;
-    text-align: center;
+    text-align: left;
     align-items: center;
+    font-family: freight-sans-pro;
+    color: #343434;
 }
 
 .modalContent p{
-    text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #535353;
 }
 
 .modalContent ul{
     list-style: square;
     width: 80%;
     margin: auto;
-    line-height: 1.3em;
 }
 
 .modalContent li{
     margin: 6px;
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #535353;
 }
 
 /* X icon in top right. */
@@ -222,7 +228,11 @@ h3 {
 
 .modalContent .fa-times:hover {
     cursor: pointer;
-    color: red;
+    color: #E5603d;
+}
+
+.puzzle_display {
+    margin-top: 20px;
 }
 
 .puzzle_display .pokemon_entry:hover{
@@ -230,12 +240,13 @@ h3 {
     transform: none;
 }   
 
-.modalContent {
-    font-family: freight-sans-pro;
+.puzzle_display .pokemon_entry{
+    margin-top: 20px;
 }
 
 .data-table {
     font-family: freight-sans-pro;
+    margin-top: 35px;
 }
 
 .guessClick:hover{
@@ -244,10 +255,9 @@ h3 {
 
 #submit{
     color: white;
-    background-color: black;
+    background-color: #343434;
     border-radius: 25px;
-    margin-top: auto;
-    margin-bottom: auto;
+    height: 44px;
 }
 
 .autocomplete input {
@@ -255,4 +265,9 @@ h3 {
     background-color: #f0f0f0 !important;
     border: 0px solid black !important;
     font-family: freight-sans-pro !important;
+    margin-bottom: 0px;
+}
+
+.guessname:hover{
+    text-decoration: underline;
 }

@@ -44,6 +44,7 @@ let init = (app) => {
         },
         acFill(p) {
             app.vue.query = p.name;
+            app.vue.acSuggestions = [];
         },
         submitGuess(){
             let guess = app.vue.myPokemon.find(p => p.name == app.vue.query);

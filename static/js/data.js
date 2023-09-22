@@ -137,18 +137,18 @@ let init = (app) => {
         genBoxShadow(n, i){
             key = "Generation " + n;
             if (app.data.generations[key].statuses[i] == 1){
-                return "box-shadow: 0px 0px 12px 0px gold;"
+                return "box-shadow: 0px 0px 12px 0px #F4D23B;"
             } else if (app.data.generations[key].statuses[i] == -1){
-                return "box-shadow: 0px 0px 12px 0px red;"
+                return "box-shadow: 0px 0px 12px 0px #E5603d;"
             } else {
                 return ""
             }
         },
         typeBoxShadow(t, i){
             if (t.statuses[i] == 1){
-                return "box-shadow: 0px 0px 12px 0px gold;"
+                return "box-shadow: 0px 0px 12px 0px #F4D23B;"
             } else if (t.statuses[i] == -1){
-                return "box-shadow: 0px 0px 12px 0px red;"
+                return "box-shadow: 0px 0px 12px 0px #E5603d;"
             } else {
                 return ""
             }

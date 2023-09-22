@@ -1,0 +1,37 @@
+------------------
+COLOR PALETTE
+------------------
+
+Black
+Darkgray = #343434
+Grey = #7E7E7E
+Lightgray = #dfdfdf
+searchGray = #F0F0F0
+textGrey = #535353
+white
+
+green = #63bb5b
+yellow = #ffde00
+blue = #329ae3
+red = #E5603d
+
+
+normal = #9099a1
+fighting = #ce4068
+flying = #93aade
+rock = #C7B78B
+Bug = #90C12C
+ghost = #5269AC
+water = #4D90D4
+grass = #63BB5B
+electric = #F4D23B
+dragon = #0A6DC4
+dark = #5A5366
+fairy = #EC8FE6
+fire = #FF9C54
+ice = #74CEC0
+ground = #D97746
+poison = #AB6AC8
+steel = #5a8EA1
+psychic = #F97175
+unkown = #749F91

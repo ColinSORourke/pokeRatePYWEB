@@ -144,63 +144,63 @@ def data():
 # SAME GOES FOR ADD URL
 #----------------------------------------#
 
-@action("setup")
-@action.uses(db)
-def setup():
-    start = time.perf_counter()
-    db(db.pokemonTable).delete()
-    db(db.ratings).delete()
-    db(db.derived_ratings).delete()
-    with open('apps/_default/static/FullDex.json') as f:
-        data = json.load(f)
-    i = 0
-    while (i < len(data)):
-        refPok = db.pokemonTable.insert(
-            name = data[i]['name'],
-            fullName = data[i]['fullname'],
-            form = data[i]['form'],
-            significantForm = data[i]['significantForm'],
-            species = data[i]['species'],
-            generation = data[i]['generation'],
-            number = data[i]['number'],
-            pokID = data[i]['pokID'],
-            bst = data[i]['bst'],
-            dbLink = data[i]['dblink'],
-            types = data[i]['types'],
-            formList = data[i]['formList'],
-            category = data[i]['category'],
-        )
-        i += 1
-    end = time.perf_counter()
-    return str(end - start)
+# @action("setup")
+# @action.uses(db)
+# def setup():
+#     start = time.perf_counter()
+#     db(db.pokemonTable).delete()
+#     db(db.ratings).delete()
+#     db(db.derived_ratings).delete()
+#     with open('apps/_default/static/FullDex.json') as f:
+#         data = json.load(f)
+#     i = 0
+#     while (i < len(data)):
+#         refPok = db.pokemonTable.insert(
+#             name = data[i]['name'],
+#             fullName = data[i]['fullname'],
+#             form = data[i]['form'],
+#             significantForm = data[i]['significantForm'],
+#             species = data[i]['species'],
+#             generation = data[i]['generation'],
+#             number = data[i]['number'],
+#             pokID = data[i]['pokID'],
+#             bst = data[i]['bst'],
+#             dbLink = data[i]['dblink'],
+#             types = data[i]['types'],
+#             formList = data[i]['formList'],
+#             category = data[i]['category'],
+#         )
+#         i += 1
+#     end = time.perf_counter()
+#     return str(end - start)
 
-@action("update")
-@action.uses(db)
-def update():
-    start = time.perf_counter()
-    with open('apps/_default/static/newPokemon.json') as f:
-        data = json.load(f)
-    i = 0
-    while (i < len(data)):
-        refPok = db.pokemonTable.update_or_insert(
-            db.pokemonTable.pokID == data[i]['pokID'],
-            name = data[i]['name'],
-            fullName = data[i]['fullname'],
-            form = data[i]['form'],
-            significantForm = data[i]['significantForm'],
-            species = data[i]['species'],
-            generation = data[i]['generation'],
-            number = data[i]['number'],
-            pokID = data[i]['pokID'],
-            bst = data[i]['bst'],
-            dbLink = data[i]['dblink'],
-            types = data[i]['types'],
-            formList = data[i]['formList'],
-            category = data[i]['category'],
-        )
-        i += 1
-    end = time.perf_counter()
-    return str(end - start)
+# @action("update")
+# @action.uses(db)
+# def update():
+#     start = time.perf_counter()
+#     with open('apps/_default/static/newPokemon.json') as f:
+#         data = json.load(f)
+#     i = 0
+#     while (i < len(data)):
+#         refPok = db.pokemonTable.update_or_insert(
+#             db.pokemonTable.pokID == data[i]['pokID'],
+#             name = data[i]['name'],
+#             fullName = data[i]['fullname'],
+#             form = data[i]['form'],
+#             significantForm = data[i]['significantForm'],
+#             species = data[i]['species'],
+#             generation = data[i]['generation'],
+#             number = data[i]['number'],
+#             pokID = data[i]['pokID'],
+#             bst = data[i]['bst'],
+#             dbLink = data[i]['dblink'],
+#             types = data[i]['types'],
+#             formList = data[i]['formList'],
+#             category = data[i]['category'],
+#         )
+#         i += 1
+#     end = time.perf_counter()
+#     return str(end - start)
 
 # Get rating returns the rating data of an individual pokemon
 @action("get_rating")

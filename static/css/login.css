@@ -8,9 +8,10 @@ h1 {
 h2 {
     text-align: center;
     font-family: freight-sans-pro;
-    font-size: 36px;
+    font-size: 28px;
     font-weight: normal;
-    color: #979797
+    color: #979797;
+    margin-bottom: 15px;
 }
 
 form {
@@ -20,8 +21,12 @@ form {
     text-align: center;
 }
 
+label {
+    display: none;
+}
+
 #no_table_email{
-    border-radius: 25px !important;
+    border-radius: 80px !important;
     background-color: #f0f0f0 !important;
     border: 0px solid black !important;
     font-family: freight-sans-pro !important;
@@ -30,14 +35,20 @@ form {
 
 input{
     width: 200px;
-    font-size: 30px !important;
+    font-size: 25px !important;
     padding: 10px !important;
     height: auto !important;
     border-radius: 50px !important;
+    font-family: freight-sans-pro !important;
+}
+
+input:hover{
+    background-color: #0A6DC4;
 }
 
 #policy{
     width: 300px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     font-family: freight-sans-pro;
@@ -47,4 +58,10 @@ input{
     font-size: 36px;
     margin-bottom: 5px;
     text-align: left;
+}
+
+#policy p{
+    font-size: 16px;
+    line-height: 1.5em;
+    color: #535353;
 }
