@@ -5,6 +5,10 @@
     text-align: center;
 }
 
+.about h1{
+    text-align: left;
+}
+
 @media (min-width: 800px){
     .columns {
         width: 95%;
@@ -16,8 +20,25 @@
         border-bottom: 2px solid #DFDFDF;
     }
 
+    .randoms {
+        border-left: 2px solid #DFDFDF;
+        border-right: 2px solid #DFDFDF;
+    }
+
     .highlight .pokemon_entry{
         margin-top: 70px;
+    }
+}
+
+@media (max-width: 600px){
+    #randoms{
+        margin-top: 15px;
+    }
+    .about {
+        margin-top: 15px;
+    }
+    .about h1{
+        text-align: center;
     }
 }
 
@@ -25,12 +46,10 @@ h1 {
     font-family: freight-sans-pro;
     font-size: 35px;
     font-weight: 600;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-.about h1{
-    text-align: left;
-}
+
 
 a .pokemon_entry {
     color: black;
@@ -39,8 +58,6 @@ a .pokemon_entry {
 #randoms{
     width: 100%;
     height: 100%;
-    border-left: 2px solid #DFDFDF;
-    border-right: 2px solid #DFDFDF;
 }
 
 .highlight .pokemon_entry{
@@ -77,6 +94,12 @@ a .pokemon_entry {
     transform: translateZ(-10px)
 }
 
+.highlight .pokemon_entry .cardTitle{
+    display: grid;
+    height: 16px;
+    grid-template-columns: 3fr 1fr;
+}
+
 .highlight .hlCircTL{
     position: relative;
     width: 300px;
@@ -84,6 +107,7 @@ a .pokemon_entry {
     top: -60px;
     left: -60px;
 }
+
 .highlight .hlCircLR{
     position: relative;
     width: 300px;
@@ -97,6 +121,15 @@ a .pokemon_entry {
     height: 100%;
     white-space: normal;
     padding-left: 30px;
+}
+
+@media (max-width: 600px){
+    .about{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0px;
+    }
 }
 
 .about p{

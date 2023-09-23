@@ -22,8 +22,8 @@
       <!-- Navigation bar -->
       <nav class="black" style="position: fixed; top: 0; z-index: 2;">
         <!-- Logo -->
-        <a style="padding-right: 15px" href="[[=URL('home')]]">
-          <b style="font-size:24px; margin-right: 15px;">PokéRating</b>
+        <a href="[[=URL('home')]]">
+          <b>PokéRating</b>
         </a>
 
         [[block page_left_menu]][[end]]
@@ -37,7 +37,7 @@
         
         <!-- Right menu ul/li -->
 
-        <a style="border-color: #63bb5b" class="tab" href="[[=URL('home')]]">
+        <a class="homehide" style="border-color: #63bb5b" class="tab" href="[[=URL('home')]]">
           Home
         </a>
         <a style="border-color: #e5603d"class="tab" href="[[=URL('pokedex')]]">
@@ -50,7 +50,7 @@
           Puzzle
         </a>
 
-        <ul style="right: 20px;">
+        <ul>
           [[if globals().get('user'):]]
           <li>
             <label for="email" class="navbar-link is-primary">

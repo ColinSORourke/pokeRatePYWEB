@@ -14,11 +14,29 @@ h2 {
     margin-bottom: 15px;
 }
 
+@media (max-width: 600px){
+    h1 {
+        font-size: 36px;
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
+
 form {
-    width: 600px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+
+@media (min-width: 600px){
+    form {
+        width: 600px;
+    }
 }
 
 label {
@@ -40,6 +58,15 @@ input{
     height: auto !important;
     border-radius: 50px !important;
     font-family: freight-sans-pro !important;
+    margin-right: 0px !important;
+}
+
+@media (max-width: 600px){
+    #no_table_email{
+        width: 80% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
 }
 
 input:hover{

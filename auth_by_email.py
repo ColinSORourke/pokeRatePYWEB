@@ -153,6 +153,8 @@ class AuthByEmailEnforcer(Fixture):
         activity = self.session.get("recent_activity")
         time_now = calendar.timegm(time.gmtime())
         if (self.auth.current_user):
+            print("Session Age")
+            print(time_now - activity)
             if (time_now - activity > EXPIRATION_TIME):
                 del self.session[EMAIL_KEY]
         if self.session.get(EMAIL_KEY):

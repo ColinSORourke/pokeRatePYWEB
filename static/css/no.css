@@ -71,6 +71,8 @@ p {
 b, label, strong {
   font-weight:bold;
   font-family: freight-sans-pro;
+  overflow: hidden;
+  white-space:nowrap;
 }
 
 ul {
@@ -352,10 +354,15 @@ body > center > * {
 
 nav {
   position:relative;
-  padding: 0 1.5em;
+  padding: 0 1em;
   display: table;
   width: 100vw;
   height: 10px;
+}
+
+nav a b {
+  font-size: 24px;
+  margin-right: 15px;
 }
 
 nav ul {
@@ -366,6 +373,12 @@ nav ul {
 
 nav > input[type=checkbox], nav > label {
   display: none;
+}
+
+nav a.homehide{
+  border-bottom: 3px blue solid;
+  font-weight:500;
+  padding-top: 5px;
 }
 
 nav a.tab{
@@ -381,6 +394,7 @@ nav a.tab{
   }
   nav > ul {
     float: right;
+    right: 5%;
   }
   nav > ul > li {
     padding: 0.75em 0.5em
@@ -394,6 +408,7 @@ nav a.tab{
   nav > ul {
     display: table-column;
     vertical-align: middle;
+    
   }
   nav > label {
     position: absolute;
@@ -405,7 +420,17 @@ nav a.tab{
   nav > a {
     display: inline-block;
     padding-top: 8px !important;
+    font-size: 14px;
   }
+  .homehide{
+    display: none;
+  }
+
+  nav a b{
+    font-size: 16px;
+    margin-right: 5px;
+  }
+
   nav > ul {
     display: block;
   }
