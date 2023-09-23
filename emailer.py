@@ -133,7 +133,7 @@ class emailer(Fixture):
         context = ssl.create_default_context()
 
         msg = EmailMessage()
-        msg.set_content("Use this link to sign in: http://pokerating.com" + link)
+        msg.set_content("Use this link to sign in: https://pokerating.com" + link)
         msg.add_alternative("""\
         <html>
             <body>
@@ -146,7 +146,7 @@ class emailer(Fixture):
                 <p>If you did not request this email, or are receiving it in error, take no action</p>
             </body>
         </html>
-            """.format(myLink = "http://pokerating.com" + link), subtype="html")
+            """.format(myLink = "https://pokerating.com" + link), subtype="html")
         msg['Subject'] = "Login link for Pokerating.com"
         msg['From'] = "NO-REPLY@Pokerating.com"
         msg["To"] = target
