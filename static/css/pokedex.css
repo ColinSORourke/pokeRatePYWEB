@@ -450,3 +450,12 @@ h2{
     color: #535353;
     margin-bottom: 7px;
 }
+
+#userdexDesc{
+    font-family: freight-sans-pro;
+    font-size: 24px;
+    text-align: left;
+    width: 95%;
+    margin: auto;
+    color: #535353;
+}

@@ -53,9 +53,9 @@
                     <input type="checkbox" id="modalHeart" value="6" name="favorite" v-model="modalPokemon.userFavorite"><label @click="ratePok(modalPokemon, 6)" class="fa fa-heart-o" for="modalHeart"></label>
                 </div>
             </div>
-
-            <i class="fa fa-ban" @click="unratePok(modalPokemon)"></i>
             
+            <i class="fa fa-ban" @click="unratePok(modalPokemon)"></i>
+
             <div class="graphContainer">
                 <div class="ratingGraph">
                     <div class="bar" :style="barHeight(1)"> <div>{{abbrevNum(modalPokemon.ratings[0])}}</div> </div>
@@ -78,7 +78,7 @@
 
     <div class="mainPage">
         <div id="PageTop" class="Top">
-            <h1 style="width: 290px">All Pokémon</h1>
+            <h1 style="width: 290px">Your Ratings</h1>
             <div class="hyperlinks">
                 <a v-for="c in myCategories" :href="categoryBinding(c)">{{c}}</a>
             </div>
@@ -92,12 +92,13 @@
         </div>
 
         <a id="returnToTop" href="/pokedex#PageTop"><i class="fa fa-arrow-circle-up"></i></a>
-        
+        <div id="userdexDesc">This page only features Pokemon you have rated.</div>
+        <div id="userdexDesc" v-if="userRatings == 0">No User Ratings!</div>
         <div v-if="query == ''">
             <div v-for="c in myCategories" :id="c" class="category">
                 <h2>{{c}}</h2>
                 <div class="pokemon_list">
-                    <div v-for="p in pokemonPerCategory[c]" class="pokemon_entry" @click="toggleModal(p)">
+                    <div v-for="p in pokemonPerCategory[c]" v-if="p.userRating != 0" class="pokemon_entry" @click="toggleModal(p)">
                         <i v-if="p.userFavorite"class="fa fa-heart"></i>
                         <div class="cardTitle">
                             <div class="pokeName">{{p.fullName}}</div>
@@ -116,7 +117,7 @@
                         <div class="ratingContainer">
                             <div class="ratingText">
                                 <div>Rating</div>
-                                <div>{{ p.globalAverage.toFixed(2) }}</div>
+                                <div>{{ p.userRating }}</div>
                             </div>
                             <div class="starContainer">
                                 <div class="filledStars" :style="widthPerc(p)">
@@ -141,7 +142,7 @@
         </div>   
         <div v-else>
             <div class="pokemon_list">
-                <div v-for="p in filteredPokes()" class="pokemon_entry" @click="toggleModal(p)">
+                <div v-for="p in filteredPokes()" v-if="p.userRating != 0" class="pokemon_entry" @click="toggleModal(p)">
                     <i v-if="p.userFavorite"class="fa fa-heart"></i>
                     <div class="cardTitle">
                         <div class="pokeName">{{p.fullName}}</div>
@@ -160,7 +161,7 @@
                     <div class="ratingContainer">
                         <div class="ratingText">
                             <div>Rating</div>
-                            <div>{{ p.globalAverage.toFixed(2) }}</div>
+                            <div>{{ p.userRating }}</div>
                         </div>
                         <div class="starContainer">
                             <div class="filledStars" :style="widthPerc(p)">

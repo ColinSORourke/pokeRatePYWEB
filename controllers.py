@@ -70,6 +70,24 @@ def pokedex():
         dexJSON = json.dumps(data),
         get_rating_url = URL('get_rating', signer=url_signer),
         set_rating_url = URL('set_rating', signer=url_signer),
+        remove_rating_url = URL('remove_rating', signer=url_signer),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
+        req_delete_url = URL('request_delete', signer=url_signer),
+        target_poke = "000000",
+        __version__ = __version__
+    )
+
+@action("userdex")
+@action.uses("userdex.html", session, auth.flash, url_signer, db, auth, T)
+def pokedex():
+    # Load the static data of every pokemon 
+    data = json.loads(db(db.pokemonTable).select().as_json())
+
+    return dict(
+        dexJSON = json.dumps(data),
+        get_rating_url = URL('get_rating', signer=url_signer),
+        set_rating_url = URL('set_rating', signer=url_signer),
+        remove_rating_url = URL('remove_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
         req_delete_url = URL('request_delete', signer=url_signer),
         target_poke = "000000",
@@ -88,6 +106,7 @@ def pokedex(number):
         dexJSON = json.dumps(data),
         get_rating_url = URL('get_rating', signer=url_signer),
         set_rating_url = URL('set_rating', signer=url_signer),
+        remove_rating_url = URL('remove_rating', signer=url_signer),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
         req_delete_url = URL('request_delete', signer=url_signer),
         target_poke = number,
@@ -281,6 +300,19 @@ def set_rating():
             return "Favorite removed!"
             
     return "ok"
+
+@action("remove_rating", method="POST")
+@action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
+def remove_rating():
+    id = request.params.get('id')
+
+    # assert post is valid
+    assert id is not None
+
+    print(id)
+    print(get_user_email())
+    db((db.ratings.rater == get_user_email()) & (db.ratings.pokemon == id)).delete()
+    return "Rating removed!"
 
 # Returns rating data for every pokemon
 @action("get_all_ratings")

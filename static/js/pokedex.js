@@ -23,6 +23,7 @@ let init = (app) => {
         showModal: false,
         modalPokemon: dexJSON[0],
         query: "",
+        userRatings: 0,
         // Complete as you see fit.
     };
 
@@ -95,6 +96,34 @@ let init = (app) => {
                 alert("Log in to post ratings!")
             })
         },
+        unratePok(p){
+            var postData = {"id": p.id};
+            axios.post(remove_rating_url, postData).then((response) => {
+                app.vue.showNotif = true;
+                app.vue.fadeCountdown += 3;
+                setTimeout(function () {
+                    app.vue.fadeCountdown -= 3;
+                    if (app.vue.fadeCountdown == 0){
+                        app.vue.showNotif = false;
+                        app.vue.ratingCount = 0;
+                    }
+                }, 3000)
+
+                app.vue.ratingCount += 1;
+            
+                if (app.vue.ratingCount > 1){
+                    app.vue.ratingText =  response.data + " (" + app.vue.ratingCount + ")";
+                } else {
+                    app.vue.ratingText = response.data
+                }
+
+                
+            }).catch((error) => {
+                console.log(error)
+                alert("Log in to post ratings!")
+            })
+        },
+        
         toggleModal(p){
             app.vue.showModal = !app.vue.showModal;
             app.vue.modalPokemon = p;
@@ -221,6 +250,7 @@ let init = (app) => {
                     app.data.myPokemon[pokInd].userFavorite = true;
                 } else {
                     app.data.myPokemon[pokInd].userRating = result.data.userRatings[i]['rating'];
+                    app.data.userRatings += 1;
                 }
                 i += 1;
             }
