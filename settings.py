@@ -18,12 +18,12 @@ DB_FOLDER = required_folder(APP_FOLDER, "databases")
 DB_URI = "mysql://" + os.environ.get("DBUsername") + ":" + os.environ.get("DBPW") + "@" + os.environ.get("DBEndpoint")
 DB_POOL_SIZE = 1
 DB_MIGRATE = True
-DB_FAKE_MIGRATE = True # maybe?
+DB_FAKE_MIGRATE = True
 
 SPAM_DB_URI = "sqlite://storage.db"
 SPAM_DB_POOL_SIZE = 1
 SPAM_DB_MIGRATE = True
-SPAM_DB_FAKE_MIGRATE = False # maybe?
+SPAM_DB_FAKE_MIGRATE = True
 
 # location where static files are stored:
 STATIC_FOLDER = required_folder(APP_FOLDER, "static")

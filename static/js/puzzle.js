@@ -64,10 +64,12 @@ let init = (app) => {
                 })
                 let dateString = app.vue.dateString()
 
+                guessesStr = ""
                 if (typeof(Storage) !== "undefined") {
                     if (localStorage.getItem(dateString) !== null){
                         prevGuesses = localStorage.getItem(dateString)
                         prevGuesses = prevGuesses + "---" + guess.name;
+                        guessesStr = prevGuesses
                         localStorage.setItem(dateString, prevGuesses);
                     } else {
                         localStorage.setItem(dateString, guess.name);
@@ -78,6 +80,8 @@ let init = (app) => {
 
                 if (guess.name == app.vue.targetPokemon.name){
                     app.vue.solved = true;
+                    var postData = {"guesses": guessesStr};
+                    axios.post(post_plays_url, postData)
                 }
             }
         },
@@ -193,6 +197,8 @@ let init = (app) => {
                             app.vue.noGuess = false;
                             if (guess.name == app.vue.targetPokemon.name){
                                 app.vue.solved = true;
+                                var postData = {"guesses": guessesStr};
+                                axios.post(post_plays_url, postData)
                             }
                         }
                         j += 1

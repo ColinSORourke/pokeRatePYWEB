@@ -101,6 +101,14 @@ db.define_table('derived_ratings',
                 Field("ratingcount", "integer", default=0)
                 )
 
+db.define_table('puzzle_plays',
+                Field('date'),
+                Field('user'),
+                Field('success', "boolean"),
+                Field('guesses'),
+                Field('guessCount', "integer")
+                )
+
 spam_db.define_table("emails",
                      Field("email"),
                      Field("codessent", "integer", default=0),

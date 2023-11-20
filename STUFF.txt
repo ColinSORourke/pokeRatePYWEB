@@ -52,3 +52,10 @@ Visit ADD url.
 -------- Py4Web Local Launch -------
 Export EnvVariables like in the Dockerfile
 python3 py4web.py run -H 192.168.0.126 ./apps 
+
+-------- ADD NEW TABLE --------
+Temporarily turn "Session Type" setting -> Cookies
+Temporarily comment out Other tables from Models.py
+Temporarily set "DB_Fake_migrate" setting -> False
+Run site
+Return to normal.

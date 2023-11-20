@@ -154,6 +154,8 @@ def data():
         get_rating_url = URL('get_rating', signer=url_signer),
         pokedex_url = URL('pokedex'),
         req_delete_url = URL('request_delete', signer=url_signer),
+        get_plays_url = URL('get_puzzle_play', signer=url_signer),
+        post_plays_url = URL('post_puzzle_play', signer=url_signer)
     )
 
 #----------------------------------------#
@@ -162,6 +164,17 @@ def data():
 # ONLY LIVE ON AN ADMINISTRATORS LOCAL MACHINE
 # SAME GOES FOR ADD URL
 #----------------------------------------#
+
+@action("puzzletest")
+@action.uses(db)
+def puzzletest():
+    db.puzzle_plays.insert(
+        date = "nonsense",
+        user = "nonsense",
+        guesses = "nonsense",
+        guessCount = "6",
+        success = False
+    )
 
 # @action("setup")
 # @action.uses(db)
@@ -309,10 +322,52 @@ def remove_rating():
     # assert post is valid
     assert id is not None
 
-    print(id)
-    print(get_user_email())
     db((db.ratings.rater == get_user_email()) & (db.ratings.pokemon == id)).delete()
     return "Rating removed!"
+
+@action("get_puzzle_play")
+@action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
+def get_puzzle_play():
+    sql = "SELECT success, guesses FROM puzzle_plays WHERE user='" + str(get_user_email()) + "'"
+    userPlays = db.execute(sql)
+    return dict(
+        userPlays = json.dumps(userPlays),
+    )
+
+@action("post_puzzle_play", method="POST")
+@action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
+def post_puzzle_play():
+    date = datetime.date.today()
+    user = get_user_email()
+    print(request.params)
+    print(request.params.get('guesses'))
+    guesses = request.params.get('guesses')
+
+    # Select the puzzle pokemon of the day
+    data = json.loads(db(db.pokemonTable).select().as_json())
+    seed = dateSeed() * 2
+    seed = BlumBlumShub(seed)
+    seed = BlumBlumShub(seed)
+    targetPoke = data[(int(seed) % len(data))]
+
+    # If selected puzzle pokemon is invalid, select again until one is valid
+    while (targetPoke['form'] != "Basic"):
+        seed = BlumBlumShub(seed)
+        targetPoke = data[(int(seed) % len(data))]
+
+    guessList = guesses.split("---")
+    success = False
+    if (guessList[-1] == targetPoke['name']):
+        success = True
+
+    db.puzzle_plays.update_or_insert(
+        ((db.puzzle_plays.date == date) & (db.puzzle_plays.user == get_user_email())),
+        date = date,
+        user = user,
+        guesses = guesses,
+        guessCount = len(guessList),
+        success = success
+    )
 
 # Returns rating data for every pokemon
 @action("get_all_ratings")
