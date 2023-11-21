@@ -133,10 +133,51 @@
      </div>
    </div>
    
-   <div>
-    <p>
-        more stuff!
-    </p>
+   <div style="display: inline-flex">
+        <div class = "pokemon_list" style="width: 250px">
+            <a href="https:/pokerating.com/puzzle"><div class="pokemon_entry">
+                <div class="cardTitle">
+                    <div class="pokeName">Mystery</div>
+                    <div class="pokeNumber">#9999</div>
+                </div>
+                
+                <div class="pokeImgContainer">
+                    <img src="images/PokemonArt/unown-question.png" class="unown_img" color="black">
+                </div>
+    
+                <div class="typesContainer">
+                    <div class="typeContainer"><img src="images/Types/unknown.png" class="typeImg"></div>
+                    <div class="typeContainer"><img src="images/Types/unknown.png"  class="typeImg"></div>
+                </div>
+                
+                <div style="margin: 0px; font-family: 'Azeret-Mono'; color: black; font-size: 12px;">Generation ???</div>
+                <div class="ratingText">
+                    <div>BST</div>
+                    <div>???</div>
+                </div>
+    
+                <div class="ratingContainer">
+                    <div class="ratingText">
+                        <div>Rating</div>
+                        <div>???</div>
+                    </div>
+                    <div class="starContainer">
+                        <div class="filledStars" style="width: 50%">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div></a>
+        </div>
+        <div class="about" style="margin-top:auto; margin-bottom: auto;">
+            <h1>Play today's Puzzle!</h1>
+            <p>Use your Pokemon knowledge to solve the hidden pokemon! {{playerCount}} users have played already today!</p>
+            <a href="https:/pokerating.com/puzzle"><div class="buttonlink">Go to Puzzle</div></a>
+        </div>
    </div>
 
 </div>
@@ -151,6 +192,7 @@
    let set_rating_url = "[[=XML(set_rating_url)]]"
    let get_all_ratings_url = "[[=XML(get_all_ratings_url)]]"
    let dex_url = "[[=XML(pokedex_url)]]"
+   let daily_plays = "[[=XML(daily_plays)]]"
 </script>
 <script src="js/home.js"></script>
 [[end]]

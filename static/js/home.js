@@ -16,6 +16,7 @@ let init = (app) => {
         showNotif: false,
         fadeCountdown: 0,
         dex_url: dex_url,
+        playerCount: daily_plays
         // Complete as you see fit.
     };
 

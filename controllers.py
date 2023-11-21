@@ -335,12 +335,12 @@ def get_puzzle_play():
     )
 
 @action("post_puzzle_play", method="POST")
-@action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
+@action.uses(session, url_signer.verify(), db, auth.flash)
 def post_puzzle_play():
     date = datetime.date.today()
     user = get_user_email()
-    print(request.params)
-    print(request.params.get('guesses'))
+    if (user == None):
+        user = "Unknown"
     guesses = request.params.get('guesses')
 
     # Select the puzzle pokemon of the day
@@ -361,7 +361,7 @@ def post_puzzle_play():
         success = True
 
     db.puzzle_plays.update_or_insert(
-        ((db.puzzle_plays.date == date) & (db.puzzle_plays.user == get_user_email())),
+        ((db.puzzle_plays.date == date) & (db.puzzle_plays.user == user) & (db.puzzle_plays.guesses == guesses)),
         date = date,
         user = user,
         guesses = guesses,
@@ -408,6 +408,8 @@ def delete_confirm():
     #print("Deleting all data of " + get_user_email())
     userRatings = db((db.ratings.rater) == get_user_email())
     userRatings.delete()
+    userPuzzle = db((db.puzzle_plays.user) == get_user_email())
+    userPuzzle.delete()
     auth.flash.set("Your Info has been deleted")
     myMailer.codeUsed(get_user_email())
     myMailer.codeUsedIP(request.environ.get(USER_IP_KEY))
@@ -450,6 +452,10 @@ def indexDict(db, url_signer):
         highlightPoke = data[(int(seed) % len(data))]
     pokIDs += "" + str(highlightPoke['id']) + ""
 
+    date = datetime.date.today()
+    dailyPlayers = db((db.puzzle_plays.date == date)).count()
+
+
     # Query the database to receive the ratings of the 5 pokemon to display on the page
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
     sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
@@ -467,5 +473,6 @@ def indexDict(db, url_signer):
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
         req_delete_url = URL('request_delete', signer=url_signer),
         pokedex_url = URL('pokedex'),
+        daily_plays = dailyPlayers,
         __version__ = __version__
     )
