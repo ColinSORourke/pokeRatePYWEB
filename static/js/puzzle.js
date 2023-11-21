@@ -115,12 +115,10 @@ let init = (app) => {
         checkGen(p){
             guessGen = p.generation[11]
             targetGen = app.vue.targetPokemon.generation[11]
-            if (guessGen < targetGen){
-                return "fa fa-arrow-circle-right"
-            } else if (guessGen > targetGen){
-                return "fa fa-arrow-circle-left"
-            } else {
+            if (guessGen == targetGen){
                 return "fa fa-check-circle"
+            } else {
+                return "fa fa-times-circle"
             }
         },
         getGen(p){
