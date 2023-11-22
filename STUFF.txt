@@ -1,5 +1,4 @@
 -------- TO DO ---------
-* Style pass with Natalie
 * Comment Files
 
 

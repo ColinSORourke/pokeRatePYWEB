@@ -97,9 +97,9 @@ html {
     margin: auto;
 
     border: solid;
-    border-width: 8px;
-    border-color:black;
-    border-radius: 10px;
+    border-width: 6px;
+    border-color:#343434;
+    border-radius: 40px;
     text-align: center;
     align-items: center;
 }
@@ -115,7 +115,7 @@ MODAL STARS
     text-align: center;
     font-size: 16px;
     width: min-content;
-    font-family: FontAwesome;
+    font-family: "Azeret-mono";
     line-height: 1em;
     margin-left: 10px;
     margin-right: 10px;
@@ -182,61 +182,28 @@ MODAL STARS
     color: orange !important;
 }
 
-.modalContent .favorites input{
-    display: none;
-} 
-
-.modalContent .favorites i{
-    font-size: 60px;
-    color:pink;
-    margin-left: -12px;
-    margin-top: -15px;
-}
-
-@media (max-width:600px){
-    .modalContent .favorites i{
-        font-size: 45px;
-        margin-left: -4px;
-    }
-}
-
-.modalContent .favorites span{
-    justify-self: center;
-    font-size: 16px;
-}
-
-.modalContent .favorites strong{
-    left: 2px;
-}
-
-@media (max-width:600px){
-    .modalContent .favorites strong{
-        font-size: 14px;
-        margin-top: -10px;
-    }
-}
-
-.modalContent .favorites label{
-    content: "\f08a";
-    margin-top: 12px;
-    cursor: pointer;
-    font-size: 32px;
-}
-
-.modalContent .favorites label::before{
-    content: "\f08a" ; 
-}
-
-@media (max-width:600px){
-    .modalContent .favorites label{
-        margin-top: 0px;
-    }
-}
-
-
 .modalContent .favorites input:checked ~ label::before{
     content: "\f004";
     color: red;
+}
+
+.modalContent .favorites{
+    display: inline-flex;
+    font-family: "Azeret-Mono";
+}
+
+.modalContent .favorites p{
+    margin-left: 10px;
+}
+
+.modalContent .ratings .fa-ban{
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 20px;
+}
+
+.modalContent .favorites label{
+    font-size: 32px;
 }
 
 /******************************************
@@ -245,29 +212,36 @@ MODAL STYLE
 
 /* Name of pokemon. Nowrap so long names never go multiple lines */
 .modalContent .pokeName{
-    margin-top: 5px;
+    margin-top: 20px;
     font-size: 28px;
-    font-weight: bold;
     white-space: nowrap;
+    text-align: left;
+    margin-left: 20px;
+    font-family: "Azeret-Mono";
+    font-weight: 800;
 }
 
 /* X icon in top right. */
 .modalContent .fa-times {
     font-size: 40px;
     position: absolute;
-    top: 0px;
-    right: 5px;
+    color: #343434;
+    top: 15px;
+    right: 20px;
 }
 
 .modalContent .fa-times:hover {
     cursor: pointer;
-    color: red;
+    color: #E5603d;
 }
 
 /* pokemon number */
 .modalContent .pokeNumber{
-    margin-top: -6px;
     font-size: 18px;
+    text-align: left;
+    margin-left: 20px;
+    font-family: "Azeret-Mono";
+    color: #B4B4B4;
 }
 
 /* Container with pokemon image, and left/right arrows */
@@ -282,11 +256,12 @@ MODAL STYLE
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
+    color: #343434;
 }
 
 .modalContent .imgArrows i:hover{
     cursor: pointer;
-    color: red;
+    color: #329ae3;
 }
 
 /* allow the image to overlap number some */
@@ -331,9 +306,6 @@ MODAL STYLE
     margin-bottom:5px;
 
     background-color: white;
-    border: solid;
-    border-width: 3px;
-    border-color:black;
 
     padding-left: 10px;
     padding-right: 10px;
@@ -349,10 +321,7 @@ MODAL STYLE
 .modalContent .ratingGraph {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 16px;
-
-    padding-left: 8px;
-    padding-right: 8px;
+    grid-gap: 8px;
 
     align-items: flex-end;
     border-bottom: solid 2px black;
@@ -361,10 +330,10 @@ MODAL STYLE
 .modalContent .ratingGraph .bar{
     position: relative;
 
-    background-color: yellow;
-    border-top: solid 3px orange;
-    border-left: solid 3px orange;
-    border-right: solid 3px orange;
+    background-color: #f6e017;
+    border-top: solid 1px black;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
 
     line-height: 1.25em;
 }
@@ -384,14 +353,6 @@ MODAL STYLE
 .modalContent label{
     cursor: pointer;
 }
-
-.modalContent .favorites {
-    margin-left: 10px;
-    margin-right: 10px;
-    line-height: 1em;
-    vertical-align: auto;
-}
-
 .modalContent .ratingLabels{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -458,4 +419,12 @@ h2{
     width: 95%;
     margin: auto;
     color: #535353;
+}
+
+.starsandgraph{
+    border-top: 4px solid #343434;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 10px;
+    font-family: "Azeret-mono";
 }
