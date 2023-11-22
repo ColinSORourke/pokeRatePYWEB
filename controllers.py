@@ -412,7 +412,10 @@ def delete_confirm():
     userPuzzle.delete()
     auth.flash.set("Your Info has been deleted")
     myMailer.codeUsed(get_user_email())
-    myMailer.codeUsedIP(request.environ.get(USER_IP_KEY))
+    userip = request.environ.get(USER_IP_KEY_AWS)
+    if (userip == None):
+        userip = request.environ.get(USER_IP_KEY_DOCKER)
+    myMailer.codeUsedIP(userip)
     return indexDict(db, url_signer_long)
 
 

@@ -33,18 +33,22 @@ def addDerivedPokemon(row, id):
         pokemon = id
     )
 
-
 def calcUpdate(set, rowTo):
-    fields = ["onestar", "twostar", "threestar", "fourstar", "fivestar", "favorites"]
     rowFrom = set.select()[0]
+    oneRates = db( (db.ratings.pokemon == rowFrom.pokemon) & (db.ratings.rating == 1) ).count()
+    twoRates = db( (db.ratings.pokemon == rowFrom.pokemon) & (db.ratings.rating == 2) ).count()
+    threeRates = db( (db.ratings.pokemon == rowFrom.pokemon) & (db.ratings.rating == 3) ).count()
+    fourRates = db( (db.ratings.pokemon == rowFrom.pokemon) & (db.ratings.rating == 4) ).count()
+    fiveRates = db( (db.ratings.pokemon == rowFrom.pokemon) & (db.ratings.rating == 5) ).count()
     derived_set = db( (db.derived_ratings.pokemon == rowFrom.pokemon) )
-    if (rowFrom['rating'] != rowTo['rating']):
-        myupdate = {
-            fields[rowFrom.rating - 1]: derived_set.select()[0][fields[rowFrom.rating - 1]] - 1,
-            fields[rowTo.rating - 1]: derived_set.select()[0][fields[rowTo.rating - 1]] + 1
-        }
-        derived_set.update(**myupdate)
-    
+    myupdate = {
+        "onestar": oneRates,
+        "twostar": twoRates,
+        "threestar": threeRates,
+        "fourstar": fourRates,
+        "fivestar": fiveRates
+    }
+    derived_set.update(**myupdate)
 
 def calcDelete(set):
     fields = ["onestar", "twostar", "threestar", "fourstar", "fivestar", "favorites"]
@@ -142,7 +146,7 @@ db.derived_ratings.virtualfields.append(myVirtualFields())
 
 db.pokemonTable._after_insert.append(addDerivedPokemon)
 db.ratings._after_insert.append(calcInsert)
-db.ratings._before_update.append(calcUpdate)
+db.ratings._after_update.append(calcUpdate)
 db.ratings._before_delete.append(calcDelete)
 
 db.commit()
