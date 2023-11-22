@@ -42,7 +42,7 @@ from py4web import action, request, abort, redirect, URL
 from yatl.helpers import A
 from .common import db, myMailer, session, T, cache, logger, flash
 
-from .common import auth, url_signer
+from .common import auth, url_signer_short, url_signer_long
 from .models import get_user_email
 from .__init__ import __version__
 
@@ -54,42 +54,42 @@ USER_IP_KEY_DOCKER = "REMOTE_ADDR"
 # Main Home Page
 @action('home')
 @action('index')
-@action.uses('home.html', session, auth.flash, url_signer, db, auth)
+@action.uses('home.html', session, auth.flash, url_signer_long, db, auth)
 def index():
     # Load the static data of every pokemon 
-    return indexDict(db, url_signer)
+    return indexDict(db, url_signer_long)
 
 # Page that displays all the pokemon.
 @action("pokedex")
-@action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
+@action.uses("pokedex.html", session, auth.flash, url_signer_long, db, auth, T)
 def pokedex():
     # Load the static data of every pokemon 
     data = json.loads(db(db.pokemonTable).select().as_json())
 
     return dict(
         dexJSON = json.dumps(data),
-        get_rating_url = URL('get_rating', signer=url_signer),
-        set_rating_url = URL('set_rating', signer=url_signer),
-        remove_rating_url = URL('remove_rating', signer=url_signer),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
-        req_delete_url = URL('request_delete', signer=url_signer),
+        get_rating_url = URL('get_rating', signer=url_signer_long),
+        set_rating_url = URL('set_rating', signer=url_signer_long),
+        remove_rating_url = URL('remove_rating', signer=url_signer_long),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer_long),
+        req_delete_url = URL('request_delete', signer=url_signer_long),
         target_poke = "000000",
         __version__ = __version__
     )
 
 @action("userdex")
-@action.uses("userdex.html", session, auth.flash, url_signer, db, auth, T)
+@action.uses("userdex.html", session, auth.flash, url_signer_long, db, auth, T)
 def pokedex():
     # Load the static data of every pokemon 
     data = json.loads(db(db.pokemonTable).select().as_json())
 
     return dict(
         dexJSON = json.dumps(data),
-        get_rating_url = URL('get_rating', signer=url_signer),
-        set_rating_url = URL('set_rating', signer=url_signer),
-        remove_rating_url = URL('remove_rating', signer=url_signer),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
-        req_delete_url = URL('request_delete', signer=url_signer),
+        get_rating_url = URL('get_rating', signer=url_signer_long),
+        set_rating_url = URL('set_rating', signer=url_signer_long),
+        remove_rating_url = URL('remove_rating', signer=url_signer_long),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer_long),
+        req_delete_url = URL('request_delete', signer=url_signer_long),
         target_poke = "000000",
         __version__ = __version__
     )
@@ -97,42 +97,42 @@ def pokedex():
 # Page that displays all the pokemon.
 # Having a number acutomatically launches the modal of a certain pokemon
 @action("pokedex/<number>")
-@action.uses("pokedex.html", session, auth.flash, url_signer, db, auth, T)
+@action.uses("pokedex.html", session, auth.flash, url_signer_long, db, auth, T)
 def pokedex(number):
     # Load the static data of every pokemon 
     data = json.loads(db(db.pokemonTable).select().as_json())
 
     return dict(
         dexJSON = json.dumps(data),
-        get_rating_url = URL('get_rating', signer=url_signer),
-        set_rating_url = URL('set_rating', signer=url_signer),
-        remove_rating_url = URL('remove_rating', signer=url_signer),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
-        req_delete_url = URL('request_delete', signer=url_signer),
+        get_rating_url = URL('get_rating', signer=url_signer_long),
+        set_rating_url = URL('set_rating', signer=url_signer_long),
+        remove_rating_url = URL('remove_rating', signer=url_signer_long),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer_long),
+        req_delete_url = URL('request_delete', signer=url_signer_long),
         target_poke = number,
         __version__ = __version__
     )
 
 # Page that displays the ranking data of all the pokemon.
 @action("rankings")
-@action.uses('data.html', session, auth.flash, url_signer, db, auth, T)
+@action.uses('data.html', session, auth.flash, url_signer_long, db, auth, T)
 def data():
     # Load the static data of every pokemon 
     data = json.loads(db(db.pokemonTable).select().as_json())
 
     return dict(
         dexJSON = json.dumps(data),
-        get_rating_url = URL('get_rating', signer=url_signer),
-        set_rating_url = URL('set_rating', signer=url_signer),
-        get_all_ratings_url = URL('get_all_ratings', signer=url_signer),
-        req_delete_url = URL('request_delete', signer=url_signer),
+        get_rating_url = URL('get_rating', signer=url_signer_long),
+        set_rating_url = URL('set_rating', signer=url_signer_long),
+        get_all_ratings_url = URL('get_all_ratings', signer=url_signer_long),
+        req_delete_url = URL('request_delete', signer=url_signer_long),
         pokedex_url = URL('pokedex'),
         __version__ = __version__
     )
 
 # Page that plays a daily puzzle
 @action("puzzle")
-@action.uses('puzzle.html', session, auth.flash, url_signer, db, auth, T)
+@action.uses('puzzle.html', session, auth.flash, url_signer_long, db, auth, T)
 def data():
     # Load the static data of every pokemon 
     data = json.loads(db(db.pokemonTable).select().as_json())
@@ -151,11 +151,11 @@ def data():
     return dict(
         dexJSON = json.dumps(data),
         myTargetPokemon = json.dumps(targetPoke),
-        get_rating_url = URL('get_rating', signer=url_signer),
+        get_rating_url = URL('get_rating', signer=url_signer_long),
         pokedex_url = URL('pokedex'),
-        req_delete_url = URL('request_delete', signer=url_signer),
-        get_plays_url = URL('get_puzzle_play', signer=url_signer),
-        post_plays_url = URL('post_puzzle_play', signer=url_signer)
+        req_delete_url = URL('request_delete', signer=url_signer_long),
+        get_plays_url = URL('get_puzzle_play', signer=url_signer_long),
+        post_plays_url = URL('post_puzzle_play', signer=url_signer_long)
     )
 
 #----------------------------------------#
@@ -165,16 +165,16 @@ def data():
 # SAME GOES FOR ADD URL
 #----------------------------------------#
 
-@action("puzzletest")
-@action.uses(db)
-def puzzletest():
-    db.puzzle_plays.insert(
-        date = "nonsense",
-        user = "nonsense",
-        guesses = "nonsense",
-        guessCount = "6",
-        success = False
-    )
+# @action("puzzletest")
+# @action.uses(db)
+# def puzzletest():
+#     db.puzzle_plays.insert(
+#         date = "nonsense",
+#         user = "nonsense",
+#         guesses = "nonsense",
+#         guessCount = "6",
+#         success = False
+#     )
 
 # @action("setup")
 # @action.uses(db)
@@ -236,7 +236,7 @@ def puzzletest():
 
 # Get rating returns the rating data of an individual pokemon
 @action("get_rating")
-@action.uses(session, url_signer.verify(), db, auth)
+@action.uses(session, url_signer_long.verify(), db, auth)
 def get_rating():
     pokID = request.params.get('id')
     
@@ -274,7 +274,7 @@ def get_rating():
 
 # Set rating Post funciotn
 @action("set_rating", method='POST')
-@action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
+@action.uses(session, url_signer_long.verify(), db, auth.flash, auth.enforce())
 def set_rating():
     id = request.params.get('id')
     rating = request.params.get('rating')
@@ -315,7 +315,7 @@ def set_rating():
     return "ok"
 
 @action("remove_rating", method="POST")
-@action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
+@action.uses(session, url_signer_long.verify(), db, auth.flash, auth.enforce())
 def remove_rating():
     id = request.params.get('id')
 
@@ -326,7 +326,7 @@ def remove_rating():
     return "Rating removed!"
 
 @action("get_puzzle_play")
-@action.uses(session, url_signer.verify(), db, auth.flash, auth.enforce())
+@action.uses(session, url_signer_long.verify(), db, auth.flash, auth.enforce())
 def get_puzzle_play():
     sql = "SELECT success, guesses FROM puzzle_plays WHERE user='" + str(get_user_email()) + "'"
     userPlays = db.execute(sql)
@@ -335,7 +335,7 @@ def get_puzzle_play():
     )
 
 @action("post_puzzle_play", method="POST")
-@action.uses(session, url_signer.verify(), db, auth.flash)
+@action.uses(session, url_signer_long.verify(), db, auth.flash)
 def post_puzzle_play():
     date = datetime.date.today()
     user = get_user_email()
@@ -371,7 +371,7 @@ def post_puzzle_play():
 
 # Returns rating data for every pokemon
 @action("get_all_ratings")
-@action.uses(session, url_signer.verify(), db, auth)
+@action.uses(session, url_signer_long.verify(), db, auth)
 def get_all_ratings():
     # All general ratings
     allRatings = db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon)
@@ -386,7 +386,7 @@ def get_all_ratings():
     )
 
 @action("request_delete")
-@action.uses('home.html', session, myMailer, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
+@action.uses('home.html', session, myMailer, auth.flash, url_signer_short, url_signer_long.verify(), db, auth.enforce())
 def request_delete():
     #print("USE THIS LINK TO DELETE YOUR DATA")
     myMailer.active()
@@ -394,16 +394,16 @@ def request_delete():
     if (userip == None):
         userip = request.environ.get(USER_IP_KEY_DOCKER)
     if (myMailer.canEmail(get_user_email(), userip)):
-        myLink = URL("delete_confirm", signer=url_signer)
+        myLink = URL("delete_confirm", signer=url_signer_short)
         myMailer.sendDeleteEmail(get_user_email(), myLink, userip)
         #print(myLink)
         auth.flash.set("Check your email for link to delete")
     else:
         auth.flash.set("Too many emails sent recently!")
-    return indexDict(db, url_signer)
+    return indexDict(db, url_signer_long)
 
 @action("delete_confirm")
-@action.uses('home.html', session, auth.flash, url_signer, url_signer.verify(), db, auth.enforce())
+@action.uses('home.html', session, auth.flash, url_signer_short, url_signer_short.verify(), db, auth.enforce())
 def delete_confirm():
     #print("Deleting all data of " + get_user_email())
     userRatings = db((db.ratings.rater) == get_user_email())
@@ -413,7 +413,7 @@ def delete_confirm():
     auth.flash.set("Your Info has been deleted")
     myMailer.codeUsed(get_user_email())
     myMailer.codeUsedIP(request.environ.get(USER_IP_KEY))
-    return indexDict(db, url_signer)
+    return indexDict(db, url_signer_long)
 
 
 # Date seed function that converts every date to a unique integer seed

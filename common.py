@@ -129,5 +129,6 @@ from .emailer import emailer
 
 myMailer = emailer(session, spam_db)
 
-url_signer = URLSigner(session, lifespan = 600)
-auth = AuthByEmail(session, url_signer, myMailer)
+url_signer_short = URLSigner(session, lifespan = 600)
+url_signer_long = URLSigner(session, lifespan = 3600 * 12)
+auth = AuthByEmail(session, url_signer_short, myMailer)
