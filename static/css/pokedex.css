@@ -10,7 +10,7 @@ html {
 #returnToTop {
     position: fixed;
     font-size: 50px;
-    color: blue;
+    color: #329ae3;
     bottom: 90px;
     right: 20px;
     z-index: 5;
@@ -130,7 +130,7 @@ MODAL STARS
 
 /* Stars showing general rating. Hiding overflow & Nowrap allow us to show a star% by setting width%*/
 .modalContent .filledStars{
-    color: lightgreen;
+    color: orange;
     overflow: hidden;
     font-size: 0px;
     white-space: nowrap;
@@ -164,8 +164,27 @@ MODAL STARS
     font-size: 40px;
 }
 
+.modalContent .outlineStars{
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    direction: rtl;
+    pointer-events: none;
+    font-size: 0px;
+}
+
+.modalContent .outlineStars i{
+    font-size: 40px;
+}
+
 @media (max-width:600px){
     .modalContent .inputStars label::before{
+        font-size: 28px;
+    }
+
+    .modalContent .outlineStars i{
         font-size: 28px;
     }
 }
@@ -179,7 +198,7 @@ MODAL STARS
 /* different color full star for hover. Important to override CSS normal specificity hierarchy */
 .modalContent .inputStars label:hover::before{
     content: "\f005";
-    color: orange !important;
+    color: #329ae3 !important;
 }
 
 .modalContent .favorites input:checked ~ label::before{
@@ -200,6 +219,11 @@ MODAL STARS
     margin-top: auto;
     margin-bottom: auto;
     font-size: 20px;
+}
+
+.modalContent .ratings .fa-ban:hover{
+    color:#E5603d;
+    cursor: pointer;
 }
 
 .modalContent .favorites label{

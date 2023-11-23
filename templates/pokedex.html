@@ -30,20 +30,39 @@
                 <div class="ratings">
                     <div class="starContainer">
                         <p>Star Ratings</p>
-                        <div class="filledStars" :style="widthPerc(modalPokemon)">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                        <div style="position:relative;">
+                            <div class="filledStars" :style="widthPerc(modalPokemon)">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="outlineStars">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
                         </div>
-                        <div class="inputStars">
-                            <input type="radio" id="modalStar5" value="5" name="modalStars" :checked="check(modalPokemon, 5)"><label @click="ratePok(modalPokemon, 5)" class="fa fa-star-o" for="modalStar5"></label>
-                            <input type="radio" id="modalStar4" value="4" name="modalStars" :checked="check(modalPokemon, 4)"><label @click="ratePok(modalPokemon, 4)" class="fa fa-star-o" for="modalStar4"></label>
-                            <input type="radio" id="modalStar3" value="3" name="modalStars" :checked="check(modalPokemon, 3)"><label @click="ratePok(modalPokemon, 3)" class="fa fa-star-o" for="modalStar3"></label>
-                            <input type="radio" id="modalStar2" value="2" name="modalStars" :checked="check(modalPokemon, 2)"><label @click="ratePok(modalPokemon, 2)" class="fa fa-star-o" for="modalStar2"></label>
-                            <input type="radio" id="modalStar1" value="1" name="modalStars" :checked="check(modalPokemon, 1)"><label @click="ratePok(modalPokemon, 1)" class="fa fa-star-o" for="modalStar1"></label>
+                        <div style="position:relative;">
+                            <div class="inputStars">
+                                <input type="radio" id="modalStar5" value="5" name="modalStars" :checked="check(modalPokemon, 5)"><label @click="ratePok(modalPokemon, 5)" class="fa fa-star-o" for="modalStar5"></label>
+                                <input type="radio" id="modalStar4" value="4" name="modalStars" :checked="check(modalPokemon, 4)"><label @click="ratePok(modalPokemon, 4)" class="fa fa-star-o" for="modalStar4"></label>
+                                <input type="radio" id="modalStar3" value="3" name="modalStars" :checked="check(modalPokemon, 3)"><label @click="ratePok(modalPokemon, 3)" class="fa fa-star-o" for="modalStar3"></label>
+                                <input type="radio" id="modalStar2" value="2" name="modalStars" :checked="check(modalPokemon, 2)"><label @click="ratePok(modalPokemon, 2)" class="fa fa-star-o" for="modalStar2"></label>
+                                <input type="radio" id="modalStar1" value="1" name="modalStars" :checked="check(modalPokemon, 1)"><label @click="ratePok(modalPokemon, 1)" class="fa fa-star-o" for="modalStar1"></label>
+                            </div>
+                            <div class="outlineStars">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
                         </div>
+                        
                     </div>
                     <i class="fa fa-ban" @click="unratePok(modalPokemon)"></i>
                 </div>
@@ -136,6 +155,13 @@
                                     <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
                                     <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
                                 </div>
+                                <div class="outlineStars">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -180,6 +206,13 @@
                                 <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
                                 <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
                                 <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                            </div>
+                            <div class="outlineStars">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
                             </div>
                         </div>
                     </div>

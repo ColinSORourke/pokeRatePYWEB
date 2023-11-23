@@ -128,7 +128,20 @@ STAR LOGIC
     overflow: hidden;
     white-space: nowrap;
     direction: rtl;
-    -webkit-text-stroke: 1px white;
+}
+
+.pokemon_entry .outlineStars{
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    direction: rtl;
+    pointer-events: none;
+}
+
+.pokemon_entry .outlineStars i{
+    font-size: 32px;
 }
 
 .pokemon_entry .inputStars input{
@@ -151,7 +164,7 @@ STAR LOGIC
 
 .pokemon_entry .inputStars label:hover::before{
     content: "\f005";
-    color: goldenrod !important;
+    color: #329ae3 !important;
 }
 
 /****************
