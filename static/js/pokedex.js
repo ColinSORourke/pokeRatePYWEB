@@ -129,6 +129,7 @@ let init = (app) => {
         toggleModal(p){
             app.vue.showModal = !app.vue.showModal;
             app.vue.modalPokemon = p;
+            app.vue.modalDisplayInd = 0;
             app.vue.modalDisplayPokemon = p;
         },
         incrementModal(i){

@@ -1,6 +1,13 @@
 -------- TO DO ---------
 * Comment Files
 
+-------- PROBLEM FORMS -------
+* Partner Pikachu
+* Paldean Tauros Forms
+* Gourgeist
+* Pumpkaboo
+* Zen Mode Darmanitan (Galarian Zen)
+* Own Tempo Rockruff
 
 -------- DOCKER LOCAL LAUNCH --------
 From the py4web directory run:
@@ -58,3 +65,5 @@ Temporarily comment out Other tables from Models.py
 Temporarily set "DB_Fake_migrate" setting -> False
 Run site
 Return to normal.
+
+
