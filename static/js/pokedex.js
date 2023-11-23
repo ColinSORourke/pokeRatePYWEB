@@ -22,6 +22,8 @@ let init = (app) => {
         fadeCountdown: 0,
         showModal: false,
         modalPokemon: dexJSON[0],
+        modalDisplayInd: 0,
+        modalDisplayPokemon: dexJSON[0],
         query: "",
         userRatings: 0,
         // Complete as you see fit.
@@ -127,9 +129,11 @@ let init = (app) => {
         toggleModal(p){
             app.vue.showModal = !app.vue.showModal;
             app.vue.modalPokemon = p;
+            app.vue.modalDisplayPokemon = p;
         },
         incrementModal(i){
             p = app.vue.modalPokemon;
+
             if (p.categoryIndex + i > app.vue.pokemonPerCategory[p["category"]].length){
                 // Do nothing
             }
@@ -138,7 +142,27 @@ let init = (app) => {
             } 
             else {
                 app.vue.modalPokemon = app.vue.pokemonPerCategory[p["category"]][p.categoryIndex + i];
+                app.vue.modalDisplayInd = 0;
+                app.vue.modalDisplayPokemon = app.vue.pokemonPerCategory[p["category"]][p.categoryIndex + i];
             }
+            
+        },
+        modalAltDisplay(){
+            originalInd = app.vue.modalPokemon["dexIndex"];
+            if (app.vue.modalPokemon["formList"].length > 1 && app.vue.modalPokemon['form'] == "Basic"){
+                app.vue.modalDisplayInd += 1;
+                newPokemon = app.vue.myPokemon[originalInd + app.vue.modalDisplayInd]
+                while ( newPokemon["significantForm"] && newPokemon["number"] == app.vue.modalPokemon["number"] ){
+                    app.vue.modalDisplayInd += 1;
+                    newPokemon = app.vue.myPokemon[originalInd + app.vue.modalDisplayInd]
+                }
+                if (newPokemon["number"] != app.vue.modalPokemon["number"]){
+                    app.vue.modalDisplayInd = 0;
+                    newPokemon = app.vue.myPokemon[originalInd + app.vue.modalDisplayInd]
+                }
+                app.vue.modalDisplayPokemon = newPokemon;
+            }
+            
             
         },
         barHeight(i){
@@ -261,6 +285,7 @@ let init = (app) => {
                 if (currPoke["significantForm"]){
                     pokemonPerCategory[currPoke["category"]].push(currPoke);
                     currPoke.categoryIndex = pokemonPerCategory[currPoke["category"]].length - 1
+                    currPoke.dexIndex = i;
                 }
                 i += 1
             }

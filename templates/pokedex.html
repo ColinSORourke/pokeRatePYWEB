@@ -16,14 +16,14 @@
             <div class="pokeImgContainer">
                 <div class="imgArrows">
                     <i class="fa fa-arrow-left" :style="hideLeftArrow()" @click="incrementModal(-1)"></i>
-                    <img :src="pokemonImagePath(modalPokemon)" class="pokeImg">
+                    <img :src="pokemonImagePath(modalDisplayPokemon)" @click="modalAltDisplay()" class="pokeImg">
                     <i class="fa fa-arrow-right" :style="hideRightArrow()" @click="incrementModal(1)"></i>
                 </div>  
             </div>
 
             <div class="typesContainer">
-                <div class="typeContainer"><img :src="typeImagePath(modalPokemon, 0)" class="typeImg"></div>
-                <div v-if="modalPokemon.types.length == 2" class="typeContainer"><img :src="typeImagePath(modalPokemon, 1)" class="typeImg"></div>
+                <div class="typeContainer"><img :src="typeImagePath(modalDisplayPokemon, 0)" class="typeImg"></div>
+                <div v-if="modalDisplayPokemon.types.length == 2" class="typeContainer"><img :src="typeImagePath(modalDisplayPokemon, 1)" class="typeImg"></div>
             </div>
 
             <div class="starsandgraph">
@@ -191,6 +191,7 @@
 [[block page_scripts]]
 <script>
     let dexJSON = [[=XML(dexJSON)]]
+    console.log(dexJSON);
     let get_rating_url = "[[=XML(get_rating_url)]]"
     let set_rating_url = "[[=XML(set_rating_url)]]"
     let remove_rating_url = "[[=XML(remove_rating_url)]]"
