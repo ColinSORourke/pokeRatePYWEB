@@ -1,5 +1,10 @@
 -------- TO DO ---------
 * Comment Files
+* Add Stats Page to Puzzle.html
+* Call AWS or knowledgeable person about Data Transfer Out
+* Minor Style Tweaks
+    * Redo Star Widgets?
+* Add some visual for Display Alt Forms
 
 -------- PROBLEM FORMS -------
 * Partner Pikachu

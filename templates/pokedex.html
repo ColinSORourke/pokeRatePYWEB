@@ -143,6 +143,7 @@
             </div>
         </div>   
         <div v-else>
+            <h2>Search Results</h2>
             <div class="pokemon_list">
                 <div v-for="p in filteredPokes()" class="pokemon_entry" @click="toggleModal(p)">
                     <i v-if="p.userFavorite"class="fa fa-heart"></i>
