@@ -30,8 +30,46 @@
         </div>  
     </div>
 
+    <div v-if="showStats" class="modalBG">
+        <div class="modalContent">
+            <i class="fa fa-times" @click="showStats = false"></i>
+            <h1>My Stats</h1>
+            <div class="userStats">
+                <p>Total Plays: {{ userStats[0] }}</p>
+                <p>Total Solves: {{ userStats[1] }}</p>
+                <p>Best Streak: {{ userStats[2] }}</p>
+                <p>Current Streak: {{ userStats[3] }}</p>
+            </div>
+            <p style="font-style: italic;"> (Streak counts any full plays, success or fail) </p>
+            <div class="graphContainer">
+                <div class="ratingGraph">
+                    <div class="bar" :style="barHeight(1)"> <div>{{userStats[4][0]}}</div> </div>
+                    <div class="bar" :style="barHeight(2)"> <div>{{userStats[4][1]}}</div>  </div>
+                    <div class="bar" :style="barHeight(3)"> <div>{{userStats[4][2]}}</div>  </div>
+                    <div class="bar" :style="barHeight(4)"> <div>{{userStats[4][3]}}</div>  </div>
+                    <div class="bar" :style="barHeight(5)"> <div>{{userStats[4][4]}}</div>  </div>
+                    <div class="bar" :style="barHeight(6)"> <div>{{userStats[4][5]}}</div>  </div>
+                </div>
+                <div class="ratingLabels">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                </div>
+                <div style="margin-top: -10px;">Guesses</div>
+            </div>
+        </div>  
+
+    </div>
+
     <h1>Guess todays Pokémon!</h1>
-    <h3 @click="showModal = true">How to play</h3>
+    <div style="display: flex; justify-content: center;">
+        <h3 @click="showModal = true">How to play</h3>
+        <h3 v-if="statsLoaded" @click="showStats = true">My Stats</h3>
+    </div> 
+    
     
     <div class="puzzle_display">
         <div>

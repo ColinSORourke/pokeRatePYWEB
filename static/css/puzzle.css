@@ -36,6 +36,7 @@ h3 {
     font-weight:normal;
     text-decoration: underline;
     cursor: pointer;
+    margin: 10px;
 }
 
 .fa-question-circle{
@@ -289,4 +290,78 @@ h3 {
 
 .guessname:hover{
     text-decoration: underline;
+}
+
+/* Star graph at the bottom. */
+.modalContent .graphContainer {
+    height: 120px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom:5px;
+
+    background-color: white;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+
+    display:grid;
+    grid-template-rows: 7fr 1fr;
+
+    font-size: 12px;
+    text-align: center;
+}
+
+.modalContent .userStats{
+    display:grid;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* bar part of graph */ 
+.modalContent .ratingGraph {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 8px;
+
+    align-items: flex-end;
+    border-bottom: solid 2px black;
+}
+
+.modalContent .ratingGraph .bar{
+    position: relative;
+
+    background-color: #749F91;
+    border-top: solid 1px black;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+
+    line-height: 1.25em;
+}
+
+.modalContent .ratingGraph .bar div{
+    margin-top: -16px;
+}
+
+/* label part of graph */
+.modalContent .ratings {
+    display: flex;
+    width: min-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modalContent label{
+    cursor: pointer;
+}
+.modalContent .ratingLabels{
+    
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 8px;
+    line-height: 2em
 }

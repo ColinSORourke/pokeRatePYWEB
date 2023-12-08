@@ -326,12 +326,12 @@ def remove_rating():
     return "Rating removed!"
 
 @action("get_puzzle_play")
-@action.uses(session, url_signer_long.verify(), db, auth.flash, auth.enforce())
+@action.uses(session, url_signer_long.verify(), db, auth.flash)
 def get_puzzle_play():
-    sql = "SELECT success, guesses FROM puzzle_plays WHERE user='" + str(get_user_email()) + "'"
-    userPlays = db.execute(sql)
+    sql = "SELECT date, success, guesses, guessCount FROM puzzle_plays WHERE user='" + str(get_user_email()) + "' ORDER BY date DESC"
+    userPlays = db.executesql(sql)
     return dict(
-        userPlays = json.dumps(userPlays),
+        userPlays = userPlays,
     )
 
 @action("post_puzzle_play", method="POST")

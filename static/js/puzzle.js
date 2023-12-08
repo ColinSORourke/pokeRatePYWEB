@@ -20,6 +20,9 @@ let init = (app) => {
         myGuesses: [],
         noGuess: true,
         showModal: false,
+        showStats: false,
+        statsLoaded: false,
+        userStats: [0, 0, 0, 0, [0, 0, 0, 0, 0, 0]],
         loading: 0,
         recentGuess: {},
     };
@@ -210,6 +213,20 @@ let init = (app) => {
             const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             let d = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}));
             return months[d.getMonth()] + d.getDate() + "y" + d.getFullYear();
+        },
+        barHeight(n){
+            let maxRates = 0;
+            let j = 0;
+            while (j < 6){
+                if (app.vue.userStats[4][j] > maxRates){
+                    maxRates = app.vue.userStats[4][j];
+                }
+                j += 1;
+            }
+            if(maxRates == 0){
+                maxRates = 1;
+            }
+            return "height: " + (app.vue.userStats[4][n-1]/maxRates) * 100 + "%;"
         }
     }
     // This creates the Vue instance.
@@ -246,6 +263,54 @@ let init = (app) => {
         } else {
             // Sorry! No Web Storage support..
         }
+
+        axios.get(get_plays_url).then(result => {
+            console.log(result);
+            if (result.data.userPlays.length != 0){
+                userPlays = result.data.userPlays
+    
+                i = 0;
+                solves = [0, 0, 0, 0, 0, 0]
+                app.vue.userStats[0] = userPlays.length;
+
+                streakPos = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}));
+                streakPos.setHours(0)
+                streakPos.setMinutes(0)
+                streakPos.setSeconds(0)
+                streakPos.setMilliseconds(0)
+                currStreak = 0;
+                presentStreak = true;
+
+                while (i < userPlays.length){
+                    thisPlay = userPlays[i]
+                    
+                    if (thisPlay[1] == "T"){
+                        app.vue.userStats[1] += 1;
+                    }
+                    solves[thisPlay[3] - 1] += 1;
+
+                    if ( (streakPos - new Date(thisPlay[0])) / (60 * 60 * 24 * 1000) <= 1){
+                        currStreak += 1;
+                    } else {
+                        if (presentStreak){
+                            app.vue.userStats[3] = currStreak;
+                        }
+                        presentStreak = false;
+                        if (currStreak > app.vue.userStats[2]){
+                            app.vue.userStats[2] = currStreak;
+                        }
+                        currStreak = 1;
+                    }
+                    streakPos = new Date(thisPlay[0])
+                    i += 1;
+                }
+                if (currStreak > app.vue.userStats[2]){
+                    app.vue.userStats[2] = currStreak;
+                }
+                app.vue.userStats[4] = solves;
+                app.vue.statsLoaded = true;
+            }
+        })
 
     };
 
