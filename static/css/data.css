@@ -89,7 +89,11 @@
     font-size: 28px;
 }
 
-.databox .fa-star{
+.databox .colinstar{
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    font-size: 28px;
     color: #F4D23B;
 }
 

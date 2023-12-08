@@ -48,25 +48,25 @@
                         </div>
                         <div class="starContainer">
                             <div class="filledStars" :style="widthPerc(p)">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
                             </div>
                             <div class="inputStars">
-                                <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
-                                <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
-                                <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
-                                <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
-                                <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                                <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="colinstar open" :for="starIDRate(p, 5)"></label>
+                                <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="colinstar open" :for="starIDRate(p, 4)"></label>
+                                <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="colinstar open" :for="starIDRate(p, 3)"></label>
+                                <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="colinstar open" :for="starIDRate(p, 2)"></label>
+                                <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="colinstar open" :for="starIDRate(p, 1)"></label>
                             </div>
                             <div class="outlineStars">
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
         <h1>Generations</h1>
         <div class="pokemon_list">
             <div v-for="n in 9" class="databox">
-                <i v-if="getGen(n).statuses[2] == 1" class="fa fa-star"></i>
+                <i v-if="getGen(n).statuses[2] == 1" class="colinstar full"></i>
                 <i v-if="getGen(n).statuses[2] == -1" class="fa fa-thumbs-down"></i>
                 <h3>{{romanNumGen(getGen(n).genName)}}</h3>
                 <div>Average rating:<br><span class="ratingNum">{{abbrevNum(getGen(n).userAve)}}</span></div>
@@ -87,7 +87,7 @@
         <h1>Types</h1>
         <div class="pokemon_list">
             <div v-for="t in types" class="databox">
-                <i v-if="t.statuses[2] == 1" class="fa fa-star"></i>
+                <i v-if="t.statuses[2] == 1" class="colinstar full"></i>
                 <i v-if="t.statuses[2] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Average rating:<br><span class="ratingNum">{{abbrevNum(t.userAve)}}</span></div>
@@ -121,25 +121,25 @@
                         </div>
                         <div class="starContainer">
                             <div class="filledStars" :style="widthPerc(p)">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
                             </div>
                             <div class="inputStars">
-                                <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
-                                <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
-                                <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
-                                <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
-                                <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                                <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="colinstar open" :for="starIDRate(p, 5)"></label>
+                                <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="colinstar open" :for="starIDRate(p, 4)"></label>
+                                <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="colinstar open" :for="starIDRate(p, 3)"></label>
+                                <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="colinstar open" :for="starIDRate(p, 2)"></label>
+                                <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="colinstar open" :for="starIDRate(p, 1)"></label>
                             </div>
                             <div class="outlineStars">
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
                               </div>
                         </div>
                     </div>
@@ -195,25 +195,25 @@
                         </div>
                         <div class="starContainer">
                             <div class="filledStars" :style="widthPerc(p)">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
+                                <i class="colinstar full"></i>
                             </div>
                             <div class="inputStars">
-                                <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="fa fa-star-o" :for="starIDRate(p, 5)"></label>
-                                <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="fa fa-star-o" :for="starIDRate(p, 4)"></label>
-                                <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="fa fa-star-o" :for="starIDRate(p, 3)"></label>
-                                <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="fa fa-star-o" :for="starIDRate(p, 2)"></label>
-                                <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="fa fa-star-o" :for="starIDRate(p, 1)"></label>
+                                <input type="radio" :id="starIDRate(p, 5)" value="5" :name="starID(p)" :checked="check(p, 5)"><label @click="ratePok(p, 5)" class="colinstar open" :for="starIDRate(p, 5)"></label>
+                                <input type="radio" :id="starIDRate(p, 4)" value="4" :name="starID(p)" :checked="check(p, 4)"><label @click="ratePok(p, 4)" class="colinstar open" :for="starIDRate(p, 4)"></label>
+                                <input type="radio" :id="starIDRate(p, 3)" value="3" :name="starID(p)" :checked="check(p, 3)"><label @click="ratePok(p, 3)" class="colinstar open" :for="starIDRate(p, 3)"></label>
+                                <input type="radio" :id="starIDRate(p, 2)" value="2" :name="starID(p)" :checked="check(p, 2)"><label @click="ratePok(p, 2)" class="colinstar open" :for="starIDRate(p, 2)"></label>
+                                <input type="radio" :id="starIDRate(p, 1)" value="1" :name="starID(p)" :checked="check(p, 1)"><label @click="ratePok(p, 1)" class="colinstar open" :for="starIDRate(p, 1)"></label>
                             </div>
                             <div class="outlineStars">
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
+                                <i class="colinstar open"></i>
                               </div>
                         </div>
                     </div>
@@ -246,7 +246,7 @@
         <h1>Generations</h1>
         <div class="pokemon_list">
             <div v-if="displayType == 'Rate'" v-for="n in 9" class="databox" :style="genBoxShadow(n, 0)">
-                <i v-if="getGen(n).statuses[0] == 1" class="fa fa-star"></i>
+                <i v-if="getGen(n).statuses[0] == 1" class="colinstar full"></i>
                 <i v-if="getGen(n).statuses[0] == -1" class="fa fa-thumbs-down"></i>
                 <h3>{{romanNumGen(getGen(n).genName)}}</h3>
                 <div>Average rating:<br><span class="ratingNum">{{abbrevNum(getGen(n).average)}}</span></div>
@@ -259,7 +259,7 @@
                 
             </div>
             <div v-if="displayType == 'Fave'" v-for="n in 9" class="databox" :style="genBoxShadow(n, 1)">
-                <i v-if="getGen(n).statuses[1] == 1" class="fa fa-star"></i>
+                <i v-if="getGen(n).statuses[1] == 1" class="colinstar full"></i>
                 <i v-if="getGen(n).statuses[1] == -1" class="fa fa-thumbs-down"></i>
                 <h3>{{romanNumGen(getGen(n).genName)}}</h3>
                 <div>Total faves:<br><span class="ratingNum">{{abbrevNum(getGen(n).favesum)}}</span></div>
@@ -276,7 +276,7 @@
         <h1>Types</h1>
         <div class="pokemon_list">
             <div v-if="displayType == 'Rate'" v-for="t in types" class="databox" :style="typeBoxShadow(t, 0)">
-                <i v-if="t.statuses[0] == 1" class="fa fa-star"></i>
+                <i v-if="t.statuses[0] == 1" class="colinstar full"></i>
                 <i v-if="t.statuses[0] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Average rating:<br><span class="ratingNum">{{abbrevNum(t.average)}}</span></div>
@@ -289,7 +289,7 @@
                 
             </div>
             <div v-if="displayType == 'Fave'" v-for="t in types" class="databox" :style="typeBoxShadow(t, 1)">
-                <i v-if="t.statuses[1] == 1" class="fa fa-star"></i>
+                <i v-if="t.statuses[1] == 1" class="colinstar full"></i>
                 <i v-if="t.statuses[1] == -1" class="fa fa-thumbs-down"></i>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Total faves:<br><span class="ratingNum">{{abbrevNum(t.favesum)}}</span></div>

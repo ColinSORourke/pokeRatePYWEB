@@ -162,7 +162,7 @@ MODAL STARS
 
 /* default to empty stars. */
 .modalContent .inputStars label::before{
-    content: "\f006";
+    content: "\2606";
     font-size: 40px;
 }
 
@@ -193,13 +193,13 @@ MODAL STARS
 
 /* Full stars on this and all stars to the left when checked */
 .modalContent .inputStars input:checked ~ label::before{
-    content: "\f005";
+    content: "\2605";
     color: gold;
 }
 
 /* different color full star for hover. Important to override CSS normal specificity hierarchy */
 .modalContent .inputStars label:hover::before{
-    content: "\f005";
+    content: "\2605";
     color: #329ae3 !important;
 }
 

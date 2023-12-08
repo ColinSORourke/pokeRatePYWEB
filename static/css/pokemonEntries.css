@@ -107,7 +107,7 @@ STAR LOGIC
     width: min-content;
     margin-left: auto;
     margin-right: auto;
-    font-family: FontAwesome;
+    font-family: ColinStarFont;
     
 }
 
@@ -149,12 +149,12 @@ STAR LOGIC
 }
 
 .pokemon_entry .inputStars label::before{
-    content: "\f006";
+    content: "\2606";
     font-size: 32px;
 }
 
 .pokemon_entry .inputStars input:checked ~ label::before{
-    content: "\f005";
+    content: "\2605";
     color: gold;
 }
 
@@ -163,7 +163,7 @@ STAR LOGIC
 }
 
 .pokemon_entry .inputStars label:hover::before{
-    content: "\f005";
+    content: "\2605";
     color: #329ae3 !important;
 }
 
