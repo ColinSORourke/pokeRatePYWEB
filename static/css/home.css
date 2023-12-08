@@ -141,16 +141,17 @@ a .pokemon_entry {
 }
 
 .buttonlink{
-    background-color: #749F91;
-    border-radius: 10px;
     padding: 8px;
-    color: white;
     text-decoration: none;
     font-family: freight-sans-pro;
     font-size: 16px;
-    width: fit-content;
+    width: 150px;
     margin-left: auto;
     margin-right: auto;
+    color: white;
+    background-color: #343434;
+    border-radius: 25px;
+    height: 44px;
 }
 
 .buttonlink:hover{

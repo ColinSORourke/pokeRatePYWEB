@@ -300,6 +300,8 @@ let init = (app) => {
                 if (app.data.myPokemon[id_map[target_poke]].significantForm){
                     app.data.showModal = true
                     app.data.modalPokemon = app.data.myPokemon[id_map[target_poke]]
+                    app.data.modalDisplayPokemon = app.data.myPokemon[id_map[target_poke]]
+                    app.data.modalDisplayInd = 0
                 }   
             }
 

@@ -3,7 +3,6 @@
 * Add Stats Page to Puzzle.html
 * Call AWS or knowledgeable person about Data Transfer Out
 * Minor Style Tweaks
-    * Redo Star Widgets?
 * Add some visual for Display Alt Forms
 
 -------- PROBLEM FORMS -------
@@ -72,3 +71,23 @@ Run site
 Return to normal.
 
 
+--------- ESTIMATED AWS COSTS ---------
+* Data Transfer - https://docs.aws.amazon.com/cur/latest/userguide/cur-data-transfers-charges.html
+    * "Data Transfer to internet has no cost"
+* Emails
+    * 10cents per 1000 Emails
+    * Self-capped at 1000 per day
+    * Amazon-capped at 50000 per day
+* RDS
+    * Expensive. Monthly? Shouldn't scale too bad?
+* EC2 Container Registry
+    * Stores images of Docker Container. Very cheap for just 1 small image
+* Route 53
+    * 40 cents per million queries
+    * 50 cents per hosted zone per Monthly (I have two zones)
+* ECS
+    * VCPU???
+    * Memory???
+* Load Balancer
+    * Load Capacity Unit Hours???
+    * Raw hours - like $10 / Month

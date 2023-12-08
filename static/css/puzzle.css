@@ -96,6 +96,7 @@ h3 {
     margin-top: 15px;
     display: grid;
     grid-template-columns: 3fr 1fr;
+    margin-bottom: 15px;
 }
 
 .autocomplete {
@@ -188,6 +189,7 @@ h3 {
 
 /* Modal box itself. */
 .modalContent {
+
     position: relative;
     width: 500px;
     background-color: white;
@@ -198,6 +200,15 @@ h3 {
     align-items: center;
     font-family: freight-sans-pro;
     color: #343434;
+}
+
+.modalContent h1{
+    text-align: left;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .modalContent p{
@@ -215,12 +226,14 @@ h3 {
     list-style: square;
     width: 80%;
     margin: auto;
+    line-height: 1.2em;
+    margin-top: -8px;
 }
 
 .modalContent li{
-    margin: 6px;
+    margin: 4px;
     font-size: 16px;
-    line-height: 1.5em;
+    
     color: #535353;
 }
 

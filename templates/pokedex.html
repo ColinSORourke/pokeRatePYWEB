@@ -29,7 +29,7 @@
             <div class="starsandgraph">
                 <div class="ratings">
                     <div class="starContainer">
-                        <p>Star Ratings</p>
+                        <p>Crowd Rating ~ {{ modalPokemon.globalAverage.toFixed(2) }}</p>
                         <div style="position:relative;">
                             <div class="filledStars" :style="widthPerc(modalPokemon)">
                                 <i class="fa fa-star"></i>
@@ -46,6 +46,7 @@
                                 <i class="fa fa-star-o"></i>
                             </div>
                         </div>
+                        <p>Your Rating</p>
                         <div style="position:relative;">
                             <div class="inputStars">
                                 <input type="radio" id="modalStar5" value="5" name="modalStars" :checked="check(modalPokemon, 5)"><label @click="ratePok(modalPokemon, 5)" class="fa fa-star-o" for="modalStar5"></label>
@@ -81,12 +82,13 @@
                         <div>4</div>
                         <div>5</div>
                     </div>
-                    <div style="margin-top: -10px;">Stars</div>
+                    <div style="margin-top: -10px;">All Ratings</div>
                 </div>
             </div>
 
             <div class="favorites">
                 <input type="checkbox" id="modalHeart" value="6" name="favorite" v-model="modalPokemon.userFavorite"><label @click="ratePok(modalPokemon, 6)" class="fa fa-heart-o" for="modalHeart"></label>
+                <i class="fa fa-heart-o" style="position: absolute; font-size:32px; pointer-events: none;"></i>
                 <p>{{abbrevNum(modalPokemon.ratings[5])}} Users have favorited this Pokemon!</p>
             </div>
                 
