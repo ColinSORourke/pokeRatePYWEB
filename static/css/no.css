@@ -131,11 +131,19 @@ header, footer {
 
 footer{
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 0fr 1fr;
   padding-left: 2em;
   padding-right: 0.5em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+}
+
+@media (max-width: 600px){
+  footer {
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    padding-left: 1em;
+  }
 }
 
 footer p{

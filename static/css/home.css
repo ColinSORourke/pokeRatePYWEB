@@ -9,14 +9,17 @@
     text-align: left;
 }
 
+.columns{
+    width: 95%;
+}
+
 @media (min-width: 800px){
     .columns {
-        width: 95%;
+        
         display: grid;
         grid-template-columns: 2fr 3fr 2fr;
         grid-gap: 15px;
-        margin-left: auto;
-        margin-right: auto;
+        
         border-bottom: 2px solid #DFDFDF;
     }
 

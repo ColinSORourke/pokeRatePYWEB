@@ -167,6 +167,17 @@ STAR LOGIC
     color: #329ae3 !important;
 }
 
+@media (max-width: 600px){
+    .pokemon_entry .inputStars label::before{
+        font-size: 28px;
+    }
+    .pokemon_entry .outlineStars i{
+        font-size: 28px;
+    }
+    .pokemon_entry .filledStars i{
+        font-size: 28px;
+    }
+}
 /****************
 
 *****************/
