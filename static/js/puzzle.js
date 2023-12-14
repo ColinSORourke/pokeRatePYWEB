@@ -280,6 +280,9 @@ let init = (app) => {
                 streakPos.setMilliseconds(0)
                 currStreak = 0;
                 presentStreak = true;
+                if ((streakPos - new Date(userPlays[0][0])) / (60 * 60 * 24 * 1000) == 0){
+                    app.vue.parseGuesses(userPlays[0][2])
+                }
 
                 while (i < userPlays.length){
                     thisPlay = userPlays[i]
@@ -288,6 +291,8 @@ let init = (app) => {
                         app.vue.userStats[1] += 1;
                     }
                     solves[thisPlay[3] - 1] += 1;
+                    
+
 
                     if ( (streakPos - new Date(thisPlay[0])) / (60 * 60 * 24 * 1000) <= 1){
                         currStreak += 1;

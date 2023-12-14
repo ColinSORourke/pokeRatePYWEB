@@ -29,9 +29,9 @@ LOGOUT_PATH = "auth_by_email/logout"
 WAITING_PATH = "auth_by_email/waiting"
 CONFIRMATION_PATH = "auth_by_email/confirm"
 
-# 12 Hours expiration
+# 36 Hours expiration
 # If changed, change session type in Common.py as well
-EXPIRATION_TIME = 3600 * 12
+EXPIRATION_TIME = 3600 * 36
 
 class AuthByEmail(Fixture):
     def __init__(self, session, url_signer, emailer=None, default_path='home'):

@@ -131,7 +131,7 @@ header, footer {
 
 footer{
   display: grid;
-  grid-template-columns: 5fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr;
   padding-left: 2em;
   padding-right: 0.5em;
   padding-top: 0.5em;

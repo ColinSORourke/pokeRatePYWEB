@@ -104,6 +104,12 @@ html {
     align-items: center;
 }
 
+@media (max-width: 600px){
+    .modalContent{
+        width: 350px;
+    }
+}
+
 /******************************************
 MODAL STARS
 *******************************************/
@@ -130,6 +136,12 @@ MODAL STARS
     margin-bottom: 2px;
 }
 
+@media (max-width: 600px){
+    .modalContent .starContainer p{
+        font-size: 10px;
+    }
+}
+
 /* Stars showing general rating. Hiding overflow & Nowrap allow us to show a star% by setting width%*/
 .modalContent .filledStars{
     color: orange;
@@ -141,12 +153,6 @@ MODAL STARS
 /* Font size here determines size of stars without changing space between stars*/
 .modalContent .filledStars i{
     font-size: 40px;
-}
-
-@media (max-width:600px){
-    .modalContent .filledStars i{
-        font-size: 28px;
-    }
 }
 
 /* allows us to use ::before to change multiple stars at once in the correct direction */
@@ -182,6 +188,10 @@ MODAL STARS
 }
 
 @media (max-width:600px){
+    .modalContent .filledStars i{
+        font-size: 28px;
+    }
+
     .modalContent .inputStars label::before{
         font-size: 28px;
     }
@@ -209,12 +219,22 @@ MODAL STARS
 }
 
 .modalContent .favorites{
+    margin-left: 10px;
+    margin-right: 10px;
     display: inline-flex;
     font-family: "Azeret-Mono";
 }
 
 .modalContent .favorites p{
     margin-left: 10px;
+    text-align: left;
+}
+
+@media (max-width: 600px){
+    .modalContent .favorites p{
+        font-size: 12px;
+        line-height: 1.4em;
+    }
 }
 
 .modalContent .ratings .fa-ban{
@@ -342,6 +362,13 @@ MODAL STYLE
 
     font-size: 12px;
 }
+
+@media (max-width: 600px){
+    .modalContent .graphContainer{
+        height: 90px;
+    }
+}
+
 
 /* bar part of graph */ 
 .modalContent .ratingGraph {
