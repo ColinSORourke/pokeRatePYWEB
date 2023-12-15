@@ -82,8 +82,12 @@ let init = (app) => {
                     // Sorry! No Web Storage support..
                 }
 
-                if (guess.name == app.vue.targetPokemon.name || myGuesses.length == 6){
+                if (guess.name == app.vue.targetPokemon.name){
                     app.vue.solved = true;
+                    var postData = {"guesses": guessesStr};
+                    axios.post(post_plays_url, postData)
+                }
+                if (app.vue.myGuesses.length == 6){
                     var postData = {"guesses": guessesStr};
                     axios.post(post_plays_url, postData)
                 }
@@ -197,7 +201,7 @@ let init = (app) => {
                         if (app.vue.myGuesses[j].id == guess.id){
                             app.vue.myGuesses[j]['globalAverage'] = ( (result.data.fiveRates * 5) + (result.data.fourRates * 4) + (result.data.threeRates * 3) + (result.data.twoRates * 2) + (result.data.oneRates) ) / totalRates;
                             app.vue.noGuess = false;
-                            if (guess.name == app.vue.targetPokemon.name || myGuesses.length == 6){
+                            if (guess.name == app.vue.targetPokemon.name){
                                 app.vue.solved = true;
                                 var postData = {"guesses": guessesStr};
                                 axios.post(post_plays_url, postData)
@@ -206,7 +210,11 @@ let init = (app) => {
                         j += 1
                     }
                     app.vue.loading -= 1;
-                })                
+                })               
+                if (app.vue.myGuesses.length == 6){
+                    var postData = {"guesses": guessesStr};
+                    axios.post(post_plays_url, postData)
+                } 
                 i += 1
             }
         },
