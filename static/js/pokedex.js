@@ -236,7 +236,7 @@ let init = (app) => {
 
     // And this initializes it.
     app.init = () => {
-        // Put here any initialization code.
+                // Put here any initialization code.
         // Typically this is a server GET call to load the data.
         app.vue.myCategories = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Mega", "Alola", "Galar", "Gigantamax", "Hisui", "Paldea"];
         pokemonPerCategory = {};

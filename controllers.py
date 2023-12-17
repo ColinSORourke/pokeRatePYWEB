@@ -28,7 +28,7 @@ Warning: Fixtures MUST be declared with @action.uses({fixtures}) else your app w
 import json
 import random
 import math
-import datetime
+from datetime import datetime, timedelta
 import time
 import calendar
 
@@ -337,7 +337,8 @@ def get_puzzle_play():
 @action("post_puzzle_play", method="POST")
 @action.uses(session, url_signer_long.verify(), db, auth.flash)
 def post_puzzle_play():
-    date = datetime.date.today()
+    date = mydatetime = (datetime.now() - timedelta(hours=5))
+    date = mydatetime.date()
     user = get_user_email()
     if (user == None):
         user = "Unknown"
@@ -421,7 +422,7 @@ def delete_confirm():
 
 # Date seed function that converts every date to a unique integer seed
 def dateSeed():
-    today = datetime.datetime.now()
+    today = datetime.now() - timedelta(hours=5)
     uniqueYear = (today.year * 32 % 10000)
     return uniqueYear + (today.month * 100) + today.day
 
@@ -455,7 +456,8 @@ def indexDict(db, url_signer):
         highlightPoke = data[(int(seed) % len(data))]
     pokIDs += "" + str(highlightPoke['id']) + ""
 
-    date = datetime.date.today()
+    mydatetime = (datetime.now() - timedelta(hours=5))
+    date = mydatetime.date()
     dailyPlayers = db((db.puzzle_plays.date == date)).count()
 
 

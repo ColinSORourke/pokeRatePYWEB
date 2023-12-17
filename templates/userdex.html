@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="css/pokemonEntries.css">
 <link rel="stylesheet" href="css/pokedex.css">
 
-
 <div id="vue-target">
     <Transition name="notify">
         <div v-if="showNotif" class="notifs">{{ratingText}}</div>
@@ -110,9 +109,7 @@
             <div class="SearchBarDiv">
                 <input class="SearchBar" type="text" v-model="query" placeholder="Search Pokémon..."/>
                 <i class="fa fa-search"></i>
-            </div>
-            
-            
+            </div>   
         </div>
 
         <a id="returnToTop" href="/pokedex#PageTop"><i class="fa fa-arrow-circle-up"></i></a>
@@ -122,7 +119,7 @@
             <div v-for="c in myCategories" :id="c" class="category">
                 <h2>{{c}}</h2>
                 <div class="pokemon_list">
-                    <div v-for="p in pokemonPerCategory[c]" v-if="p.userRating != 0;" class="pokemon_entry" @click="toggleModal(p)">
+                    <div v-for="p in pokemonPerCategory[c]" v-if="p.userRating != 0" class="pokemon_entry" @click="toggleModal(p)">
                         <i v-if="p.userFavorite"class="fa fa-heart"></i>
                         <div class="cardTitle">
                             <div class="pokeName">{{p.fullName}}</div>
@@ -174,7 +171,7 @@
         <div v-else>
             <h2>Search Results</h2>
             <div class="pokemon_list">
-                <div v-for="p in filteredPokes()" v-if="p.userRating != 0;" class="pokemon_entry" @click="toggleModal(p)">
+                <div v-for="p in filteredPokes()" v-if="p.userRating != 0" class="pokemon_entry" @click="toggleModal(p)">
                     <i v-if="p.userFavorite"class="fa fa-heart"></i>
                     <div class="cardTitle">
                         <div class="pokeName">{{p.fullName}}</div>
