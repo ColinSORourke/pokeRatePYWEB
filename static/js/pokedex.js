@@ -41,7 +41,7 @@ let init = (app) => {
     app.methods = {
         // Complete as you see fit.
         pokemonImagePath(p) {
-            return "images/PokemonArt/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
+            return "images/PokemonArt/176Size/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
         },
         pokemonNumber(p) {
             return "#" + p['number'];

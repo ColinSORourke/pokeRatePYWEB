@@ -33,9 +33,12 @@ let init = (app) => {
         // Complete as you see fit.
         pokemonImagePath(p) {
             if (p['pokID'] != undefined ){
-                return "images/PokemonArt/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
+                return "images/PokemonArt/176Size/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
             }
-            return "images/PokemonArt/Generation 1/Bulbasaur.png"
+            return "images/PokemonArt/176Size/Generation 1/Bulbasaur.png"
+        },
+        pokemonImagePathBig(p){
+            return "images/PokemonArt/OriginalSize/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
         },
         pokemonNumber(p) {
             return "#" + p['number'];
