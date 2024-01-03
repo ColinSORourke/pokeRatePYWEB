@@ -16,7 +16,6 @@
 }
 
 .pokemon_entry {
-    position: relative;
     background: white;
     color: black;
     border: solid;
@@ -40,7 +39,6 @@
 }
 
 .pokemon_entry .favContainer{
-    position: relative;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -55,7 +53,6 @@
 
 
 .pokemon_entry .favContainer .fa-heart{
-    position: relative;
     top: 0px;
     right: 0px;
     margin-right: 5px;
@@ -84,7 +81,6 @@ STAR LOGIC
 *******************************************/
 
 .pokemon_entry .ratingContainer{
-    position: relative;
     text-align: center;
     font-size: 0;
     width: 100%;
@@ -103,7 +99,6 @@ STAR LOGIC
 
 .pokemon_entry .starContainer{
     margin-top: -5px;
-    position: relative;
     width: min-content;
     margin-left: auto;
     margin-right: auto;
@@ -122,22 +117,22 @@ STAR LOGIC
 }
 
 .pokemon_entry .inputStars{
-    position: absolute;
-    top: 0;
-    left: 0;
+    margin-top: -40px;
     overflow: hidden;
     white-space: nowrap;
     direction: rtl;
 }
 
 .pokemon_entry .outlineStars{
-    position: absolute;
-    top: 0;
-    left: 0;
+    margin-top: -46px;
     overflow: hidden;
     white-space: nowrap;
     direction: rtl;
     pointer-events: none;
+}
+
+.pokemon_entry .outlineStarsPuzzle{
+    margin-top: -40px;
 }
 
 .pokemon_entry .outlineStars i{
@@ -171,6 +166,19 @@ STAR LOGIC
     .pokemon_entry .inputStars label::before{
         font-size: 28px;
     }
+
+    .pokemon_entry .inputStars {
+        margin-top: -36px;
+    }
+
+    .pokemon_entry .outlineStars {
+        margin-top: -42px;
+    }
+
+    .pokemon_entry .outlineStarsPuzzle{
+        margin-top: -36px;
+    }
+
     .pokemon_entry .outlineStars i{
         font-size: 28px;
     }

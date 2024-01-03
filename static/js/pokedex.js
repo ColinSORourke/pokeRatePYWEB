@@ -43,6 +43,10 @@ let init = (app) => {
         pokemonImagePath(p) {
             return "images/PokemonArt/176Size/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
         },
+
+        pokemonImagePathBig(p) {
+            return "images/PokemonArt/OriginalSize/" + p['generation'] + "/" + p["fullName"].replace("\u2640", "Female").replace("\u2642", "Male").replaceAll("\u00e9", "e")  + ".png";
+        },
         pokemonNumber(p) {
             return "#" + p['number'];
         },

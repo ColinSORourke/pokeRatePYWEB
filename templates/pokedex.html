@@ -16,7 +16,7 @@
             <div class="pokeImgContainer">
                 <div class="imgArrows">
                     <i class="fa fa-arrow-left" :style="hideLeftArrow()" @click="incrementModal(-1)"></i>
-                    <img :src="pokemonImagePath(modalDisplayPokemon)" @click="modalAltDisplay()" class="pokeImg">
+                    <img :src="pokemonImagePathBig(modalDisplayPokemon)" @click="modalAltDisplay()" class="pokeImg">
                     <i class="fa fa-arrow-right" :style="hideRightArrow()" @click="incrementModal(1)"></i>
                 </div>  
             </div>
@@ -133,8 +133,8 @@
                         </div>
     
                         <div class="typesContainer">
-                            <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
-                            <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                            <div class="typeContainer"><img loading="lazy" :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                            <div v-if="p.types.length == 2" class="typeContainer"><img loading="lazy" :src="typeImagePath(p, 1)"  class="typeImg"></div>
                         </div>
                         
                         <div class="ratingContainer">
@@ -185,8 +185,8 @@
                     </div>
 
                     <div class="typesContainer">
-                        <div class="typeContainer"><img :src="typeImagePath(p, 0)"  class="typeImg"></div>
-                        <div v-if="p.types.length == 2" class="typeContainer"><img :src="typeImagePath(p, 1)"  class="typeImg"></div>
+                        <div class="typeContainer"><img loading="lazy" :src="typeImagePath(p, 0)"  class="typeImg"></div>
+                        <div v-if="p.types.length == 2" class="typeContainer"><img loading="lazy" :src="typeImagePath(p, 1)"  class="typeImg"></div>
                     </div>
                     
                     <div class="ratingContainer">

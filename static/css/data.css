@@ -47,7 +47,6 @@
 }
 
 .databox{
-    position: relative;
     color: #7e7e7e;
     border: solid 2px #535353;
     border-width: 2px;
@@ -58,6 +57,13 @@
     margin: 10px;
     line-height: 1em;
     font-family: freight-sans-pro;
+}
+
+.right-icons{
+    text-align: right;
+    margin-top: 5px;
+    margin-right: 8px;
+    height: 0px;
 }
 
 .subdatabox{
@@ -83,16 +89,11 @@
 }
 
 .databox .fa{
-    position: absolute;
-    top: 15px;
-    right: 5px;
+    margin-right: 0;
     font-size: 28px;
 }
 
 .databox .colinstar{
-    position: absolute;
-    top: 15px;
-    right: 5px;
     font-size: 28px;
     color: #F4D23B;
 }

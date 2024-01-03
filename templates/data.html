@@ -77,8 +77,10 @@
         <h1>Generations</h1>
         <div class="pokemon_list">
             <div v-for="n in 9" class="databox">
-                <i v-if="getGen(n).statuses[2] == 1" class="colinstar full"></i>
-                <i v-if="getGen(n).statuses[2] == -1" class="fa fa-thumbs-down"></i>
+                <div class="right-icons">
+                    <i v-if="getGen(n).statuses[2] == 1" class="colinstar full"></i>
+                    <i v-if="getGen(n).statuses[2] == -1" class="fa fa-thumbs-down"></i>
+                </div>
                 <h3>{{romanNumGen(getGen(n).genName)}}</h3>
                 <div>Average rating:<br><span class="ratingNum">{{abbrevNum(getGen(n).userAve)}}</span></div>
             </div>
@@ -87,8 +89,10 @@
         <h1>Types</h1>
         <div class="pokemon_list">
             <div v-for="t in types" class="databox">
-                <i v-if="t.statuses[2] == 1" class="colinstar full"></i>
-                <i v-if="t.statuses[2] == -1" class="fa fa-thumbs-down"></i>
+                <div class="right-icons">
+                    <i v-if="t.statuses[2] == 1" class="colinstar full"></i>
+                    <i v-if="t.statuses[2] == -1" class="fa fa-thumbs-down"></i>
+                </div>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Average rating:<br><span class="ratingNum">{{abbrevNum(t.userAve)}}</span></div>
             </div>
@@ -246,8 +250,11 @@
         <h1>Generations</h1>
         <div class="pokemon_list">
             <div v-if="displayType == 'Rate'" v-for="n in 9" class="databox" :style="genBoxShadow(n, 0)">
-                <i v-if="getGen(n).statuses[0] == 1" class="colinstar full"></i>
-                <i v-if="getGen(n).statuses[0] == -1" class="fa fa-thumbs-down"></i>
+                <div class="right-icons">
+                    <i v-if="getGen(n).statuses[0] == 1" class="colinstar full"></i>
+                    <i v-if="getGen(n).statuses[0] == -1" class="fa fa-thumbs-down"></i>
+                </div>
+                
                 <h3>{{romanNumGen(getGen(n).genName)}}</h3>
                 <div>Average rating:<br><span class="ratingNum">{{abbrevNum(getGen(n).average)}}</span></div>
                 <div class="subdatabox">
@@ -259,8 +266,10 @@
                 
             </div>
             <div v-if="displayType == 'Fave'" v-for="n in 9" class="databox" :style="genBoxShadow(n, 1)">
-                <i v-if="getGen(n).statuses[1] == 1" class="colinstar full"></i>
-                <i v-if="getGen(n).statuses[1] == -1" class="fa fa-thumbs-down"></i>
+                <div class="right-icons">
+                    <i v-if="getGen(n).statuses[1] == 1" class="colinstar full"></i>
+                    <i v-if="getGen(n).statuses[1] == -1" class="fa fa-thumbs-down"></i>
+                </div>
                 <h3>{{romanNumGen(getGen(n).genName)}}</h3>
                 <div>Total faves:<br><span class="ratingNum">{{abbrevNum(getGen(n).favesum)}}</span></div>
                 <div class="subdatabox">
@@ -276,8 +285,10 @@
         <h1>Types</h1>
         <div class="pokemon_list">
             <div v-if="displayType == 'Rate'" v-for="t in types" class="databox" :style="typeBoxShadow(t, 0)">
-                <i v-if="t.statuses[0] == 1" class="colinstar full"></i>
-                <i v-if="t.statuses[0] == -1" class="fa fa-thumbs-down"></i>
+                <div class="right-icons">
+                    <i v-if="t.statuses[0] == 1" class="colinstar full"></i>
+                    <i v-if="t.statuses[0] == -1" class="fa fa-thumbs-down"></i>
+                </div>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Average rating:<br><span class="ratingNum">{{abbrevNum(t.average)}}</span></div>
                 <div class="subdatabox">
@@ -289,8 +300,10 @@
                 
             </div>
             <div v-if="displayType == 'Fave'" v-for="t in types" class="databox" :style="typeBoxShadow(t, 1)">
-                <i v-if="t.statuses[1] == 1" class="colinstar full"></i>
-                <i v-if="t.statuses[1] == -1" class="fa fa-thumbs-down"></i>
+                <div class="right-icons">
+                    <i v-if="t.statuses[1] == 1" class="colinstar full"></i>
+                    <i v-if="t.statuses[1] == -1" class="fa fa-thumbs-down"></i>
+                </div>
                 <img :src="typeImagePathB(t.typeName)"  class="typeImg">
                 <div>Total faves:<br><span class="ratingNum">{{abbrevNum(t.favesum)}}</span></div>
                 <div class="subdatabox">
