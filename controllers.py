@@ -66,8 +66,13 @@ def pokedex():
     # Load the static data of every pokemon 
     data = json.loads(db(db.pokemonTable).select().as_json())
 
+    allRatings = json.loads(db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon).as_json())
+    userRatings = json.loads(db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon).as_json())
+
     return dict(
         dexJSON = json.dumps(data),
+        allRatings = allRatings,
+        userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
         set_rating_url = URL('set_rating', signer=url_signer_long),
         remove_rating_url = URL('remove_rating', signer=url_signer_long),
@@ -83,8 +88,13 @@ def pokedex():
     # Load the static data of every pokemon 
     data = json.loads(db(db.pokemonTable).select().as_json())
 
+    allRatings = json.loads(db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon).as_json())
+    userRatings = json.loads(db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon).as_json())
+
     return dict(
         dexJSON = json.dumps(data),
+        allRatings = allRatings,
+        userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
         set_rating_url = URL('set_rating', signer=url_signer_long),
         remove_rating_url = URL('remove_rating', signer=url_signer_long),
@@ -102,8 +112,13 @@ def pokedex(number):
     # Load the static data of every pokemon 
     data = json.loads(db(db.pokemonTable).select().as_json())
 
+    allRatings = json.loads(db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon).as_json())
+    userRatings = json.loads(db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon).as_json())
+
     return dict(
         dexJSON = json.dumps(data),
+        allRatings = allRatings,
+        userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
         set_rating_url = URL('set_rating', signer=url_signer_long),
         remove_rating_url = URL('remove_rating', signer=url_signer_long),

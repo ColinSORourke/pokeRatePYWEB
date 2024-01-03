@@ -55,6 +55,10 @@ html {
     .SearchBarDiv i{
         margin-left: -35px;
     }
+
+    #returnToTop{
+        bottom: 35px;
+    }
 }
 
 .hyperlinks {

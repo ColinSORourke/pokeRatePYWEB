@@ -247,66 +247,59 @@ let init = (app) => {
         }
 
         app.addRateData(app.data.myPokemon)
-        axios.get(get_all_ratings_url).then((result) => {
-            id_map = {};
-            derived_rates = result.data.allRatings;
-            i = 0;
-            while (i < result.data.allRatings.length){
-                currPoke = app.data.myPokemon[i];
-                currPoke.totalRatings = result.data.allRatings[i]['ratingcount'];
-                currPoke.ratings = [derived_rates[i]['onestar'], derived_rates[i]['twostar'], derived_rates[i]['threestar'], derived_rates[i]['fourstar'], derived_rates[i]['fivestar'], derived_rates[i]['favorites']];
-                if (currPoke.totalRatings > 0){
-                    currPoke.globalAverage = ( currPoke.ratings[0] + currPoke.ratings[1]*2 + currPoke.ratings[2]*3 + currPoke.ratings[3]*4 + currPoke.ratings[4]*5 ) / currPoke.totalRatings;
-                } else {
-                    currPoke.globalAverage = -1;
-                }
-
-
-                app.data.myPokemon[i] = currPoke;
-                id_map[currPoke['pokID']] = i;
-                id_map[currPoke['id']] = i;
-                i += 1;
+        id_map = {};
+        derived_rates = allRatings;
+        i = 0;
+        while (i < allRatings.length){
+            currPoke = app.data.myPokemon[i];
+            currPoke.totalRatings = allRatings[i]['ratingcount'];
+            currPoke.ratings = [derived_rates[i]['onestar'], derived_rates[i]['twostar'], derived_rates[i]['threestar'], derived_rates[i]['fourstar'], derived_rates[i]['fivestar'], derived_rates[i]['favorites']];
+            
+            if (currPoke.totalRatings > 0){
+                currPoke.globalAverage = ( currPoke.ratings[0] + currPoke.ratings[1]*2 + currPoke.ratings[2]*3 + currPoke.ratings[3]*4 + currPoke.ratings[4]*5 ) / currPoke.totalRatings;
+            } else {
+                currPoke.globalAverage = -1;
             }
 
-            i=0
-            while (i < result.data.userRatings.length){
-                pokInd = id_map[ result.data.userRatings[i]['pokemon'] ]
-                if (result.data.userRatings[i]['rating'] == 6){
-                    app.data.myPokemon[pokInd].userFavorite = true;
-                } else {
-                    app.data.myPokemon[pokInd].userRating = result.data.userRatings[i]['rating'];
-                    app.data.userRatings += 1;
-                }
-                i += 1;
+            if (currPoke["significantForm"]){
+                pokemonPerCategory[currPoke["category"]].push(currPoke);
+                currPoke.categoryIndex = pokemonPerCategory[currPoke["category"]].length - 1
+                currPoke.dexIndex = i;
             }
 
-            i = 0;
-            while (i < app.data.myPokemon.length){
-                currPoke = app.data.myPokemon[i];
-                if (currPoke["significantForm"]){
-                    pokemonPerCategory[currPoke["category"]].push(currPoke);
-                    currPoke.categoryIndex = pokemonPerCategory[currPoke["category"]].length - 1
-                    currPoke.dexIndex = i;
-                }
-                i += 1
-            }
+            app.data.myPokemon[i] = currPoke;
+            id_map[currPoke['pokID']] = i;
+            id_map[currPoke['id']] = i;
+            i += 1;
+        }
 
-            if (target_poke != 0){
-                target_poke = target_poke.padStart(4, 0)
-                target_poke = target_poke.padEnd(6, 0)
+        i=0
+        while (i < userRatings.length){
+            pokInd = id_map[ userRatings[i]['pokemon'] ]
+            if (userRatings[i]['rating'] == 6){
+                app.data.myPokemon[pokInd].userFavorite = true;
+            } else {
+                app.data.myPokemon[pokInd].userRating = userRatings[i]['rating'];
+                app.data.userRatings += 1;
             }
+            i += 1;
+        }
 
-            if (id_map[target_poke] != null){
-                if (app.data.myPokemon[id_map[target_poke]].significantForm){
-                    app.data.showModal = true
-                    app.data.modalPokemon = app.data.myPokemon[id_map[target_poke]]
-                    app.data.modalDisplayPokemon = app.data.myPokemon[id_map[target_poke]]
-                    app.data.modalDisplayInd = 0
-                }   
-            }
+        if (target_poke != 0){
+            target_poke = target_poke.padStart(4, 0)
+            target_poke = target_poke.padEnd(6, 0)
+        }
 
-            app.vue.pokemonPerCategory = pokemonPerCategory;
-        })  
+        if (id_map[target_poke] != null){
+            if (app.data.myPokemon[id_map[target_poke]].significantForm){
+                app.data.showModal = true
+                app.data.modalPokemon = app.data.myPokemon[id_map[target_poke]]
+                app.data.modalDisplayPokemon = app.data.myPokemon[id_map[target_poke]]
+                app.data.modalDisplayInd = 0
+            }   
+        }
+
+        app.vue.pokemonPerCategory = pokemonPerCategory; 
     };
 
 
