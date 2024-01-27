@@ -31,9 +31,6 @@
 }
 
 .pokemon_entry .fa-heart{
-    position: absolute;
-    top: -15px;
-    right: -15px;
     color: #F97175;
     font-size: 40px;
 }

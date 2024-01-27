@@ -24513,5 +24513,419 @@
         ],
         "bst": 590,
         "pokID": "101000"
+    },
+    {
+        "name": "Dipplin",
+        "fullname": "Dipplin",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Candy Apple Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1011",
+        "dblink": "https://pokemondb.net/pokedex/1011",
+        "formList": [
+            "Dipplin"
+        ],
+        "types": [
+            "Grass",
+            "Dragon"
+        ],
+        "bst": 485,
+        "pokID": "101100"
+    },
+    {
+        "name": "Poltchageist",
+        "fullname": "Poltchageist",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Matcha Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1012",
+        "dblink": "https://pokemondb.net/pokedex/1012",
+        "formList": [
+            "Poltchageist"
+        ],
+        "types": [
+            "Grass",
+            "Ghost"
+        ],
+        "bst": 308,
+        "pokID": "101200"
+    },
+    {
+        "name": "Sinistcha",
+        "fullname": "Sinistcha",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Matcha Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1013",
+        "dblink": "https://pokemondb.net/pokedex/1013",
+        "formList": [
+            "Sinistcha"
+        ],
+        "types": [
+            "Grass",
+            "Ghost"
+        ],
+        "bst": 508,
+        "pokID": "101300"
+    },
+    {
+        "name": "Okidogi",
+        "fullname": "Okidogi",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Retainer Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1014",
+        "dblink": "https://pokemondb.net/pokedex/1014",
+        "formList": [
+            "Okidogi"
+        ],
+        "types": [
+            "Poison",
+            "Fighting"
+        ],
+        "bst": 555,
+        "pokID": "101400"
+    },
+    {
+        "name": "Munkidori",
+        "fullname": "Munkidori",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Retainer Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1015",
+        "dblink": "https://pokemondb.net/pokedex/1015",
+        "formList": [
+            "Munkidori"
+        ],
+        "types": [
+            "Poison",
+            "Psychic"
+        ],
+        "bst": 555,
+        "pokID": "101500"
+    },
+    {
+        "name": "Fezandipiti",
+        "fullname": "Fezandipiti",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Retainer Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1016",
+        "dblink": "https://pokemondb.net/pokedex/1016",
+        "formList": [
+            "Fezandipiti"
+        ],
+        "types": [
+            "Poison",
+            "Fairy"
+        ],
+        "bst": 555,
+        "pokID": "101600"
+    },
+    {
+        "name": "Ogerpon",
+        "fullname": "Ogerpon",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Mask Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1017",
+        "dblink": "https://pokemondb.net/pokedex/1017",
+        "formList": [
+            "Ogerpon",
+            "Wellspring Mask Ogerpon",
+            "Hearthflame Mask Ogerpon",
+            "Cornerstone Mask Ogerpon"
+        ],
+        "types": [
+            "Grass"
+        ],
+        "bst": 550,
+        "pokID": "101700"
+    },
+    {
+        "name": "Ogerpon",
+        "fullname": "Wellspring Mask Ogerpon",
+        "form": "Wellspring Mask ",
+        "significantForm": false,
+        "species": "Mask Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1017",
+        "dblink": "https://pokemondb.net/pokedex/1017",
+        "formList": [
+            "Ogerpon",
+            "Wellspring Mask Ogerpon",
+            "Hearthflame Mask Ogerpon",
+            "Cornerstone Mask Ogerpon"
+        ],
+        "types": [
+            "Grass",
+            "Water"
+        ],
+        "bst": 550,
+        "pokID": "101701"
+    },
+    {
+        "name": "Ogerpon",
+        "fullname": "Hearthflame Mask Ogerpon",
+        "form": "Hearthflame Mask ",
+        "significantForm": false,
+        "species": "Mask Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1017",
+        "dblink": "https://pokemondb.net/pokedex/1017",
+        "formList": [
+            "Ogerpon",
+            "Wellspring Mask Ogerpon",
+            "Hearthflame Mask Ogerpon",
+            "Cornerstone Mask Ogerpon"
+        ],
+        "types": [
+            "Grass",
+            "Fire"
+        ],
+        "bst": 550,
+        "pokID": "101702"
+    },
+    {
+        "name": "Ogerpon",
+        "fullname": "Cornerstone Mask Ogerpon",
+        "form": "Cornerstone Mask ",
+        "significantForm": false,
+        "species": "Mask Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1017",
+        "dblink": "https://pokemondb.net/pokedex/1017",
+        "formList": [
+            "Ogerpon",
+            "Wellspring Mask Ogerpon",
+            "Hearthflame Mask Ogerpon",
+            "Cornerstone Mask Ogerpon"
+        ],
+        "types": [
+            "Grass",
+            "Rock"
+        ],
+        "bst": 550,
+        "pokID": "101703"
+    },
+    {
+        "name": "Archaludon",
+        "fullname": "Archaludon",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Alloy Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1018",
+        "dblink": "https://pokemondb.net/pokedex/1018",
+        "formList": [
+            "Archaludon"
+        ],
+        "types": [
+            "Steel",
+            "Dragon"
+        ],
+        "bst": 600,
+        "pokID": "101800"
+    },
+    {
+        "name": "Hydrapple",
+        "fullname": "Hydrapple",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "\u2014",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1019",
+        "dblink": "https://pokemondb.net/pokedex/1019",
+        "formList": [
+            "Hydrapple"
+        ],
+        "types": [
+            "Grass",
+            "Dragon"
+        ],
+        "bst": 540,
+        "pokID": "101900"
+    },
+    {
+        "name": "Gouging Fire",
+        "fullname": "Gouging Fire",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Paradox Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1020",
+        "dblink": "https://pokemondb.net/pokedex/1020",
+        "formList": [
+            "Gouging Fire"
+        ],
+        "types": [
+            "Fire",
+            "Dragon"
+        ],
+        "bst": 590,
+        "pokID": "102000"
+    },
+    {
+        "name": "Raging Bolt",
+        "fullname": "Raging Bolt",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Paradox Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1021",
+        "dblink": "https://pokemondb.net/pokedex/1021",
+        "formList": [
+            "Raging Bolt"
+        ],
+        "types": [
+            "Electric",
+            "Dragon"
+        ],
+        "bst": 590,
+        "pokID": "102100"
+    },
+    {
+        "name": "Iron Boulder",
+        "fullname": "Iron Boulder",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Paradox Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1022",
+        "dblink": "https://pokemondb.net/pokedex/1022",
+        "formList": [
+            "Iron Boulder"
+        ],
+        "types": [
+            "Rock",
+            "Psychic"
+        ],
+        "bst": 590,
+        "pokID": "102200"
+    },
+    {
+        "name": "Iron Crown",
+        "fullname": "Iron Crown",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Paradox Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1023",
+        "dblink": "https://pokemondb.net/pokedex/1023",
+        "formList": [
+            "Iron Crown"
+        ],
+        "types": [
+            "Steel",
+            "Psychic"
+        ],
+        "bst": 590,
+        "pokID": "102300"
+    },
+    {
+        "name": "Terapagos",
+        "fullname": "Terapagos",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Tera Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1024",
+        "dblink": "https://pokemondb.net/pokedex/1024",
+        "formList": [
+            "Terapagos",
+            "Terastal Form Terapagos",
+            "Stellar Form Terapagos"
+        ],
+        "types": [
+            "Normal"
+        ],
+        "bst": 450,
+        "pokID": "102400"
+    },
+    {
+        "name": "Terapagos",
+        "fullname": "Terastal Form Terapagos",
+        "form": "Terastal Form ",
+        "significantForm": false,
+        "species": "Tera Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1024",
+        "dblink": "https://pokemondb.net/pokedex/1024",
+        "formList": [
+            "Terapagos",
+            "Terastal Form Terapagos",
+            "Stellar Form Terapagos"
+        ],
+        "types": [
+            "Normal"
+        ],
+        "bst": 600,
+        "pokID": "102401"
+    },
+    {
+        "name": "Terapagos",
+        "fullname": "Stellar Form Terapagos",
+        "form": "Stellar Form ",
+        "significantForm": false,
+        "species": "Tera Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1024",
+        "dblink": "https://pokemondb.net/pokedex/1024",
+        "formList": [
+            "Terapagos",
+            "Terastal Form Terapagos",
+            "Stellar Form Terapagos"
+        ],
+        "types": [
+            "Normal"
+        ],
+        "bst": 700,
+        "pokID": "102402"
+    },
+    {
+        "name": "Pecharunt",
+        "fullname": "Pecharunt",
+        "form": "Basic",
+        "significantForm": true,
+        "species": "Subjugation Pok\u00e9mon",
+        "generation": "Generation 9",
+        "category": "Paldea",
+        "number": "1025",
+        "dblink": "https://pokemondb.net/pokedex/1025",
+        "formList": [
+            "Pecharunt"
+        ],
+        "types": [
+            "Poison",
+            "Ghost"
+        ],
+        "bst": 600,
+        "pokID": "102500"
     }
 ]

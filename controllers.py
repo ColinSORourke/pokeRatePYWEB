@@ -225,7 +225,7 @@ def data():
 # @action.uses(db)
 # def update():
 #     start = time.perf_counter()
-#     with open('apps/_default/static/newPokemon.json') as f:
+#     with open('apps/_default/static/NewPokemon.json') as f:
 #         data = json.load(f)
 #     i = 0
 #     while (i < len(data)):
