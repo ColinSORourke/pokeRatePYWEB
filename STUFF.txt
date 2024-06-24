@@ -26,7 +26,7 @@ to launch the container
 Delete the existing SpamDB stuff from Databases
 
 run
-    docker buildx build --platform=linux/amd64 . -t py4web -f ./deployment_tools/docker/Dockerfile
+    docker buildx build --platform=linux/amd64 . -t py4web -f Dockerfile
 to build an image for launching on Fargate
 
 To test image locally, you can run:

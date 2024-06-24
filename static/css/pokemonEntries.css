@@ -26,13 +26,17 @@
     margin: 10px;
     align-items: center;
     width: 200px;
-
     transition: all .25s ease-in-out;
 }
 
 .pokemon_entry .fa-heart{
+    display: flex;
+    position: relative;
     color: #F97175;
+    height: 0px;
     font-size: 40px;
+    top: -10px;
+    left: -10px;
 }
 
 .pokemon_entry .favContainer{
