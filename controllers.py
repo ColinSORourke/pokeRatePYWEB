@@ -16,12 +16,12 @@ The path follows the bottlepy syntax.
 
 @action.uses('generic.html')  indicates that the action uses the generic.html template
 @action.uses(session)         indicates that the action uses the session
-@action.uses(db)              indicates that the action uses the db
+@action.uses(local_db)              indicates that the action uses the local_db
 @action.uses(T)               indicates that the action uses the i18n & pluralization
 @action.uses(auth.user)       indicates that the action requires a logged in user
 @action.uses(auth)            indicates that the action requires the auth object
 
-session, db, T, auth, and templates are examples of Fixtures.
+session, local_db, T, auth, and templates are examples of Fixtures.
 Warning: Fixtures MUST be declared with @action.uses({fixtures}) else your app will result in undefined behavior
 """
 
@@ -40,7 +40,7 @@ import ssl
 
 from py4web import action, request, abort, redirect, URL
 from yatl.helpers import A
-from .common import db, myMailer, session, T, cache, logger, flash
+from .common import local_db, remote_db, read_db, myMailer, session, T, cache, logger, flash
 
 from .common import auth, url_signer_short, url_signer_long
 from .models import get_user_email
@@ -51,26 +51,28 @@ from .__init__ import __version__
 USER_IP_KEY_AWS = "HTTP_X_FORWARDED_FOR"
 USER_IP_KEY_DOCKER = "REMOTE_ADDR"
 
+pokeData = json.loads(read_db(read_db.pokemonTable).select().as_json())
+
 # Main Home Page
 @action('home')
 @action('index')
-@action.uses('home.html', session, auth.flash, url_signer_long, db, auth)
+@action.uses('home.html', session, auth.flash, url_signer_long, read_db, auth)
 def index():
     # Load the static data of every pokemon 
-    return indexDict(db, url_signer_long)
+    return indexDict(read_db, url_signer_long)
 
 # Page that displays all the pokemon.
 @action("pokedex")
-@action.uses("pokedex.html", session, auth.flash, url_signer_long, db, auth, T)
+@action.uses("pokedex.html", session, auth.flash, url_signer_long, read_db, auth, T)
 def pokedex():
     # Load the static data of every pokemon 
-    data = json.loads(db(db.pokemonTable).select().as_json())
+    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
 
-    allRatings = json.loads(db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon).as_json())
-    userRatings = json.loads(db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon).as_json())
+    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon).as_json())
+    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon).as_json())
 
     return dict(
-        dexJSON = json.dumps(data),
+        dexJSON = json.dumps(pokeData),
         allRatings = allRatings,
         userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
@@ -83,16 +85,16 @@ def pokedex():
     )
 
 @action("userdex")
-@action.uses("userdex.html", session, auth.flash, url_signer_long, db, auth, T)
+@action.uses("userdex.html", session, auth.flash, url_signer_long, read_db, auth, T)
 def pokedex():
     # Load the static data of every pokemon 
-    data = json.loads(db(db.pokemonTable).select().as_json())
+    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
 
-    allRatings = json.loads(db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon).as_json())
-    userRatings = json.loads(db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon).as_json())
+    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon).as_json())
+    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon).as_json())
 
     return dict(
-        dexJSON = json.dumps(data),
+        dexJSON = json.dumps(pokeData),
         allRatings = allRatings,
         userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
@@ -107,16 +109,16 @@ def pokedex():
 # Page that displays all the pokemon.
 # Having a number acutomatically launches the modal of a certain pokemon
 @action("pokedex/<number>")
-@action.uses("pokedex.html", session, auth.flash, url_signer_long, db, auth, T)
+@action.uses("pokedex.html", session, auth.flash, url_signer_long, read_db, auth, T)
 def pokedex(number):
     # Load the static data of every pokemon 
-    data = json.loads(db(db.pokemonTable).select().as_json())
+    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
 
-    allRatings = json.loads(db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon).as_json())
-    userRatings = json.loads(db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon).as_json())
+    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon).as_json())
+    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon).as_json())
 
     return dict(
-        dexJSON = json.dumps(data),
+        dexJSON = json.dumps(pokeData),
         allRatings = allRatings,
         userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
@@ -130,13 +132,13 @@ def pokedex(number):
 
 # Page that displays the ranking data of all the pokemon.
 @action("rankings")
-@action.uses('data.html', session, auth.flash, url_signer_long, db, auth, T)
+@action.uses('data.html', session, auth.flash, url_signer_long, read_db, auth, T)
 def data():
     # Load the static data of every pokemon 
-    data = json.loads(db(db.pokemonTable).select().as_json())
+    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
 
     return dict(
-        dexJSON = json.dumps(data),
+        dexJSON = json.dumps(pokeData),
         get_rating_url = URL('get_rating', signer=url_signer_long),
         set_rating_url = URL('set_rating', signer=url_signer_long),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer_long),
@@ -147,24 +149,24 @@ def data():
 
 # Page that plays a daily puzzle
 @action("puzzle")
-@action.uses('puzzle.html', session, auth.flash, url_signer_long, db, auth, T)
-def data():
+@action.uses('puzzle.html', session, auth.flash, url_signer_long, read_db, auth, T)
+def puzzle():
     # Load the static data of every pokemon 
-    data = json.loads(db(db.pokemonTable).select().as_json())
+    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
 
     # Select the puzzle pokemon of the day
     seed = dateSeed() * 2
     seed = BlumBlumShub(seed)
     seed = BlumBlumShub(seed)
-    targetPoke = data[(int(seed) % len(data))]
+    targetPoke = pokeData[(int(seed) % len(pokeData))]
 
     # If selected puzzle pokemon is invalid, select again until one is valid
     while (targetPoke['form'] != "Basic"):
         seed = BlumBlumShub(seed)
-        targetPoke = data[(int(seed) % len(data))]
+        targetPoke = pokeData[(int(seed) % len(pokeData))]
 
     return dict(
-        dexJSON = json.dumps(data),
+        dexJSON = json.dumps(pokeData),
         myTargetPokemon = json.dumps(targetPoke),
         get_rating_url = URL('get_rating', signer=url_signer_long),
         pokedex_url = URL('pokedex'),
@@ -181,9 +183,9 @@ def data():
 #----------------------------------------#
 
 # @action("puzzletest")
-# @action.uses(db)
+# @action.uses(remote_db)
 # def puzzletest():
-#     db.puzzle_plays.insert(
+#     remote_db.puzzle_plays.insert(
 #         date = "nonsense",
 #         user = "nonsense",
 #         guesses = "nonsense",
@@ -192,17 +194,17 @@ def data():
 #     )
 
 # @action("setup")
-# @action.uses(db)
+# @action.uses(remote_db)
 # def setup():
 #     start = time.perf_counter()
-#     db(db.pokemonTable).delete()
-#     db(db.ratings).delete()
-#     db(db.derived_ratings).delete()
+#     remote_db(remote_db.pokemonTable).delete()
+#     remote_db(remote_db.ratings).delete()
+#     remote_db(remote_db.derived_ratings).delete()
 #     with open('apps/_default/static/FullDex.json') as f:
 #         data = json.load(f)
 #     i = 0
 #     while (i < len(data)):
-#         refPok = db.pokemonTable.insert(
+#         refPok = remote_db.pokemonTable.insert(
 #             name = data[i]['name'],
 #             fullName = data[i]['fullname'],
 #             form = data[i]['form'],
@@ -212,7 +214,7 @@ def data():
 #             number = data[i]['number'],
 #             pokID = data[i]['pokID'],
 #             bst = data[i]['bst'],
-#             dbLink = data[i]['dblink'],
+#             remote_dbLink = data[i]['remote_dblink'],
 #             types = data[i]['types'],
 #             formList = data[i]['formList'],
 #             category = data[i]['category'],
@@ -222,15 +224,15 @@ def data():
 #     return str(end - start)
 
 # @action("update")
-# @action.uses(db)
+# @action.uses(remote_db)
 # def update():
 #     start = time.perf_counter()
 #     with open('apps/_default/static/NewPokemon.json') as f:
 #         data = json.load(f)
 #     i = 0
 #     while (i < len(data)):
-#         refPok = db.pokemonTable.update_or_insert(
-#             db.pokemonTable.pokID == data[i]['pokID'],
+#         refPok = remote_db.pokemonTable.update_or_insert(
+#             remote_db.pokemonTable.pokID == data[i]['pokID'],
 #             name = data[i]['name'],
 #             fullName = data[i]['fullname'],
 #             form = data[i]['form'],
@@ -240,7 +242,7 @@ def data():
 #             number = data[i]['number'],
 #             pokID = data[i]['pokID'],
 #             bst = data[i]['bst'],
-#             dbLink = data[i]['dblink'],
+#             remote_dbLink = data[i]['remote_dblink'],
 #             types = data[i]['types'],
 #             formList = data[i]['formList'],
 #             category = data[i]['category'],
@@ -251,14 +253,14 @@ def data():
 
 # Get rating returns the rating data of an individual pokemon
 @action("get_rating")
-@action.uses(session, url_signer_long.verify(), db, auth)
+@action.uses(session, url_signer_long.verify(), read_db, auth)
 def get_rating():
     pokID = request.params.get('id')
     
     # Get the users ratings about this pokemon
     userFavorite = False
     userRating = 0
-    userRatingRows = db((db.ratings.pokemon == pokID) & (db.ratings.rater == get_user_email())).select()
+    userRatingRows = read_db((read_db.ratings.pokemon == pokID) & (read_db.ratings.rater == get_user_email())).select()
     for row in userRatingRows:
         if (row.rating == 6):
             userFavorite = True
@@ -267,7 +269,7 @@ def get_rating():
 
     # Get the general ratings about this pokemon
     ratings = [0,0,0,0,0,0]
-    ratingRow = db(db.derived_ratings.pokemon == pokID).select().first()
+    ratingRow = read_db(read_db.derived_ratings.pokemon == pokID).select().first()
     ratings[0] = ratingRow.onestar
     ratings[1] = ratingRow.twostar
     ratings[2] = ratingRow.threestar
@@ -289,7 +291,7 @@ def get_rating():
 
 # Set rating Post funciotn
 @action("set_rating", method='POST')
-@action.uses(session, url_signer_long.verify(), db, auth.flash, auth.enforce())
+@action.uses(session, url_signer_long.verify(), remote_db, auth.flash, auth.enforce())
 def set_rating():
     id = request.params.get('id')
     rating = request.params.get('rating')
@@ -299,8 +301,8 @@ def set_rating():
 
     # If it's a regular rating we can just update/insert
     if (rating != 6): 
-        db.ratings.update_or_insert(
-            ((db.ratings.pokemon == id) & (db.ratings.rater == get_user_email()) & (db.ratings.rating != 6)),
+        remote_db.ratings.update_or_insert(
+            ((remote_db.ratings.pokemon == id) & (remote_db.ratings.rater == get_user_email()) & (remote_db.ratings.rating != 6)),
             pokemon = id,
             rater = get_user_email(),
             rating=rating,
@@ -310,11 +312,11 @@ def set_rating():
     # If it's a favorite, we need to check if user has reached their favorites max.
     elif (rating == 6):
         #stuff
-        mySet = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()))
-        thisRate = db((db.ratings.rating == 6) & (db.ratings.rater == get_user_email()) & (db.ratings.pokemon == id))
+        mySet = remote_db((remote_db.ratings.rating == 6) & (remote_db.ratings.rater == get_user_email()))
+        thisRate = remote_db((remote_db.ratings.rating == 6) & (remote_db.ratings.rater == get_user_email()) & (remote_db.ratings.pokemon == id))
         if (thisRate.count() == 0):
             if (mySet.count() < 10):
-                db.ratings.insert(
+                remote_db.ratings.insert(
                     pokemon = id,
                     rater = get_user_email(),
                     rating = 6,
@@ -330,27 +332,27 @@ def set_rating():
     return "ok"
 
 @action("remove_rating", method="POST")
-@action.uses(session, url_signer_long.verify(), db, auth.flash, auth.enforce())
+@action.uses(session, url_signer_long.verify(), remote_db, auth.flash, auth.enforce())
 def remove_rating():
     id = request.params.get('id')
 
     # assert post is valid
     assert id is not None
 
-    db((db.ratings.rater == get_user_email()) & (db.ratings.pokemon == id)).delete()
+    remote_db((remote_db.ratings.rater == get_user_email()) & (remote_db.ratings.pokemon == id)).delete()
     return "Rating removed!"
 
 @action("get_puzzle_play")
-@action.uses(session, url_signer_long.verify(), db, auth.flash)
+@action.uses(session, url_signer_long.verify(), read_db, auth.flash)
 def get_puzzle_play():
     sql = "SELECT date, success, guesses, guessCount FROM puzzle_plays WHERE user='" + str(get_user_email()) + "' ORDER BY date DESC"
-    userPlays = db.executesql(sql)
+    userPlays = read_db.executesql(sql)
     return dict(
         userPlays = userPlays,
     )
 
 @action("post_puzzle_play", method="POST")
-@action.uses(session, url_signer_long.verify(), db, auth.flash)
+@action.uses(session, url_signer_long.verify(), remote_db, auth.flash)
 def post_puzzle_play():
     date = mydatetime = (datetime.now() - timedelta(hours=5))
     date = mydatetime.date()
@@ -360,40 +362,41 @@ def post_puzzle_play():
     guesses = request.params.get('guesses')
 
     # Select the puzzle pokemon of the day
-    data = json.loads(db(db.pokemonTable).select().as_json())
+    # data = json.loads(remote_db(remote_db.pokemonTable).select().as_json())
     seed = dateSeed() * 2
     seed = BlumBlumShub(seed)
     seed = BlumBlumShub(seed)
-    targetPoke = data[(int(seed) % len(data))]
+    targetPoke = pokeData[(int(seed) % len(pokeData))]
 
     # If selected puzzle pokemon is invalid, select again until one is valid
     while (targetPoke['form'] != "Basic"):
         seed = BlumBlumShub(seed)
-        targetPoke = data[(int(seed) % len(data))]
+        targetPoke = pokeData[(int(seed) % len(pokeData))]
 
     guessList = guesses.split("---")
     success = False
     if (guessList[-1] == targetPoke['name']):
         success = True
 
-    db.puzzle_plays.update_or_insert(
-        ((db.puzzle_plays.date == date) & (db.puzzle_plays.user == user) & (db.puzzle_plays.guesses == guesses)),
+    remote_db.puzzle_plays.update_or_insert(
+        ((remote_db.puzzle_plays.date == date) & (remote_db.puzzle_plays.user == user) & (remote_db.puzzle_plays.guesses == guesses)),
         date = date,
         user = user,
         guesses = guesses,
         guessCount = len(guessList),
         success = success
     )
+    
 
 # Returns rating data for every pokemon
 @action("get_all_ratings")
-@action.uses(session, url_signer_long.verify(), db, auth)
+@action.uses(session, url_signer_long.verify(), read_db, auth)
 def get_all_ratings():
     # All general ratings
-    allRatings = db().select(db.derived_ratings.ALL, orderby=db.derived_ratings.pokemon)
+    allRatings = read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon)
 
     # All user ratings
-    userRatings = db((db.ratings.rater) == get_user_email()).select(db.ratings.pokemon, db.ratings.rating, orderby=db.ratings.pokemon)
+    userRatings = read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon)
 
     return dict(
         allRatings = allRatings,
@@ -402,7 +405,7 @@ def get_all_ratings():
     )
 
 @action("request_delete")
-@action.uses('home.html', session, myMailer, auth.flash, url_signer_short, url_signer_long.verify(), db, auth.enforce())
+@action.uses('home.html', session, myMailer, auth.flash, url_signer_short, url_signer_long.verify(), read_db, auth.enforce())
 def request_delete():
     #print("USE THIS LINK TO DELETE YOUR DATA")
     myMailer.active()
@@ -416,15 +419,15 @@ def request_delete():
         auth.flash.set("Check your email for link to delete")
     else:
         auth.flash.set("Too many emails sent recently!")
-    return indexDict(db, url_signer_long)
+    return indexDict(read_db, url_signer_long)
 
 @action("delete_confirm")
-@action.uses('home.html', session, auth.flash, url_signer_short, url_signer_short.verify(), db, auth.enforce())
+@action.uses('home.html', session, auth.flash, url_signer_short, url_signer_short.verify(), remote_db, auth.enforce())
 def delete_confirm():
     #print("Deleting all data of " + get_user_email())
-    userRatings = db((db.ratings.rater) == get_user_email())
+    userRatings = remote_db((remote_db.ratings.rater) == get_user_email())
     userRatings.delete()
-    userPuzzle = db((db.puzzle_plays.user) == get_user_email())
+    userPuzzle = remote_db((remote_db.puzzle_plays.user) == get_user_email())
     userPuzzle.delete()
     auth.flash.set("Your Info has been deleted")
     myMailer.codeUsed(get_user_email())
@@ -432,7 +435,7 @@ def delete_confirm():
     if (userip == None):
         userip = request.environ.get(USER_IP_KEY_DOCKER)
     myMailer.codeUsedIP(userip)
-    return indexDict(db, url_signer_long)
+    return indexDict(read_db, url_signer_long)
 
 
 # Date seed function that converts every date to a unique integer seed
@@ -445,17 +448,19 @@ def dateSeed():
 def BlumBlumShub(seed):
     return math.pow(seed, 2) % 50515093
 
-def indexDict(db, url_signer):
-    data = json.loads(db(db.pokemonTable).select().as_json())
+def indexDict(read_db, url_signer):
+    #data = json.loads(read_db(read_db.pokemonTable).select().as_json())
 
     # Select 4 random pokemon
+
+    # start = time.perf_counter()
     i = 0
     randomPokes = []
     highlightPoke = None
     pokIDs = ""
     while (i < 4):
-        randomInd = random.randint(0, len(data) - 1)
-        randomPoke = data[randomInd]
+        randomInd = random.randint(0, len(pokeData) - 1)
+        randomPoke = pokeData[randomInd]
         if (randomPoke['significantForm']):
             randomPokes.append(randomPoke)
             pokIDs += "" + str(randomPoke['id']) + "," 
@@ -465,22 +470,24 @@ def indexDict(db, url_signer):
     seed = dateSeed()
     seed = BlumBlumShub(seed)
     seed = BlumBlumShub(seed)
-    highlightPoke = data[(int(seed) % len(data))]
+    highlightPoke = pokeData[(int(seed) % len(pokeData))]
     while (not highlightPoke['significantForm']):
         seed = BlumBlumShub(seed)
-        highlightPoke = data[(int(seed) % len(data))]
+        highlightPoke = pokeData[(int(seed) % len(pokeData))]
     pokIDs += "" + str(highlightPoke['id']) + ""
 
     mydatetime = (datetime.now() - timedelta(hours=5))
     date = mydatetime.date()
-    dailyPlayers = db((db.puzzle_plays.date == date)).count()
-
+    dailyPlayers = read_db((read_db.puzzle_plays.date == date)).count()    
 
     # Query the database to receive the ratings of the 5 pokemon to display on the page
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
     sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
-    pokeRatings = db.executesql(sqlA)
-    userRatings = db.executesql(sqlB)
+    pokeRatings = read_db.executesql(sqlA)
+    userRatings = read_db.executesql(sqlB)
+
+    # end = time.perf_counter()
+    # print("IndexDict took: " + str(end - start))
 
     # Return that info to the user
     return dict(

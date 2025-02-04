@@ -33,7 +33,7 @@ for item in settings.LOGGERS:
 # #######################################################
 # connect to db
 # #######################################################
-db = DAL(
+remote_db = DAL(
     settings.DB_URI,
     folder=settings.DB_FOLDER,
     pool_size=settings.DB_POOL_SIZE,
@@ -41,7 +41,15 @@ db = DAL(
     fake_migrate=settings.DB_FAKE_MIGRATE,
 )
 
-spam_db = DAL(
+read_db = DAL(
+    settings.DB_READ_URI,
+    folder=settings.DB_FOLDER,
+    pool_size=settings.DB_POOL_SIZE,
+    migrate=settings.DB_MIGRATE,
+    fake_migrate=settings.DB_FAKE_MIGRATE,
+)
+
+local_db = DAL(
     settings.SPAM_DB_URI,
     folder=settings.DB_FOLDER,
     pool_size=settings.SPAM_DB_POOL_SIZE,
@@ -81,7 +89,7 @@ elif settings.SESSION_TYPE == "memcache":
 elif settings.SESSION_TYPE == "database":
     from py4web.utils.dbstore import DBStore
 
-    session = Session(secret=settings.SESSION_SECRET_KEY, storage=DBStore(db))
+    session = Session(secret=settings.SESSION_SECRET_KEY, storage=DBStore(local_db))
 
 # #######################################################
 # Configure email sender for auth
@@ -101,9 +109,9 @@ elif settings.SESSION_TYPE == "database":
 # #######################################################
 if settings.UPLOAD_FOLDER:
     @action('download/<filename>')                                                   
-    @action.uses(db)                                                                                           
+    @action.uses(local_db)                                                                                           
     def download(filename):
-        return downloader(db, settings.UPLOAD_FOLDER, filename) 
+        return downloader(local_db, settings.UPLOAD_FOLDER, filename) 
     # To take advantage of this in Form(s)
     # for every field of type upload you MUST specify:
     #
@@ -126,7 +134,7 @@ from py4web.utils.url_signer import URLSigner
 from .auth_by_email import AuthByEmail
 from .emailer import emailer
 
-myMailer = emailer(session, spam_db)
+myMailer = emailer(session, local_db)
 
 url_signer_short = URLSigner(session, lifespan = 600)
 url_signer_long = URLSigner(session, lifespan = 3600 * 12)

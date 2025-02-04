@@ -16,7 +16,8 @@ APP_NAME = os.path.split(APP_FOLDER)[-1]
 #               and is the store location for SQLite databases
 DB_FOLDER = required_folder(APP_FOLDER, "databases")
 DB_URI = "mysql://" + os.environ.get("DBUsername") + ":" + os.environ.get("DBPW") + "@" + os.environ.get("DBEndpoint")
-DB_POOL_SIZE = 1
+DB_READ_URI = "mysql://" + os.environ.get("DBUsername") + ":" + os.environ.get("DBPW") + "@" + os.environ.get("DBREADEndpoint")
+DB_POOL_SIZE = 0
 DB_MIGRATE = True
 DB_FAKE_MIGRATE = True
 

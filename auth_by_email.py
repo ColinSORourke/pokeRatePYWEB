@@ -12,7 +12,7 @@ from email.message import EmailMessage
 import os
 import ssl
 
-from .common import spam_db
+from .common import local_db, remote_db
 
 
 
@@ -128,7 +128,7 @@ class AuthByEmail(Fixture):
             userip = request.environ.get(USER_IP_KEY_DOCKER)
         self.emailer.codeUsedIP(userip)
         redirect(URL(self.default_path))
-
+        
     # Controller for the log out
     def logout(self):
         # Will load the home page with a flash that the user logged out
@@ -153,8 +153,8 @@ class AuthByEmailEnforcer(Fixture):
         activity = self.session.get("recent_activity")
         time_now = calendar.timegm(time.gmtime())
         if (self.auth.current_user):
-            print("Session Age")
-            print(time_now - activity)
+            #print("Session Age")
+            #print(time_now - activity)
             if (time_now - activity > EXPIRATION_TIME):
                 del self.session[EMAIL_KEY]
         if self.session.get(EMAIL_KEY):
