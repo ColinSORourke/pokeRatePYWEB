@@ -38,7 +38,7 @@ from email.message import EmailMessage
 import os
 import ssl
 
-from py4web import action, request, abort, redirect, URL
+from py4web import Cache, action, request, abort, redirect, URL
 from yatl.helpers import A
 from .common import local_db, remote_db, read_db, myMailer, session, T, cache, logger, flash
 
@@ -48,10 +48,10 @@ from .__init__ import __version__
 
 #REMOTE_ADDR when running local container
 #HTTP_X_FORWARDED_FOR when running on ECS
+cache = Cache(size=5)
 USER_IP_KEY_AWS = "HTTP_X_FORWARDED_FOR"
 USER_IP_KEY_DOCKER = "REMOTE_ADDR"
-
-pokeData = json.loads(read_db(read_db.pokemonTable).select().as_json())
+POKEDATA = json.loads(read_db(read_db.pokemonTable).select(cacheable=True).as_json())
 
 # Main Home Page
 @action('home')
@@ -61,18 +61,23 @@ def index():
     # Load the static data of every pokemon 
     return indexDict(read_db, url_signer_long)
 
+# Main Home Page
+@action('statichome')
+@action.uses('home.html', session, auth.flash, url_signer_long, read_db, auth)
+def index():
+    # Load the static data of every pokemon 
+
+    return indexDictStatic(read_db, url_signer_long)
+
 # Page that displays all the pokemon.
 @action("pokedex")
 @action.uses("pokedex.html", session, auth.flash, url_signer_long, read_db, auth, T)
 def pokedex():
-    # Load the static data of every pokemon 
-    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
-
-    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon).as_json())
-    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon).as_json())
+    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon, cacheable=True).as_json())
+    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon, cacheable=True).as_json())
 
     return dict(
-        dexJSON = json.dumps(pokeData),
+        dexJSON = json.dumps(POKEDATA),
         allRatings = allRatings,
         userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
@@ -90,11 +95,11 @@ def pokedex():
     # Load the static data of every pokemon 
     # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
 
-    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon).as_json())
-    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon).as_json())
+    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon, cacheable=True).as_json())
+    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon, cacheable=True).as_json())
 
     return dict(
-        dexJSON = json.dumps(pokeData),
+        dexJSON = json.dumps(POKEDATA),
         allRatings = allRatings,
         userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
@@ -111,14 +116,11 @@ def pokedex():
 @action("pokedex/<number>")
 @action.uses("pokedex.html", session, auth.flash, url_signer_long, read_db, auth, T)
 def pokedex(number):
-    # Load the static data of every pokemon 
-    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
-
-    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon).as_json())
-    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon).as_json())
+    allRatings = json.loads(read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon, cacheable=True).as_json())
+    userRatings = json.loads(read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon, cacheable=True).as_json())
 
     return dict(
-        dexJSON = json.dumps(pokeData),
+        dexJSON = json.dumps(POKEDATA),
         allRatings = allRatings,
         userRatings = userRatings,
         get_rating_url = URL('get_rating', signer=url_signer_long),
@@ -134,11 +136,8 @@ def pokedex(number):
 @action("rankings")
 @action.uses('data.html', session, auth.flash, url_signer_long, read_db, auth, T)
 def data():
-    # Load the static data of every pokemon 
-    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
-
     return dict(
-        dexJSON = json.dumps(pokeData),
+        dexJSON = json.dumps(POKEDATA),
         get_rating_url = URL('get_rating', signer=url_signer_long),
         set_rating_url = URL('set_rating', signer=url_signer_long),
         get_all_ratings_url = URL('get_all_ratings', signer=url_signer_long),
@@ -151,22 +150,19 @@ def data():
 @action("puzzle")
 @action.uses('puzzle.html', session, auth.flash, url_signer_long, read_db, auth, T)
 def puzzle():
-    # Load the static data of every pokemon 
-    # data = json.loads(read_db(read_db.pokemonTable).select().as_json())
-
     # Select the puzzle pokemon of the day
     seed = dateSeed() * 2
     seed = BlumBlumShub(seed)
     seed = BlumBlumShub(seed)
-    targetPoke = pokeData[(int(seed) % len(pokeData))]
+    targetPoke = POKEDATA[(int(seed) % len(POKEDATA))]
 
     # If selected puzzle pokemon is invalid, select again until one is valid
     while (targetPoke['form'] != "Basic"):
         seed = BlumBlumShub(seed)
-        targetPoke = pokeData[(int(seed) % len(pokeData))]
+        targetPoke = POKEDATA[(int(seed) % len(POKEDATA))]
 
     return dict(
-        dexJSON = json.dumps(pokeData),
+        dexJSON = json.dumps(POKEDATA),
         myTargetPokemon = json.dumps(targetPoke),
         get_rating_url = URL('get_rating', signer=url_signer_long),
         pokedex_url = URL('pokedex'),
@@ -260,7 +256,7 @@ def get_rating():
     # Get the users ratings about this pokemon
     userFavorite = False
     userRating = 0
-    userRatingRows = read_db((read_db.ratings.pokemon == pokID) & (read_db.ratings.rater == get_user_email())).select()
+    userRatingRows = read_db((read_db.ratings.pokemon == pokID) & (read_db.ratings.rater == get_user_email())).select(cacheable=True)
     for row in userRatingRows:
         if (row.rating == 6):
             userFavorite = True
@@ -269,7 +265,7 @@ def get_rating():
 
     # Get the general ratings about this pokemon
     ratings = [0,0,0,0,0,0]
-    ratingRow = read_db(read_db.derived_ratings.pokemon == pokID).select().first()
+    ratingRow = read_db(read_db.derived_ratings.pokemon == pokID).select(cacheable=True).first()
     ratings[0] = ratingRow.onestar
     ratings[1] = ratingRow.twostar
     ratings[2] = ratingRow.threestar
@@ -361,17 +357,15 @@ def post_puzzle_play():
         user = "Unknown"
     guesses = request.params.get('guesses')
 
-    # Select the puzzle pokemon of the day
-    # data = json.loads(remote_db(remote_db.pokemonTable).select().as_json())
     seed = dateSeed() * 2
     seed = BlumBlumShub(seed)
     seed = BlumBlumShub(seed)
-    targetPoke = pokeData[(int(seed) % len(pokeData))]
+    targetPoke = POKEDATA[(int(seed) % len(POKEDATA))]
 
     # If selected puzzle pokemon is invalid, select again until one is valid
     while (targetPoke['form'] != "Basic"):
         seed = BlumBlumShub(seed)
-        targetPoke = pokeData[(int(seed) % len(pokeData))]
+        targetPoke = POKEDATA[(int(seed) % len(POKEDATA))]
 
     guessList = guesses.split("---")
     success = False
@@ -393,10 +387,10 @@ def post_puzzle_play():
 @action.uses(session, url_signer_long.verify(), read_db, auth)
 def get_all_ratings():
     # All general ratings
-    allRatings = read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon)
+    allRatings = read_db().select(read_db.derived_ratings.ALL, orderby=read_db.derived_ratings.pokemon, cacheable=True)
 
     # All user ratings
-    userRatings = read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon)
+    userRatings = read_db((read_db.ratings.rater) == get_user_email()).select(read_db.ratings.pokemon, read_db.ratings.rating, orderby=read_db.ratings.pokemon, cacheable=True)
 
     return dict(
         allRatings = allRatings,
@@ -448,46 +442,45 @@ def dateSeed():
 def BlumBlumShub(seed):
     return math.pow(seed, 2) % 50515093
 
-def indexDict(read_db, url_signer):
-    #data = json.loads(read_db(read_db.pokemonTable).select().as_json())
-
-    # Select 4 random pokemon
-
-    # start = time.perf_counter()
+def randomPokemon(count = 4):
     i = 0
     randomPokes = []
-    highlightPoke = None
-    pokIDs = ""
-    while (i < 4):
-        randomInd = random.randint(0, len(pokeData) - 1)
-        randomPoke = pokeData[randomInd]
+    
+    while (i < count):
+        randomInd = random.randint(0, len(POKEDATA) - 1)
+        randomPoke = POKEDATA[randomInd]
         if (randomPoke['significantForm']):
             randomPokes.append(randomPoke)
-            pokIDs += "" + str(randomPoke['id']) + "," 
             i += 1
+    return randomPokes
 
-    # Select the highlight pokemon of the day
+def highlightPokemon():
     seed = dateSeed()
     seed = BlumBlumShub(seed)
     seed = BlumBlumShub(seed)
-    highlightPoke = pokeData[(int(seed) % len(pokeData))]
+    highlightPoke = POKEDATA[(int(seed) % len(POKEDATA))]
     while (not highlightPoke['significantForm']):
         seed = BlumBlumShub(seed)
-        highlightPoke = pokeData[(int(seed) % len(pokeData))]
+        highlightPoke = POKEDATA[(int(seed) % len(POKEDATA))]
+    return highlightPoke
+
+def indexDict(read_db, url_signer):
+    randomPokes = randomPokemon(4)
+    highlightPoke = highlightPokemon()
+    pokIDs = ""
+    pokIDs += "" + str(randomPokes[0]['id']) + ","
+    pokIDs += "" + str(randomPokes[1]['id']) + "," 
+    pokIDs += "" + str(randomPokes[2]['id']) + "," 
+    pokIDs += "" + str(randomPokes[3]['id']) + ","  
     pokIDs += "" + str(highlightPoke['id']) + ""
 
     mydatetime = (datetime.now() - timedelta(hours=5))
     date = mydatetime.date()
     dailyPlayers = read_db((read_db.puzzle_plays.date == date)).count()    
-
-    # Query the database to receive the ratings of the 5 pokemon to display on the page
     sqlA = "SELECT * FROM derived_ratings WHERE pokemon IN ("  + pokIDs + ")"
     sqlB = "SELECT pokemon, rating FROM ratings WHERE pokemon IN (" + pokIDs + ") AND rater='" + str(get_user_email()) + "'"
     pokeRatings = read_db.executesql(sqlA)
     userRatings = read_db.executesql(sqlB)
-
-    # end = time.perf_counter()
-    # print("IndexDict took: " + str(end - start))
 
     # Return that info to the user
     return dict(
@@ -503,3 +496,7 @@ def indexDict(read_db, url_signer):
         daily_plays = dailyPlayers,
         __version__ = __version__
     )
+
+@cache.memoize(expiration=28800)
+def indexDictStatic(read_db, url_signer):
+    return indexDict(read_db, url_signer)
